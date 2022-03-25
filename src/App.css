@@ -1,38 +1,60 @@
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 428px;
+  height: 926px;
+  background: #2E3148;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.cardBalance {
+  display: grid;
+  grid-template-rows: 1fr 1px 1fr;
+  height: 189px;
+  width: 347px;
+  padding: 0 17px;
+  background: #1B1D2F;
+  color: white;
+  border-radius: 15px;
+
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.containerAvailable {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.containerTipeOfData {
+  display: flex;
+  justify-content: space-around;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.line {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.containerNumber {
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 51px;
+}
+
+.cardData-text {
+  padding-top: 10px;
 }
