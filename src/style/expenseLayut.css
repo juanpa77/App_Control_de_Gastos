@@ -1,0 +1,98 @@
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+
+textarea::placeholder {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+    color: white;
+}
+
+input, select, textarea {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+    color: #ffff;
+    width: 312px;
+    height: 56px;
+    text-align: center;
+    color-scheme: dark;
+}
+
+.layout__transaction {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.select__radio {
+    display: flex;
+    background: #60708F;
+    border-radius: 30px;
+    height: 43px;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.icome__radioButton {
+    display: flex;
+    width: 196px;
+    align-self: center;
+    justify-content: space-around;
+}
+
+.active__radioButton {
+    display: flex;
+    width: 157.49px;
+    height: 37.12px;
+    background: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
+    border-radius: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.input__number {
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 56px;
+}
+
+.input__date, select {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+    height: 40px;
+}
+
+.textarea__transaction {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+    height: 89px;
+    border: 1px solid #FFFFFF;;    
+}
+
+.primary__button-Agregar {
+    display: flex;
+    width: 347px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
+    border-radius: 15px;
+}

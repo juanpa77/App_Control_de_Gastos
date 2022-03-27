@@ -5,14 +5,15 @@ body {
 }
 
 .App {
-  display: flex;
+  display: grid;
   flex-direction: column;
   width: 428px;
   height: 926px;
   background: #2E3148;
   border-radius: 50px;
-  align-items: center;
-  justify-content: space-evenly;
+  align-items: end;
+  justify-items: center;
+  justify-content: center;
 }
 
 .cardBalance {
@@ -57,4 +58,15 @@ body {
 
 .cardData-text {
   padding-top: 10px;
+}
+
+.mainBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 428px;
+  height: 80px;
+  border-radius: 0 0 50px 50px;
+  background: #1B1D2F;
+  box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.06);
 }
