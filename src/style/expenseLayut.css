@@ -43,7 +43,7 @@ input, select, textarea {
     cursor: pointer;
 }
 
-.icome__radioButton {
+.icome__radioButton, .expense__radioButton {
     display: flex;
     width: 196px;
     align-self: center;
