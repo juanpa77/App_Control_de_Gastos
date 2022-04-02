@@ -1,28 +1,33 @@
 import { formatDate } from "../utility/formatDate";
-import { PrimaryButton } from "../style/primary-button"
+import { Idb, setTransactionBD } from "../utility/setIDB";
+import { PrimaryButton } from "./primary-button"
 import { ReactComponent as Send } from '../asset/icons/send.svg'
 import { useState, MouseEvent, ChangeEvent } from "react"
 
-type TransactionType = {
-    type: any,
-    amunt: number,
+export type TransactionType = {
+    type: string,
+    amount: number,
     date: string,
     category: string,
     description: string
 }
 
-export const Transaction = () => {
+export const Transaction = (props: { db: Idb; }) => {
+    const {db} = props;
     const [toggle, setToggle] = useState(false);
-    const [transaction, setTransaction] = useState({
+    const [transaction, setTransaction] = useState<TransactionType>({
         type: 'Gasto',
         amount: 0,
         date: formatDate(new Date()),
         category: '',
         description: ''
     })
+    db.openDB();
 
-    const sendTransaction = ()=> {
-        console.log(transaction)
+    const sendTransaction = (transaction: TransactionType)=> {
+        if (transaction.amount > 0) {
+            db.add(transaction)
+        }
     }
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement> |
@@ -39,54 +44,61 @@ export const Transaction = () => {
             setToggle(!toggle)
             setTransaction({
                 ...transaction,
-                type: toggle ? 'gasto' : 'ingreso'
+                type: toggle ? 'Gasto' : 'Ingreso'
             })
         }
     }
     
     return (
-        <div className="layout__transaction">
-            <div className="select__radio">
-                <div 
-                    className={`icome__radioButton ${toggle ? 'active__radioButton': ''}`}
-                    onClick={(e)=>triggerToggle(e)}>
-                        Ingreso
+            <form className="layout__transaction"
+                onSubmit={(e)=>{
+                    e.preventDefault()
+                    e.currentTarget.reset()
+                    }}>
+                <div className="select__radio">
+                    <div 
+                        className={`icome__radioButton ${toggle ? 'active__radioButton': ''}`}
+                        onClick={(e)=>triggerToggle(e)}>
+                            Ingreso
+                    </div>
+                    <div 
+                        onClick={(e)=>triggerToggle(e)}
+                        className= {`expense__radioButton ${toggle ? '': 'active__radioButton'}`}>
+                        Gasto
+                    </div>
                 </div>
-                <div 
-                    onClick={(e)=>triggerToggle(e)}
-                    className= {`expense__radioButton ${toggle ? '': 'active__radioButton'}`}>
-                    Gasto
-                </div>
-            </div>
-            <input 
-                type="number"
-                placeholder="$999"
-                className="input__number"
-                onChange={(e)=>handleInputChange(e)}
-                name="amount" />
-            <input 
-                type="date"
-                defaultValue={formatDate(new Date())}
-                className="input__date"
-                onChange={(e)=>handleInputChange(e)}
-                name="date" />
-            <select
-                onChange={(e)=>handleInputChange(e)}
-                name="category" >
-                <option>Selecione una categoria</option>
-                <option>Option1</option>
-                <option>Option1</option>
-            </select>
-            <textarea 
-                className="textarea__transaction" 
-                placeholder="Ingrese una descripcion"
-                onChange={(e)=>handleInputChange(e)}
-                name="description" ></textarea>
-            <PrimaryButton 
-                handelClick={sendTransaction}
-                text="Agregar"> 
-                <Send></Send>
-            </PrimaryButton>
-        </div>        
+                <input 
+                    type="number"
+                    placeholder="$999"
+                    className="input__number"
+                    onChange={(e)=>handleInputChange(e)}
+                    name="amount" />
+                <input 
+                    type="date"
+                    defaultValue={formatDate(new Date())}
+                    className="input__date"
+                    onChange={(e)=>handleInputChange(e)}
+                    name="date" />
+                <select
+                    onChange={(e)=>handleInputChange(e)}
+                    name="category" >
+                    <option>Selecione una categoria</option>
+                    <option>Option1</option>
+                    <option>Option1</option>
+                </select>
+                <textarea 
+                    className="textarea__transaction" 
+                    placeholder="Ingrese una descripcion"
+                    onChange={(e)=>handleInputChange(e)}
+                    name="description" ></textarea>
+                <button type="submit" className="submit__none">
+                    <PrimaryButton 
+                        transaction={transaction}
+                        handelClick={sendTransaction}
+                        text="Agregar"> 
+                        <Send></Send>
+                    </PrimaryButton>
+                </button>
+            </form>
     )
 }

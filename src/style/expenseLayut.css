@@ -1,4 +1,9 @@
-
+.submit__none {
+    color: transparent;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+}
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -95,4 +100,6 @@ input, select, textarea {
     justify-content: center;
     background: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
     border-radius: 15px;
+    color: white;
 }
+

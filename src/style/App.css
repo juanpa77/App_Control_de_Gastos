@@ -1,18 +1,27 @@
 
+:root {
+  --bottom-bg-colorPrimary: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
+}
+
 body {
   display: flex;
   justify-content: center;
 }
 
-.App {
-  display: grid;
+.layout {
+  display: flex;
   flex-direction: column;
   width: 428px;
   height: 926px;
   background: #2E3148;
   border-radius: 50px;
-  align-items: end;
-  justify-items: center;
+}
+
+.accountSumary {
+  display: grid;
+  height: 100%;
+  background: #2E3148;
+  border-radius: 50px;
   justify-content: center;
 }
 
@@ -45,7 +54,7 @@ body {
 }
 
 .line {
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: #D869FF ;
 }
 
 .containerNumber {
@@ -62,7 +71,7 @@ body {
 
 .mainBar {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 428px;
   height: 80px;
