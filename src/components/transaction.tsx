@@ -1,5 +1,5 @@
 import { formatDate } from "../utility/formatDate";
-import { Idb, setTransactionBD } from "../utility/setIDB";
+import { Idb } from "../utility/IDB";
 import { PrimaryButton } from "./primary-button"
 import { ReactComponent as Send } from '../asset/icons/send.svg'
 import { useState, MouseEvent, ChangeEvent } from "react"
@@ -7,7 +7,7 @@ import { useState, MouseEvent, ChangeEvent } from "react"
 export type TransactionType = {
     type: string,
     amount: number,
-    date: string,
+    date: Date | string,
     category: string,
     description: string
 }
@@ -26,7 +26,7 @@ export const Transaction = (props: { db: Idb; }) => {
 
     const sendTransaction = (transaction: TransactionType)=> {
         if (transaction.amount > 0) {
-            db.add(transaction)
+            transaction.type === 'Gasto' ? db.addExpenses(transaction) : db.addIncome(transaction); 
         }
     }
 
@@ -85,7 +85,7 @@ export const Transaction = (props: { db: Idb; }) => {
                     <option>Selecione una categoria</option>
                     <option>Option1</option>
                     <option>Option1</option>
-                </select>
+        </select>
                 <textarea 
                     className="textarea__transaction" 
                     placeholder="Ingrese una descripcion"

@@ -1,7 +1,7 @@
 import './style/App.css';
 import './style/expenseLayut.css'
 
-import { Idb } from './utility/setIDB';
+import { Idb } from './utility/IDB';
 import { Transaction } from './components/transaction';
 import { AccountSumary } from './components/accountSumary';
 import { Route, Routes } from 'react-router-dom';
@@ -18,8 +18,6 @@ function App() {
           <Route path='/transaction' element={<Transaction db={db} />} />
         </Route>
       </Routes>
-      {/* <AccountSumary db={db}/> */}
-      {/* <Transaction db={db} /> */}
     </div>
   );
 }

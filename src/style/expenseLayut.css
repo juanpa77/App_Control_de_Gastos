@@ -8,6 +8,7 @@
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
+  cursor: pointer;
 }
 
 textarea::placeholder {
@@ -80,6 +81,7 @@ input, select, textarea {
     font-size: 20px;
     line-height: 20px;
     height: 40px;
+    cursor: pointer;
 }
 
 .textarea__transaction {
@@ -101,5 +103,6 @@ input, select, textarea {
     background: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
     border-radius: 15px;
     color: white;
+    cursor: pointer;
 }
 
