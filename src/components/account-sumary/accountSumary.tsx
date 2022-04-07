@@ -1,5 +1,5 @@
 
-import { Idb } from "../utility/IDB";
+import { Idb } from "../../utility/IDB";
 import { Balance } from "./cardBalanse"
 
 

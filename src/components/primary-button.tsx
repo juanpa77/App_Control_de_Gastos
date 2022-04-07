@@ -1,4 +1,4 @@
-import { TransactionType } from "./transaction";
+import { TransactionType } from "./add-new-transaction/add-Transaction";
 
 type Props = {
     text: string,

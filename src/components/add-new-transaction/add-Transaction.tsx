@@ -1,13 +1,13 @@
-import { formatDate } from "../utility/formatDate";
-import { Idb } from "../utility/IDB";
-import { PrimaryButton } from "./primary-button"
-import { ReactComponent as Send } from '../asset/icons/send.svg'
+import { formatDate } from "../../utility/formatDate";
+import { Idb } from "../../utility/IDB";
+import { PrimaryButton } from "../primary-button"
+import { ReactComponent as Send } from '../../asset/icons/send.svg'
 import { useState, MouseEvent, ChangeEvent } from "react"
 
 export type TransactionType = {
     type: string,
     amount: number,
-    date: Date | string,
+    date: string,
     category: string,
     description: string
 }
@@ -67,12 +67,14 @@ export const Transaction = (props: { db: Idb; }) => {
                         Gasto
                     </div>
                 </div>
-                <input 
-                    type="number"
-                    placeholder="$999"
-                    className="input__number"
-                    onChange={(e)=>handleInputChange(e)}
-                    name="amount" />
+                <div className="inputAmount">
+                    <input 
+                        type="number"
+                        placeholder="$999"
+                        className="input__number"
+                        onChange={(e)=>handleInputChange(e)}
+                        name="amount" />
+                </div>
                 <input 
                     type="date"
                     defaultValue={formatDate(new Date())}

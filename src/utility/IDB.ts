@@ -1,23 +1,28 @@
 
 import { IDBPDatabase, openDB } from "idb";
-import { TransactionType } from "../components/transaction";
-
+import { TransactionType } from "../components/add-new-transaction/add-Transaction";
+import { TransactionListDb } from "../components/transaction-list/transactionList";
 export class Idb {
     db!: IDBPDatabase<unknown>;
     fromDate: number;
+    transactionList: TransactionListDb;
+    
     constructor() {
         this.fromDate = new Date().getDate();
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         this.db;
+        this.transactionList = new TransactionListDb(this);
     }
 
     openDB = async ()=> {
         this.db = await openDB('Transactions-store',1, {
             upgrade(db){
                 //crea un store de objetos
-                db.createObjectStore('Income',{autoIncrement: true});
-                db.createObjectStore('Expenses', {autoIncrement: true});
-            }
+                const expenseStore = db.createObjectStore('Income',{autoIncrement: true});
+                const incomeStore = db.createObjectStore('Expenses', {autoIncrement: true});
+                expenseStore.createIndex('date', 'date');
+                incomeStore.createIndex('date', 'date');
+            },
         });
     }
 
@@ -51,7 +56,8 @@ export class Idb {
     dateRange(dataRange: string, transaction: TransactionType, calcDate: (rangeDate: string ,date: Date)=>number ): number {
         const date = new Date();
         let currentDate: number | number[] = calcDate(dataRange, new Date());
-        let transactionDate = calcDate(dataRange, new Date(transaction.date));
+        // se agrega 1 a transactionDate xq cuando recupera la fecha de la bd lo hace con un dia menos
+        let transactionDate = calcDate(dataRange, new Date(transaction.date))+1;
          if (dataRange === 'Semanal') {
              currentDate = this.filterWeek(date.getDate()-date.getDay());
              const result = currentDate.filter(date=> date === transactionDate)

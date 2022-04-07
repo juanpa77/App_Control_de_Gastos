@@ -1,6 +1,6 @@
 import { CardData } from "./cardData"; 
 import { useEffect, useState } from "react";
-import { Idb } from "../utility/IDB";
+import { Idb } from "../../utility/IDB";
 
 
 export const Balance = (props: {db: Idb, dateRanges: string}) => {
