@@ -1,18 +1,17 @@
-import { TransactionType } from "./add-new-transaction/add-Transaction";
 
 type Props = {
     text: string,
     children:JSX.Element
-    handelClick: any
-    transaction: TransactionType
+    // handelClick: any
+    // transaction: TransactionType
   };
 
-export const PrimaryButton: React.FC<Props> = ({ text, handelClick, transaction,children}: Props)=> {
+export const PrimaryButton: React.FC<Props> = ({ text, children}: Props)=> {
     
     return (
         <div 
-            className={"primary__button-"+text}
-            onClick={()=>handelClick(transaction)} >
+             className={"primary__button-"+text}
+            /* onClick={()=>handelClick(transaction)} */  >
                 {children} {text}
         </div>
     )

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { TransactionType } from "../add-new-transaction/add-Transaction";
-import { CardTransaction } from "./transaction-item"
-import { TransactionListDb } from "./transactionList"
+import { CardTransaction } from "./transaction-item";
+import { TransactionListDb } from "./transactionList";
 
 
 export const TransactionList = ({transactionList}: {transactionList: TransactionListDb})=> {
@@ -18,17 +17,19 @@ export const TransactionList = ({transactionList}: {transactionList: Transaction
         db.get('Expenses').then(listExpenses=> setListTransaction(listExpenses))
         });
 
-
     return (
         <ol className="screen__trasactionList">
             {listTransaction.map((transaction, i)=> {
-                return (<li key={i}><CardTransaction 
-                amount={transaction.amount} 
-                date={transaction.date} 
-                category={transaction.category}/>
-                </li>)
+                return (
+                    <li className="card__transaction" 
+                        key={i}><CardTransaction
+                            amount={transaction.amount}
+                            date={transaction.date}
+                            category={transaction.category} 
+                            type={""} 
+                            description={""}/>
+                    </li>)
             })}
-            {/* <CardTransaction amount={listTransaction[0].amount} date={'10/10/2022'} category={'gastos'}/> */}
         </ol>
     )
 

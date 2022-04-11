@@ -100,7 +100,7 @@ input, select, textarea {
     border: 1px solid #FFFFFF;;    
 }
 
-.primary__button-Agregar {
+.primary__button-Agregar, .primary__button-Guardar {
     display: flex;
     width: 347px;
     height: 60px;

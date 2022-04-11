@@ -1,6 +1,6 @@
 import './style/App.css';
 import './style/expenseLayut.css';
-import './style/transaction-list-itm.css';
+import './components/transaction-list/transaction-list-itm.css';
 import { Idb } from './utility/IDB';
 
 import { Transaction } from './components/add-new-transaction/add-Transaction';

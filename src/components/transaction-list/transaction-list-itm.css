@@ -43,10 +43,14 @@ ol {
     overflow: auto;
 }
 
+.card{
+    display: grid;
+}
+
 .card__transaction {
     display: grid;
-    grid-template-columns: 1fr 4fr;
-    width: 386px;
+    width: 75%;
+    min-width: 369px;
     height: 125px;
     background: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
     box-shadow: 0px 3.17984px 12.7194px rgba(134, 255, 240, 0.4);
@@ -55,15 +59,36 @@ ol {
     justify-items: center;
 } 
 
+
+
+.card__transaction {
+    display: grid;
+    grid-template-areas: 'US US OP OP I'
+                         'US US DD DD I';
+}
+
+.card__transaction-edit {
+    grid-area: I;
+    cursor: pointer;
+}
+
 .card__transaction-amount {
+    grid-area: US;
     padding: 10px;
     font-size: 40px;    
 }
 
 .card__transaction-category {
+    grid-area: OP;
     font-size: 40px;
 }
 
 .card__transaction-date {
+    grid-area: DD;
     font-size: 30px;
+}
+
+.editIcon {
+    grid-area: I;
+    cursor: pointer;
 }
