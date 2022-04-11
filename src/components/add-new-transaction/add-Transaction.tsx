@@ -4,9 +4,11 @@ import { PrimaryButton } from "../primary-button"
 import { ReactComponent as Send } from '../../asset/icons/send.svg'
 import { useState, MouseEvent, ChangeEvent } from "react"
 import { useLocation } from "react-router-dom";
+import { nanoid } from "nanoid";
 
 
-interface transaction { 
+export interface transaction { 
+    id: string,
     type: string;
     amount: number;
     date: string;
@@ -15,6 +17,7 @@ interface transaction {
 }
 
 export type TransactionType = {
+    id: string,
     type: string,
     amount: number,
     date: string,
@@ -27,13 +30,23 @@ export const Transaction = ({db}: {db: Idb}) => {
 
     const [toggle, setToggle] = useState(false);
     const [transaction, setTransaction] = useState<TransactionType>({
+        id: nanoid(10),
         type: location?.type || 'Gasto',
         amount: location?.amount || 0,
         date: location?.date || formatDate(new Date()),
         category: location?.category || '',
         description: location?.description || ''
     });
+    
     db.openDB();
+//-------Pending refactoring, split transaction component into add transaction, edit transaction and delete transaction components----//
+// Test of refactorin 
+
+    const upgradeTransaction = ()=> {
+        
+    }
+
+
 
     const sendTransaction = (transaction: TransactionType, ev:  React.FormEvent<HTMLButtonElement>)=> {
         if (transaction.amount > 0) {
