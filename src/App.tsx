@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/layout';
 import { TransactionList } from './components/transaction-list/screen-transaction-list';
 import { TransactionListDb } from './components/transaction-list/transactionList';
+import { SuccessfulTransaction } from './components/successful-transaction/Successful-transaction';
 
 function App() {
   const db = new Idb();
@@ -19,6 +20,7 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<AccountSumary db={db} />} />
           <Route path='/transaction' element={<Transaction db={db} />} />
+          <Route path='/successful-transaction' element={<SuccessfulTransaction />} />
           <Route path='/transaction-list' element={<TransactionList transactionList={new TransactionListDb(db)} />} />
         </Route>
       </Routes>
