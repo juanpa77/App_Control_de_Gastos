@@ -1,6 +1,6 @@
 
 import { IDBPDatabase, openDB } from "idb";
-import { TransactionType } from "../components/add-new-transaction/add-Transaction";
+import { Transaction, TransactionType } from "../components/add-new-transaction/add-Transaction";
 import { TransactionListDb } from "../components/transaction-list/transactionList";
 export class Idb {
     db!: IDBPDatabase<unknown>;
@@ -18,12 +18,16 @@ export class Idb {
         this.db = await openDB('Transactions-store',1, {
             upgrade(db){
                 //crea un store de objetos
-                const expenseStore = db.createObjectStore('Income',{autoIncrement: true});
-                const incomeStore = db.createObjectStore('Expenses', {autoIncrement: true});
+                const expenseStore = db.createObjectStore('Income', {keyPath: 'id'});
+                const incomeStore = db.createObjectStore('Expenses', {keyPath: 'id'});
                 expenseStore.createIndex('date', 'date');
                 incomeStore.createIndex('date', 'date');
             },
         });
+    }
+
+    async updateIncome(transaction: TransactionType) {
+        await this.db.put('Expenses',transaction )
     }
 
      async addIncome(transaction: TransactionType) {

@@ -3,11 +3,12 @@ import { formatDate } from "../../utility/formatDate";
 import { Idb } from "../../utility/IDB";
 import { PrimaryButton } from "../primary-button"
 import { ReactComponent as Send } from '../../asset/icons/send.svg'
-import { useState, MouseEvent, ChangeEvent } from "react"
-import { Link, useLocation } from "react-router-dom";
+import { useState, MouseEvent, ChangeEvent, useEffect } from "react"
+import { useLocation } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { Modal } from '../successful-transaction/modal';
 import { useModal } from '../../hooks/useModal';
+import { LinkBack } from './link-to-back';
 
 
 export interface transaction { 
@@ -34,28 +35,24 @@ export const Transaction = ({db}: {db: Idb}) => {
     
     const [toggle, setToggle] = useState(false);
     const [transaction, setTransaction] = useState<TransactionType>({
-        id: nanoid(10),
+        id: location?.id || nanoid(10),
         type: location?.type || 'Gasto',
         amount: location?.amount || 0,
         date: location?.date || formatDate(new Date()),
         category: location?.category || '',
         description: location?.description || ''
     });
-    console.log(transaction.id)
+    // console.log(transaction.id)
     
     db.openDB();
 //-------Pending refactoring, split transaction component into add transaction, edit transaction and delete transaction components----//
 // Test of refactorin 
 
-    const upgradeTransaction = ()=> {
-        
-    }
-
-
 
     const sendTransaction = (transaction: TransactionType, ev:  React.FormEvent<HTMLButtonElement>)=> {
         if (transaction.amount > 0) {
-            transaction.type === 'Gasto' ? db.addExpenses(transaction) : db.addIncome(transaction);
+            console.log(transaction.id);
+            transaction.type === 'Gasto' ? (location? db.updateIncome(transaction) : db.addExpenses(transaction)) : db.addIncome(transaction);
             ev.currentTarget.form?.reset();
             openModal();
         }
@@ -83,9 +80,24 @@ export const Transaction = ({db}: {db: Idb}) => {
         e.currentTarget.reset();
         e.preventDefault();
         };
+
+    useEffect(()=> {
+        if (!location) {
+            setTransaction({
+                id: nanoid(10),
+                type: 'Gasto',
+                amount: 0,
+                date: formatDate(new Date()),
+                category: '',
+                description:''
+            })    
+
+        }
+    }, [isOpenModal])
     
     return (
-            <form className="layout__transaction"
+        <>
+            <form className={`layout__transaction ${isOpenModal&&'blur'}`}
             onSubmit={onFormSubmit}>
                 <div className="select__radio">
                     <div 
@@ -127,7 +139,6 @@ export const Transaction = ({db}: {db: Idb}) => {
                     placeholder="Ingrese una descripcion"
                     onChange={(e)=>handleInputChange(e)}
                     name="description" ></textarea>
-                    {/* <Link to={"../successful-transaction"}> */}
                 <button type="submit" className="submit__none" 
                         onClick={(e)=> sendTransaction(transaction, e)}>
                     <PrimaryButton 
@@ -135,10 +146,10 @@ export const Transaction = ({db}: {db: Idb}) => {
                         <Send></Send>
                     </PrimaryButton>
                 </button>
-                    {/* </Link> */}
-                <Modal isOpenModal={isOpenModal} closeModal={closeModal}>
-                    <Check />
-                </Modal>
             </form>
+            <Modal isOpenModal={isOpenModal} closeModal={closeModal} text={location? '' : 'transaction successful'}>
+               {location=== null ? <Check /> : <LinkBack linkTo='/transaction-list' />} 
+            </Modal>
+        </>
         )
     }

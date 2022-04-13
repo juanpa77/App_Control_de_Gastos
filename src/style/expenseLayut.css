@@ -112,3 +112,6 @@ input, select, textarea {
     cursor: pointer;
 }
 
+.blur {
+    filter: blur(1px);
+}
