@@ -39,7 +39,6 @@ ol {
     gap: 15px;
     height: 100%;
     align-items: center;
-    justify-content: center;
     overflow: auto;
 }
 
@@ -91,4 +90,10 @@ ol {
 .editIcon {
     grid-area: I;
     cursor: pointer;
+}
+
+.navbar-filter {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
 }

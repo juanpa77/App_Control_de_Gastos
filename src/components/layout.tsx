@@ -2,24 +2,31 @@
 import { ReactComponent as Wallet } from '../asset/icons/wallet.svg';
 import { ReactComponent as Transaction } from '../asset/icons/transaction.svg';
 import { ReactComponent as List } from '../asset/icons/list.svg'
-import { Link, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 
 export const Layout = ()=>{
+    const active = ({isActive}: {isActive: boolean})=> isActive? 'active' : 'inactive'
     return (
         <div className="layout">
             <Outlet />
             <div className="mainBar">
-                <Link to='/'>
+                <NavLink 
+                    to='/'
+                    className={active}>
                     <Wallet />
-                </Link>
-                <Link to='/transaction'>
+                </NavLink>
+                <NavLink 
+                    className={active}
+                    to='/transaction'>
                     <Transaction />
-                </Link>
-                <Link to='/transaction-list'>
+                </NavLink>
+                <NavLink 
+                    className={active}
+                    to='/transaction-list'>
                     <List />
-                </Link>
+                </NavLink>
             </div>
         </div>
-    )
+    )   
 }

@@ -1,7 +1,12 @@
 
 import { IDBPDatabase, openDB } from "idb";
-import { Transaction, TransactionType } from "../components/add-new-transaction/add-Transaction";
+import { transaction, Transaction, TransactionType } from "../components/add-new-transaction/add-Transaction";
 import { TransactionListDb } from "../components/transaction-list/transactionList";
+
+interface fechDb{
+store: string
+transaction: transaction
+}
 export class Idb {
     db!: IDBPDatabase<unknown>;
     fromDate: number;
@@ -26,8 +31,12 @@ export class Idb {
         });
     }
 
+    async deletTransaction({store, transaction}: fechDb) {
+        await this.db.delete(store, transaction.id)
+    }
+    
     async updateIncome(transaction: TransactionType) {
-        await this.db.put('Expenses',transaction )
+        await this.db.put('Expenses',transaction)
     }
 
      async addIncome(transaction: TransactionType) {

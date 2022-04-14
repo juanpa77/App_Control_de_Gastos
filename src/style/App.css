@@ -84,3 +84,8 @@ body {
   background: #1B1D2F;
   box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.06);
 }
+
+.active svg, .active .icon { 
+  fill:  #bd00ff45;
+  stroke: #D869FF;
+}

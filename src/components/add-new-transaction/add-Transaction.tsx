@@ -9,6 +9,7 @@ import { nanoid } from "nanoid";
 import { Modal } from '../successful-transaction/modal';
 import { useModal } from '../../hooks/useModal';
 import { LinkBack } from './link-to-back';
+import { ToggleBtn } from '../toggle-btn';
 
 
 export interface transaction { 
@@ -42,12 +43,13 @@ export const Transaction = ({db}: {db: Idb}) => {
         category: location?.category || '',
         description: location?.description || ''
     });
-    // console.log(transaction.id)
-    
     db.openDB();
 //-------Pending refactoring, split transaction component into add transaction, edit transaction and delete transaction components----//
 // Test of refactorin 
 
+    const deleteTransaction = ()=> {
+        
+    }
 
     const sendTransaction = (transaction: TransactionType, ev:  React.FormEvent<HTMLButtonElement>)=> {
         if (transaction.amount > 0) {
@@ -67,6 +69,7 @@ export const Transaction = ({db}: {db: Idb}) => {
 
     const classTriggerToggle = (e: MouseEvent<HTMLDivElement>)=> {
         const classList = e.currentTarget.classList.length;        
+        console.log(e.currentTarget.textContent)
         if (classList < 2) {
             setToggle(!toggle)
             setTransaction({
@@ -91,7 +94,6 @@ export const Transaction = ({db}: {db: Idb}) => {
                 category: '',
                 description:''
             })    
-
         }
     }, [isOpenModal])
     
@@ -99,18 +101,7 @@ export const Transaction = ({db}: {db: Idb}) => {
         <>
             <form className={`layout__transaction ${isOpenModal&&'blur'}`}
             onSubmit={onFormSubmit}>
-                <div className="select__radio">
-                    <div 
-                        className={`icome__radioButton ${toggle ? 'active__radioButton': ''}`}
-                        onClick={(e)=>classTriggerToggle(e)}>
-                            Ingreso
-                    </div>
-                    <div 
-                        onClick={(e)=>classTriggerToggle(e)}
-                        className= {`expense__radioButton ${toggle ? '': 'active__radioButton'}`}>
-                        Gasto
-                    </div>
-                </div>
+                <ToggleBtn classTriggerToggle={classTriggerToggle} toggle={toggle} />
                 <div className="inputAmount">
                     <input 
                         type="number"
