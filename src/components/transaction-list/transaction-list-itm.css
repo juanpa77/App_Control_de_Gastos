@@ -97,7 +97,6 @@ ol {
     display: flex;
     justify-content: center;
     padding: 10px;
-<<<<<<< HEAD
 }
 
 .modal-menu {
@@ -128,6 +127,3 @@ ol {
     cursor: pointer;
     grid-area: D;
 }
-=======
-}
->>>>>>> 824174adb5c37e93c58006ebe05080c0e17a16e5
