@@ -10,6 +10,10 @@ import { Modal } from '../modal/modal';
 import { useModal } from '../../hooks/useModal';
 import { LinkBack } from './link-to-back';
 import { ToggleBtn } from '../toggle-btn';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 824174adb5c37e93c58006ebe05080c0e17a16e5
 
 export interface transaction { 
     id: string,
@@ -43,6 +47,15 @@ export const Transaction = ({db}: {db: Idb}) => {
         description: editTransactio?.description || ''
     });
     db.openDB();
+<<<<<<< HEAD
+=======
+//-------Pending refactoring, split transaction component into add transaction, edit transaction and delete transaction components----//
+// Test of refactorin 
+
+    const deleteTransaction = ()=> {
+        
+    }
+>>>>>>> 824174adb5c37e93c58006ebe05080c0e17a16e5
 
     const sendTransaction = (transaction: TransactionType, ev:  React.FormEvent<HTMLButtonElement>)=> {
         if (transaction.amount > 0) {

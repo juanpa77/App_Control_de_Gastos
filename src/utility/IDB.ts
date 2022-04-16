@@ -1,6 +1,10 @@
 
 import { IDBPDatabase, openDB } from "idb";
+<<<<<<< HEAD
 import { transaction, TransactionType } from "../components/add-new-transaction/add-Transaction";
+=======
+import { transaction, Transaction, TransactionType } from "../components/add-new-transaction/add-Transaction";
+>>>>>>> 824174adb5c37e93c58006ebe05080c0e17a16e5
 import { TransactionListDb } from "../components/transaction-list/transactionList";
 
 interface fechDb{
@@ -31,8 +35,13 @@ export class Idb {
         });
     }
 
+<<<<<<< HEAD
     async deletTransaction(transaction: transaction) {
         if (transaction) await this.db.delete(transaction.type, transaction.id)
+=======
+    async deletTransaction({store, transaction}: fechDb) {
+        await this.db.delete(store, transaction.id)
+>>>>>>> 824174adb5c37e93c58006ebe05080c0e17a16e5
     }
     
     async updateIncome(transaction: TransactionType) {
