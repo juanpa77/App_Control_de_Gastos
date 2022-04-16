@@ -15,9 +15,10 @@
 }
 
 .screen__trasactionList::-webkit-scrollbar-thumb {
-    background-color: #797979;
+    background: var(--bottom-bg-colorPrimary);
+    opacity: 0.5;
     border-radius: 20px;
-    border: 2px solid #f1f2f3;
+    border: 2px solid transparent;
 }
 
 .screen__trasactionList::-webkit-scrollbar-track {
@@ -39,7 +40,6 @@ ol {
     gap: 15px;
     height: 100%;
     align-items: center;
-    justify-content: center;
     overflow: auto;
 }
 
@@ -91,4 +91,39 @@ ol {
 .editIcon {
     grid-area: I;
     cursor: pointer;
+}
+
+.navbar-filter {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.modal-menu {
+    display: grid;
+    grid-template-areas: 'E V'
+                         'D V';
+    justify-content: center;
+    align-items: center;
+    gap: 19px 0px;                 
+}
+
+.modal-menu__close {
+    align-self: flex-end;
+    margin: 8px;
+    cursor: pointer;
+}
+
+/* .modal-menu__close svg:hover {
+    background-color: blue;
+    stroke: aqua;
+} */
+
+.modal-menu__edit {
+    grid-area: E;
+    cursor: pointer;
+}
+.modal-menu__delete {
+    cursor: pointer;
+    grid-area: D;
 }

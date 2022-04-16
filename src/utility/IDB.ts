@@ -1,7 +1,12 @@
 
 import { IDBPDatabase, openDB } from "idb";
-import { Transaction, TransactionType } from "../components/add-new-transaction/add-Transaction";
+import { transaction, TransactionType } from "../components/add-new-transaction/add-Transaction";
 import { TransactionListDb } from "../components/transaction-list/transactionList";
+
+interface fechDb{
+store: string
+transaction: transaction
+}
 export class Idb {
     db!: IDBPDatabase<unknown>;
     fromDate: number;
@@ -26,8 +31,12 @@ export class Idb {
         });
     }
 
+    async deletTransaction(transaction: transaction) {
+        if (transaction) await this.db.delete(transaction.type, transaction.id)
+    }
+    
     async updateIncome(transaction: TransactionType) {
-        await this.db.put('Expenses',transaction )
+        await this.db.put('Expenses',transaction)
     }
 
      async addIncome(transaction: TransactionType) {
@@ -44,7 +53,7 @@ export class Idb {
         while (cursor) {
             const objetStore: TransactionType = cursor.value;
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions            
-            const amount:any = this.dateRange(rangeDate, objetStore, this.calcDate);
+            const amount:any = this.dateRange(rangeDate, objetStore);
             accumulator += parseInt(amount);
             cursor = await cursor.continue();
         }
@@ -57,11 +66,11 @@ export class Idb {
         return total
     }   
     
-    dateRange(dataRange: string, transaction: TransactionType, calcDate: (rangeDate: string ,date: Date)=>number ): number {
+    dateRange(dataRange: string, transaction: TransactionType): number {
         const date = new Date();
-        let currentDate: number | number[] = calcDate(dataRange, new Date());
-        // se agrega 1 a transactionDate xq cuando recupera la fecha de la bd lo hace con un dia menos
-        let transactionDate = calcDate(dataRange, new Date(transaction.date))+1;
+        let currentDate: number | number[] = this.calcDate(dataRange, new Date());
+        let transactionDate = this.calcDate(dataRange, new Date(transaction.date), 'transactionDate');
+
          if (dataRange === 'Semanal') {
              currentDate = this.filterWeek(date.getDate()-date.getDay());
              const result = currentDate.filter(date=> date === transactionDate)
@@ -70,11 +79,13 @@ export class Idb {
         return transactionDate !== currentDate ? 0 : transaction.amount;
     }
     
-    calcDate(rangeDate: string ,date: Date) {
-        if (rangeDate === 'Diario') return date.getDate();
-        if (rangeDate === 'Semanal') return date.getDate();
-        return date.getMonth();
-    }
+    calcDate(rangeDate: string ,date: Date, type?: string) {
+        return rangeDate === 'Mensual' ? 
+            date.getMonth() :
+                type === 'transactionDate' ? 
+                date.getDate()+1 
+                : date.getDate();
+        }
 
     filterWeek(fromDate: number) {
         const fromdate = this.fromDate - new Date().getDay();

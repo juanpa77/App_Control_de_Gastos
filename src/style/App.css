@@ -1,11 +1,7 @@
 
 :root {
   --bottom-bg-colorPrimary: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
-}
-
-body {
-  /* display: flex; */
-  /* justify-content: center; */
+  --bottom-bg-opac: linear-gradient(109.5deg, #7669ff3e -22.6%, #d769ff3d 118.85%);
 }
 
 .app{
@@ -60,7 +56,7 @@ body {
 }
 
 .line {
-  background-color: #D869FF ;
+  background: var(--bottom-bg-colorPrimary) ;
 }
 
 .containerNumber {
@@ -83,4 +79,9 @@ body {
   border-radius: 0 0 50px 50px;
   background: #1B1D2F;
   box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.06);
+}
+
+.active svg, .active .icon { 
+  fill:  #bd00ff45;
+  stroke: #D869FF;
 }

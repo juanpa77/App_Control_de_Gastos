@@ -9,7 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/layout';
 import { TransactionList } from './components/transaction-list/screen-transaction-list';
 import { TransactionListDb } from './components/transaction-list/transactionList';
-import { SuccessfulTransaction } from './components/successful-transaction/Successful-transaction';
+import { SuccessfulTransaction } from './components/modal/Successful-transaction';
 
 function App() {
   const db = new Idb();

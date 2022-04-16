@@ -1,4 +1,4 @@
-import { ReactComponent as Check } from '../successful-transaction/check-icon.svg'
+import { ReactComponent as Check } from '../modal/check-icon.svg'
 import { formatDate } from "../../utility/formatDate";
 import { Idb } from "../../utility/IDB";
 import { PrimaryButton } from "../primary-button"
@@ -6,10 +6,10 @@ import { ReactComponent as Send } from '../../asset/icons/send.svg'
 import { useState, MouseEvent, ChangeEvent, useEffect } from "react"
 import { useLocation } from "react-router-dom";
 import { nanoid } from "nanoid";
-import { Modal } from '../successful-transaction/modal';
+import { Modal } from '../modal/modal';
 import { useModal } from '../../hooks/useModal';
 import { LinkBack } from './link-to-back';
-
+import { ToggleBtn } from '../toggle-btn';
 
 export interface transaction { 
     id: string,
@@ -30,29 +30,23 @@ export type TransactionType = {
 }
 
 export const Transaction = ({db}: {db: Idb}) => {
-    const location = useLocation().state as transaction;
-    const {isOpenModal, openModal, closeModal} = useModal(false)
+    const editTransactio = useLocation().state as transaction;
+    const [isOpenModal, openModal, closeModal] = useModal(false)
     
     const [toggle, setToggle] = useState(false);
     const [transaction, setTransaction] = useState<TransactionType>({
-        id: location?.id || nanoid(10),
-        type: location?.type || 'Gasto',
-        amount: location?.amount || 0,
-        date: location?.date || formatDate(new Date()),
-        category: location?.category || '',
-        description: location?.description || ''
+        id: editTransactio?.id || nanoid(10),
+        type: editTransactio?.type || 'Expenses',
+        amount: editTransactio?.amount || 0,
+        date: editTransactio?.date || formatDate(new Date()),
+        category: editTransactio?.category || '',
+        description: editTransactio?.description || ''
     });
-    // console.log(transaction.id)
-    
     db.openDB();
-//-------Pending refactoring, split transaction component into add transaction, edit transaction and delete transaction components----//
-// Test of refactorin 
-
 
     const sendTransaction = (transaction: TransactionType, ev:  React.FormEvent<HTMLButtonElement>)=> {
         if (transaction.amount > 0) {
-            console.log(transaction.id);
-            transaction.type === 'Gasto' ? (location? db.updateIncome(transaction) : db.addExpenses(transaction)) : db.addIncome(transaction);
+            transaction.type === 'Expenses' ? (editTransactio? db.updateIncome(transaction) : db.addExpenses(transaction)) : db.addIncome(transaction);
             ev.currentTarget.form?.reset();
             openModal();
         }
@@ -67,11 +61,12 @@ export const Transaction = ({db}: {db: Idb}) => {
 
     const classTriggerToggle = (e: MouseEvent<HTMLDivElement>)=> {
         const classList = e.currentTarget.classList.length;        
+        console.log(e.currentTarget.textContent)
         if (classList < 2) {
             setToggle(!toggle)
             setTransaction({
                 ...transaction,
-                type: toggle ? 'Gasto' : 'Ingreso'
+                type: toggle ? 'Expenses' : 'Income'
                 })
             }
     }
@@ -82,16 +77,15 @@ export const Transaction = ({db}: {db: Idb}) => {
         };
 
     useEffect(()=> {
-        if (!location) {
+        if (!editTransactio) {
             setTransaction({
                 id: nanoid(10),
-                type: 'Gasto',
+                type: 'Expenses',
                 amount: 0,
                 date: formatDate(new Date()),
                 category: '',
                 description:''
             })    
-
         }
     }, [isOpenModal])
     
@@ -99,18 +93,7 @@ export const Transaction = ({db}: {db: Idb}) => {
         <>
             <form className={`layout__transaction ${isOpenModal&&'blur'}`}
             onSubmit={onFormSubmit}>
-                <div className="select__radio">
-                    <div 
-                        className={`icome__radioButton ${toggle ? 'active__radioButton': ''}`}
-                        onClick={(e)=>classTriggerToggle(e)}>
-                            Ingreso
-                    </div>
-                    <div 
-                        onClick={(e)=>classTriggerToggle(e)}
-                        className= {`expense__radioButton ${toggle ? '': 'active__radioButton'}`}>
-                        Gasto
-                    </div>
-                </div>
+                <ToggleBtn classTriggerToggle={classTriggerToggle} toggle={toggle} />
                 <div className="inputAmount">
                     <input 
                         type="number"
@@ -142,13 +125,13 @@ export const Transaction = ({db}: {db: Idb}) => {
                 <button type="submit" className="submit__none" 
                         onClick={(e)=> sendTransaction(transaction, e)}>
                     <PrimaryButton 
-                        text= {location? "Guardar" : "Agregar"}>
+                        text= {editTransactio? "Guardar" : "Agregar"}>
                         <Send></Send>
                     </PrimaryButton>
                 </button>
             </form>
-            <Modal isOpenModal={isOpenModal} closeModal={closeModal} text={location? '' : 'transaction successful'}>
-               {location=== null ? <Check /> : <LinkBack linkTo='/transaction-list' />} 
+            <Modal isOpenModal={isOpenModal} closeModal={closeModal} text={editTransactio? '' : 'transaction successful'}>
+               {editTransactio=== null ? <Check /> : <LinkBack linkTo='/transaction-list' />} 
             </Modal>
         </>
         )
