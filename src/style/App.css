@@ -12,10 +12,10 @@
   display: flex;
   flex-direction: column;
   grid-template-rows: 8fr 1fr;
-  min-width: 400px;
+  min-width: 360px;
   height: 100vh;
   background: #2E3148;
-  border-radius: 50px;
+  /* border-radius: 50px; */
 }
 
 .accountSumary {
@@ -76,7 +76,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  border-radius: 0 0 50px 50px;
+  /* border-radius: 0 0 50px 50px; */
   background: #1B1D2F;
   box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.06);
 }

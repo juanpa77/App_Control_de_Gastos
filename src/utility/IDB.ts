@@ -1,94 +1,102 @@
 
 import { IDBPDatabase, openDB } from "idb";
-import { transaction, TransactionType } from "../components/add-new-transaction/add-Transaction";
+import { TransactionData } from "../components/add-new-transaction/add-Transaction";
 import { TransactionListDb } from "../components/transaction-list/transactionList";
 
-interface fechDb{
+export interface fechDb{
 store: string
-transaction: transaction
+data: TransactionData
 }
 export class Idb {
     db!: IDBPDatabase<unknown>;
-    fromDate: number;
     transactionList: TransactionListDb;
     
     constructor() {
-        this.fromDate = new Date().getDate();
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         this.db;
         this.transactionList = new TransactionListDb(this);
     }
 
     openDB = async ()=> {
-        this.db = await openDB('Transactions-store',1, {
+        this.db = await openDB('Month',1, {
             upgrade(db){
                 //crea un store de objetos
-                const expenseStore = db.createObjectStore('Income', {keyPath: 'id'});
-                const incomeStore = db.createObjectStore('Expenses', {keyPath: 'id'});
-                expenseStore.createIndex('date', 'date');
-                incomeStore.createIndex('date', 'date');
+                for (let i = 1; i < 13; i++) {
+                    if (i < 10) {
+                        const monthStore = db.createObjectStore( `0${i.toString()}`, {keyPath: 'id'});                           
+                        monthStore.createIndex('date', 'date');
+                    }else {
+                        const monthStore = db.createObjectStore( i.toString(), {keyPath: 'id'});                           
+                        monthStore.createIndex('date', 'date');
+                    }
+                }
             },
         });
     }
 
-    async deletTransaction(transaction: transaction) {
-        if (transaction) await this.db.delete(transaction.type, transaction.id)
+    async deletTransaction(transaction: fechDb) {
+        if (transaction) await this.db.delete(transaction.store, transaction.data.id)
     }
     
-    async updateIncome(transaction: TransactionType) {
-        await this.db.put('Expenses',transaction)
+    async updateIncome(transaction: fechDb) {
+        await this.db.put(transaction.store, transaction.data)
     }
 
-     async addIncome(transaction: TransactionType) {
-        await this.db.add('Income', transaction)
-    }
-
-    async addExpenses(transaction: TransactionType) {
-        await this.db.add('Expenses', transaction)
+    async addIncome(transaction: fechDb) {
+        await this.db.add(transaction.store, transaction.data)
     }
     
-    async cursor(store: string, rangeDate: string) {
+    async addExpenses(transaction: fechDb) {
+        await this.db.add(transaction.store, transaction.data)
+    }
+
+    async getAmount (store: string, dataRange: string, type: string) {
+        await this.openDB();
+        return await this.cursor(store, dataRange, type);
+    }
+    
+    async cursor(store: string, rangeDate: string, type: string) {
         let cursor = await this.db.transaction(store).store.openCursor();
         let accumulator = 0; 
         while (cursor) {
-            const objetStore: TransactionType = cursor.value;
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions            
-            const amount:any = this.dateRange(rangeDate, objetStore);
-            accumulator += parseInt(amount);
-            cursor = await cursor.continue();
-        }
-        return accumulator
-    }
-
-    async getAmount (store: string, dataRange: string) {
-        await this.openDB();
-        const total = await this.cursor(store, dataRange);
-        return total
-    }   
-    
-    dateRange(dataRange: string, transaction: TransactionType): number {
-        const date = new Date();
-        let currentDate: number | number[] = this.calcDate(dataRange, new Date());
-        let transactionDate = this.calcDate(dataRange, new Date(transaction.date), 'transactionDate');
-
-         if (dataRange === 'Semanal') {
-             currentDate = this.filterWeek(date.getDate()-date.getDay());
-             const result = currentDate.filter(date=> date === transactionDate)
-             return result[0]? transaction.amount: 0;
+            const objetTransaction: TransactionData = cursor.value;
+            if (type === this.filterTypeTransaction(objetTransaction)) {
+                const amount:any = this.filterTransactionObj(rangeDate, objetTransaction);
+                accumulator += parseInt(amount);
             }
-        return transactionDate !== currentDate ? 0 : transaction.amount;
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions            
+            cursor = await cursor.continue();
+            }
+        return accumulator
+        }
+
+    filterTypeTransaction = (transaction: TransactionData)=> transaction.type === "Expenses"? 'Expenses' : 'Income';
+
+    filterTransactionObj(dataRange: string, transaction: TransactionData): number {
+        const date = new Date();
+        
+        let filterDate: number | number[] = this.calcDate(dataRange, new Date());
+        let transactionDate = this.calcDate(dataRange, new Date(transaction.date), 'transactionDate');
+        
+        if (dataRange === 'Semanal') {
+            filterDate = this.filterWeek(date.getDate()-date.getDay());
+            const result = filterDate.filter(date=> date === transactionDate);
+            return result[0]? transaction.amount: 0;
+        }
+        return transactionDate !== filterDate ? 0 : transaction.amount;
     }
+    
+   
     
     calcDate(rangeDate: string ,date: Date, type?: string) {
-        return rangeDate === 'Mensual' ? 
-            date.getMonth() :
-                type === 'transactionDate' ? 
-                date.getDate()+1 
-                : date.getDate();
+        if(rangeDate === 'Mensual') return date.getMonth(); 
+        if(rangeDate === 'Semanal') return type === 'transactionDate'? date.getDate()+1 : date.getDate(); 
+        if(rangeDate === 'Diario') return type === 'transactionDate'? date.getDate()+1 : date.getDate(); 
+        return 0
         }
 
     filterWeek(fromDate: number) {
-        const fromdate = this.fromDate - new Date().getDay();
+        const fromdate = fromDate - new Date().getDay();
         const arrayDate = [];
         for (let i = 0; i < 7 ; i++) {
             arrayDate.push(fromdate + i)            

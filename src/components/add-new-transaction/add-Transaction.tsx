@@ -1,5 +1,5 @@
 import { ReactComponent as Check } from '../modal/check-icon.svg'
-import { formatDate } from "../../utility/formatDate";
+import { formatDate, splitDate } from "../../utility/formatDate";
 import { Idb } from "../../utility/IDB";
 import { PrimaryButton } from "../primary-button"
 import { ReactComponent as Send } from '../../asset/icons/send.svg'
@@ -11,7 +11,7 @@ import { useModal } from '../../hooks/useModal';
 import { LinkBack } from './link-to-back';
 import { ToggleBtn } from '../toggle-btn';
 
-export interface transaction { 
+export interface TransactionData { 
     id: string,
     type: string;
     amount: number;
@@ -20,33 +20,25 @@ export interface transaction {
     description: string;
 }
 
-export type TransactionType = {
-    id: string,
-    type: string,
-    amount: number,
-    date: string,
-    category: string,
-    description: string
-}
-
 export const Transaction = ({db}: {db: Idb}) => {
-    const editTransactio = useLocation().state as transaction;
+    const editTransactio = useLocation().state as TransactionData;
     const [isOpenModal, openModal, closeModal] = useModal(false)
     
     const [toggle, setToggle] = useState(false);
-    const [transaction, setTransaction] = useState<TransactionType>({
+    const [transaction, setTransaction] = useState<TransactionData>({
         id: editTransactio?.id || nanoid(10),
         type: editTransactio?.type || 'Expenses',
         amount: editTransactio?.amount || 0,
-        date: editTransactio?.date || formatDate(new Date()),
+        date: editTransactio?.date,
         category: editTransactio?.category || '',
         description: editTransactio?.description || ''
     });
     db.openDB();
 
-    const sendTransaction = (transaction: TransactionType, ev:  React.FormEvent<HTMLButtonElement>)=> {
+    const sendTransaction = (transaction: TransactionData, ev:  React.FormEvent<HTMLButtonElement>)=> {
+        const [day, month] = splitDate(transaction.date)
         if (transaction.amount > 0) {
-            transaction.type === 'Expenses' ? (editTransactio? db.updateIncome(transaction) : db.addExpenses(transaction)) : db.addIncome(transaction);
+            editTransactio? db.updateIncome({store: month, data: transaction}) : db.addIncome({store: month, data: transaction})
             ev.currentTarget.form?.reset();
             openModal();
         }
@@ -96,6 +88,7 @@ export const Transaction = ({db}: {db: Idb}) => {
                 <ToggleBtn classTriggerToggle={classTriggerToggle} toggle={toggle} />
                 <div className="inputAmount">
                     <input 
+                        autoFocus 
                         type="number"
                         placeholder="$999"
                         value={transaction.amount}
@@ -130,7 +123,8 @@ export const Transaction = ({db}: {db: Idb}) => {
                     </PrimaryButton>
                 </button>
             </form>
-            <Modal isOpenModal={isOpenModal} closeModal={closeModal} text={editTransactio? '' : 'transaction successful'}>
+            <Modal isOpenModal={isOpenModal} closeModal={()=>closeModal
+            } text={editTransactio? '' : 'transaction successful'}>
                {editTransactio=== null ? <Check /> : <LinkBack linkTo='/transaction-list' />} 
             </Modal>
         </>

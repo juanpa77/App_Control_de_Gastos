@@ -1,17 +1,16 @@
 
 import { splitDate } from '../../utility/formatDate'
-import { TransactionType } from '../add-new-transaction/add-Transaction'
+import { TransactionData } from '../add-new-transaction/add-Transaction'
 import { ReactComponent as EditIcon } from './icons/editIcon.svg'
 interface Props {
-    transaction: TransactionType
+    transaction: TransactionData
     openModal: ()=> void
-    setTransaction: React.Dispatch<React.SetStateAction<TransactionType | undefined>>
+    setTransaction: React.Dispatch<React.SetStateAction<TransactionData | undefined>>
 }
 
 export const CardTransaction = ({transaction, openModal, setTransaction}: Props)=> {
     // const {amount, category, date} = transaction;
     const [dia, mes, ano] = splitDate(transaction.date)
-    //console.log(for)
     return (
         <>
             <div className="card__transaction-amount">${transaction.amount}</div>  

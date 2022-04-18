@@ -1,5 +1,5 @@
 import { Idb } from "../../utility/IDB";
-import { TransactionType } from "../add-new-transaction/add-Transaction";
+import { TransactionData } from "../add-new-transaction/add-Transaction";
 
 export class TransactionListDb {
     db: Idb;
@@ -8,9 +8,10 @@ export class TransactionListDb {
         this.db = db;
     }
 
-    async get(store: string): Promise<TransactionType[]> {
+    async get(store: string, filter: string): Promise<TransactionData[]> {
         await this.db.openDB();
-        const resultado: TransactionType[] = await this.db.db.getAllFromIndex(store, 'date');
-        return resultado
+        const result: TransactionData[] = await this.db.db.getAllFromIndex(store, 'date');
+        const resultFilter = result.filter(transaction => transaction.type === filter);
+        return resultFilter
     }
 }

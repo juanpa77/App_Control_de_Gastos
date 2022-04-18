@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useModal } from "../../hooks/useModal";
-import { transaction } from "../add-new-transaction/add-Transaction";
+import { TransactionData } from "../add-new-transaction/add-Transaction";
 import { Modal } from "../modal/modal";
 import { NavbarFilter } from "./filter-navbar";
 import { CardTransaction } from "./transaction-item";
@@ -11,17 +11,18 @@ import { useNavigate } from "react-router-dom";
 
 export const TransactionList = ({transactionList}: {transactionList: TransactionListDb})=> {
     const db = transactionList;
-    
+    const currentMonth = '0'+(new Date().getMonth()+1);
+
     const [filter, setFilter] = useState({type:'Expenses', toggle: false});
-    const [listTransaction, setListTransaction] = useState<transaction[]>([]);
-    const [selctedTransaction, setSelectedTransaction] = useState<transaction>();
+    const [listTransaction, setListTransaction] = useState<TransactionData[]>([]);
+    const [selctedTransaction, setSelectedTransaction] = useState<TransactionData>();
     const [isOpenModal, openModal, closeModal] = useModal(false);
     const [isOpenModalConfirmation, openModalConfirmation, closeModalConfirmation] = useModal(false);
 
     const navigate = useNavigate();
     
     useEffect(()=> {
-        db.get(filter.type).then(listExpenses=> setListTransaction(listExpenses))
+        db.get(currentMonth, filter.type).then(listExpenses=> setListTransaction(listExpenses))
         });
 
     const goToEdit = ()=> {
@@ -36,7 +37,7 @@ export const TransactionList = ({transactionList}: {transactionList: Transaction
        }
     
     const deleteTransaction = ()=>{
-        db.db.deletTransaction(selctedTransaction!);
+        db.db.deletTransaction({store: '01', data: selctedTransaction!});
         closeModalConfirmation();
         closeModal();
     }
@@ -73,6 +74,4 @@ export const TransactionList = ({transactionList}: {transactionList: Transaction
             </Modal>
         </>
     )
-
-
 }

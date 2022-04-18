@@ -1,6 +1,4 @@
 import { ReactComponent as Close } from "./close.svg";
-
-
 import { ReactNode } from 'react';
 import './modal.css';
 
