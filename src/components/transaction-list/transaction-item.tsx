@@ -1,5 +1,5 @@
 
-import { splitDate } from '../../utility/formatDate'
+import { formatNumber, splitDate } from '../../utility/formatDate'
 import { TransactionData } from '../add-new-transaction/add-Transaction'
 import { ReactComponent as EditIcon } from './icons/editIcon.svg'
 interface Props {
@@ -13,7 +13,7 @@ export const CardTransaction = ({transaction, openModal, setTransaction}: Props)
     const [dia, mes, ano] = splitDate(transaction.date)
     return (
         <>
-            <div className="card__transaction-amount">${transaction.amount}</div>  
+            <div className="card__transaction-amount">{formatNumber(transaction.amount)}</div>  
                 <div className="card__transaction-category">{transaction.category}</div>
                 <div className="card__transaction-date">{`${dia}/${mes}`}</div>
                 <div className="editIcon">

@@ -1,6 +1,7 @@
 import { CardData } from "./cardData"; 
 import { useEffect, useState } from "react";
 import { Idb } from "../../utility/IDB";
+import { formatNumber } from "../../utility/formatDate";
 
 
 export const Balance = (props: {db: Idb, dateRanges: string}) => {
@@ -26,11 +27,11 @@ export const Balance = (props: {db: Idb, dateRanges: string}) => {
     return (
         <div className="cardBalance">
             <CardData name="containerAvailable" tipeData={"Disponible "+dateRanges} 
-            value={available} />
+            value={formatNumber(available)} />
             <div className="line"></div>
             <div className="containerTipeOfData">
-                <CardData name="containerIcome" tipeData="Ingreso" value={income}/>
-                <CardData name="containerExpense" tipeData="Gastos" value={expenses}/>
+                <CardData name="containerIcome" tipeData="Ingreso" value={formatNumber(income)}/>
+                <CardData name="containerExpense" tipeData="Gastos" value={formatNumber(expenses)}/>
             </div>
         </div>
     )

@@ -1,8 +1,8 @@
 import { ReactComponent as Check } from '../modal/check-icon.svg'
+import { ReactComponent as Send } from '../../asset/icons/send.svg'
 import { formatDate, splitDate } from "../../utility/formatDate";
 import { Idb } from "../../utility/IDB";
 import { PrimaryButton } from "../primary-button"
-import { ReactComponent as Send } from '../../asset/icons/send.svg'
 import { useState, MouseEvent, ChangeEvent, useEffect } from "react"
 import { useLocation } from "react-router-dom";
 import { nanoid } from "nanoid";

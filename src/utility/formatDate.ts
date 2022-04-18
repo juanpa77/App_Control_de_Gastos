@@ -8,3 +8,12 @@ export const splitDate = (date: string)=> {
     const formatDate = date.split('-').reverse()
     return formatDate
 }
+
+
+export const formatNumber = (number: number)=> {
+    return new Intl.NumberFormat('es-ar', {
+        style: 'currency',
+        currency: 'ARS',
+        minimumFractionDigits: 2
+    }).format(number);
+}

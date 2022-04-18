@@ -1,3 +1,5 @@
+import { ReactComponent as Edit } from "./icons/edit.svg";
+import { ReactComponent as RecycleBin } from "./icons/recycle-bin.svg";
 import { useEffect, useState } from "react";
 import { useModal } from "../../hooks/useModal";
 import { TransactionData } from "../add-new-transaction/add-Transaction";
@@ -5,8 +7,6 @@ import { Modal } from "../modal/modal";
 import { NavbarFilter } from "./filter-navbar";
 import { CardTransaction } from "./transaction-item";
 import { TransactionListDb } from "./transactionList";
-import { ReactComponent as Edit } from "./icons/edit.svg";
-import { ReactComponent as RecycleBin } from "./icons/recycle-bin.svg";
 import { useNavigate } from "react-router-dom";
 
 export const TransactionList = ({transactionList}: {transactionList: TransactionListDb})=> {

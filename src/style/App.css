@@ -18,6 +18,20 @@
   /* border-radius: 50px; */
 }
 
+
+.accountSumary__footer {
+  display: grid;
+  color: white;
+  grid-template-columns: 3fr 1fr;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+}
+.accountSumary__title {
+  color: white;
+  align-self: center;
+}
 .accountSumary {
   display: grid;
   grid-template-columns: 1fr;
@@ -36,6 +50,7 @@
   padding: 0 17px;
   background: #1B1D2F;
   color: white;
+  box-shadow: 0px 3.17984px 12.7194px #d769ff;
   border-radius: 15px;
   font-family: 'Avenir';
   font-style: normal;

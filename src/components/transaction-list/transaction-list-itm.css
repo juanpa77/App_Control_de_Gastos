@@ -59,12 +59,11 @@ ol {
     justify-items: center;
 } 
 
-
-
 .card__transaction {
     display: grid;
     grid-template-areas: 'US US OP OP I'
                          'US US DD DD I';
+    min-height: 150px;
 }
 
 .card__transaction-edit {
