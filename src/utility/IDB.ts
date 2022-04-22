@@ -56,8 +56,8 @@ export class Idb {
     }
     
     async cursor(store: string, rangeDate: string, type: string) {
-        let cursor = await this.db.transaction(store).store.openCursor();
         let accumulator = 0; 
+        let cursor = await this.db.transaction(store).store.openCursor();
         while (cursor) {
             const objetTransaction: TransactionData = cursor.value;
             if (type === this.filterTypeTransaction(objetTransaction)) {
@@ -73,20 +73,16 @@ export class Idb {
     filterTypeTransaction = (transaction: TransactionData)=> transaction.type === "Expenses"? 'Expenses' : 'Income';
 
     filterTransactionObj(dataRange: string, transaction: TransactionData): number {
-        const date = new Date();
-        
         let filterDate: number | number[] = this.calcDate(dataRange, new Date());
         let transactionDate = this.calcDate(dataRange, new Date(transaction.date), 'transactionDate');
         
         if (dataRange === 'Semanal') {
-            filterDate = this.filterWeek(date.getDate()-date.getDay());
+            filterDate = this.filterWeek();
             const result = filterDate.filter(date=> date === transactionDate);
             return result[0]? transaction.amount: 0;
         }
         return transactionDate !== filterDate ? 0 : transaction.amount;
     }
-    
-   
     
     calcDate(rangeDate: string ,date: Date, type?: string) {
         if(rangeDate === 'Mensual') return date.getMonth(); 
@@ -95,11 +91,13 @@ export class Idb {
         return 0
         }
 
-    filterWeek(fromDate: number) {
-        const fromdate = fromDate - new Date().getDay();
+    filterWeek() {
+        const selectedDayOneTheWeek = 1// 1 para que la semana empiese el lunes/ 2 para que empiese el martes...
+        const date = new Date(); 
+        const calcDayOneTheWeek = date.getDate()-date.getDay() + selectedDayOneTheWeek;
         const arrayDate = [];
         for (let i = 0; i < 7 ; i++) {
-            arrayDate.push(fromdate + i)            
+            arrayDate.push(calcDayOneTheWeek + i)            
         }        
         return arrayDate
     }

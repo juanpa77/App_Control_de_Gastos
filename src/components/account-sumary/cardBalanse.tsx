@@ -7,22 +7,23 @@ import { formatNumber } from "../../utility/formatDate";
 export const Balance = (props: {db: Idb, dateRanges: string}) => {
     const {dateRanges, db} = props;
     const currentMonth = '0'+(new Date().getMonth()+1);
-    const [incomeTotal, setIncomeTotal] = useState(0);
+    const [totalIncome, setTotalIncome] = useState(0);
     const [income, setIncome] = useState(0);
     const [expenses, setExpenses] = useState(0);
     const [available, setAvailable] = useState(0);
     
     const calcAvailable = ()=> {
-        if (dateRanges === 'Mensual') setAvailable(incomeTotal - expenses);
-        if (dateRanges === 'Semanal') setAvailable(Math.round((incomeTotal/4) - expenses));
-        if (dateRanges === 'Diario') setAvailable(Math.round((incomeTotal/31) - expenses));
+        if (dateRanges === 'Mensual') setAvailable(income - expenses);
+        if (dateRanges === 'Semanal') setAvailable(Math.round((totalIncome/4) - expenses));
+        if (dateRanges === 'Diario') setAvailable(Math.round((totalIncome/31) - expenses));
     }
     
     useEffect(()=> {
-        db.getAmount(currentMonth, dateRanges, 'Income').then(res=>setIncomeTotal(res));
+        db.getAmount(currentMonth, dateRanges, 'Income').then(res=>setIncome(res));
+        db.getAmount(currentMonth, 'Mensual', 'Income').then(res=>setTotalIncome(res));
         db.getAmount(currentMonth, dateRanges, 'Expenses').then(res=>setExpenses(res));
         calcAvailable();
-    }, [income, expenses, available])
+    }, [income, expenses, totalIncome, available])
 
     return (
         <div className="cardBalance">
