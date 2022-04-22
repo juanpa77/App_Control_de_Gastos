@@ -8,6 +8,7 @@ import { NavbarFilter } from "./filter-navbar";
 import { CardTransaction } from "./transaction-item";
 import { TransactionListDb } from "./transactionList";
 import { useNavigate } from "react-router-dom";
+import { splitDate } from "../../utility/formatDate";
 
 export const TransactionList = ({transactionList}: {transactionList: TransactionListDb})=> {
     const db = transactionList;
@@ -18,7 +19,6 @@ export const TransactionList = ({transactionList}: {transactionList: Transaction
     const [selctedTransaction, setSelectedTransaction] = useState<TransactionData>();
     const [isOpenModal, openModal, closeModal] = useModal(false);
     const [isOpenModalConfirmation, openModalConfirmation, closeModalConfirmation] = useModal(false);
-
     const navigate = useNavigate();
     
     useEffect(()=> {
@@ -33,11 +33,12 @@ export const TransactionList = ({transactionList}: {transactionList: Transaction
         const classList = e.currentTarget.classList.length;        
         if (classList < 2) {
             setFilter({type: e.currentTarget.textContent === 'Gasto' ? 'Expenses': 'Income', toggle: !filter.toggle})
-            }
-       }
+        }
+    }
     
     const deleteTransaction = ()=>{
-        db.db.deletTransaction({store: '01', data: selctedTransaction!});
+        const [day, month] = splitDate(selctedTransaction?.date!)
+        db.db.deletTransaction({store: month, data: selctedTransaction!});
         closeModalConfirmation();
         closeModal();
     }

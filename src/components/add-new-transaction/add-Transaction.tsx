@@ -1,5 +1,5 @@
-import { ReactComponent as Check } from '../modal/check-icon.svg'
-import { ReactComponent as Send } from '../../asset/icons/send.svg'
+import { ReactComponent as Check } from '../modal/check-icon.svg';
+import { ReactComponent as Send } from '../../asset/icons/send.svg';
 import { formatDate, splitDate } from "../../utility/formatDate";
 import { Idb } from "../../utility/IDB";
 import { PrimaryButton } from "../primary-button"
@@ -53,7 +53,6 @@ export const Transaction = ({db}: {db: Idb}) => {
 
     const classTriggerToggle = (e: MouseEvent<HTMLDivElement>)=> {
         const classList = e.currentTarget.classList.length;        
-        console.log(e.currentTarget.textContent)
         if (classList < 2) {
             setToggle(!toggle)
             setTransaction({
@@ -123,8 +122,8 @@ export const Transaction = ({db}: {db: Idb}) => {
                     </PrimaryButton>
                 </button>
             </form>
-            <Modal isOpenModal={isOpenModal} closeModal={()=>closeModal
-            } text={editTransactio? '' : 'transaction successful'}>
+            <Modal isOpenModal={isOpenModal} closeModal={closeModal}
+              text={editTransactio? '' : 'transaction successful'}>
                {editTransactio=== null ? <Check /> : <LinkBack linkTo='/transaction-list' />} 
             </Modal>
         </>
