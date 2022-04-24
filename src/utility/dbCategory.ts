@@ -22,7 +22,7 @@ export class DbCategory {
     
     async get() {
         this.openDb()
-        const categoryList = this.db?.getAll('category');
+        const categoryList: Promise<string[]> | undefined = this.db?.getAll('category');
         return categoryList
     }
 }

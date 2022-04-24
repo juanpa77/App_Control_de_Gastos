@@ -1,12 +1,12 @@
 import './index.css';
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useCategoryContex } from "../../hooks/useContex";
 import { useModal } from "../../hooks/useModal";
 import { Idb } from "../../utility/IDB";
 import { Modal } from "../modal/modal";
 
 export const Config = ({db}: {db:Idb})=> {
-    db.category.get().then(res=>console.log(res));
+    // db.category.get().then(res=>console.log(res));
     
     const [isOpenModal, openModal, closeModal] = useModal();
     const {category, setCategory} = useCategoryContex();
@@ -15,7 +15,14 @@ export const Config = ({db}: {db:Idb})=> {
     const handelInputChange = (e: ChangeEvent<HTMLInputElement>)=> {
         setNewcategory(e.currentTarget.value)
     }
-    
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(
+        ()=>{ db.category.get()
+            .then(res=> res? setCategory([...category, ...res]) : console.log(res, category))}, 
+        [ ]
+    )
+
     const addCategroy =()=> {
         db.category.add(newCategory);
         setCategory([...category, newCategory]);
@@ -24,7 +31,7 @@ export const Config = ({db}: {db:Idb})=> {
     return(
         <div className="config">
             <ol>
-            {category.map((category, i)=> {
+            {category?.map((category, i)=> {
                 return(
                     <li key={i}>
                         {category}
