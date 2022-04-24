@@ -1,12 +1,11 @@
 import './index.css';
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useCategoryContex } from "../../hooks/useContex";
 import { useModal } from "../../hooks/useModal";
 import { Idb } from "../../utility/IDB";
 import { Modal } from "../modal/modal";
 
 export const Config = ({db}: {db:Idb})=> {
-    // db.category.get().then(res=>console.log(res));
     
     const [isOpenModal, openModal, closeModal] = useModal();
     const {category, setCategory} = useCategoryContex();

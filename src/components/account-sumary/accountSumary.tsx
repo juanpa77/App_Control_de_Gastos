@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 export const AccountSumary = ({db}: {db: Idb})=> {
     const [isOpenModal, openModal, closeModal] = useModal();
-    db.category.openDb()
+    
     return (
         <div className="accountSumary">
             <div className="accountSumary__footer">

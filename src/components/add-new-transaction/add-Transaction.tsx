@@ -37,7 +37,7 @@ export const Transaction = ({db}: {db: Idb}) => {
     db.openDB();
     
     const sendTransaction = (transaction: TransactionData, ev:  React.FormEvent<HTMLButtonElement>)=> {
-        const [month] = splitDate(transaction.date)
+        const [day, month] = splitDate(transaction.date)
         if (transaction.amount > 0) {
             editTransactio? db.updateIncome({store: month, data: transaction}) : db.addIncome({store: month, data: transaction})
             ev.currentTarget.form?.reset();
@@ -101,8 +101,9 @@ export const Transaction = ({db}: {db: Idb}) => {
                     defaultValue={transaction.date || formatDate(new Date())}
                     className="input__date"
                     onChange={(e)=>handleInputChange(e)}
-                    name="date" />
-                    <Select handleInputChange={(e)=>handleInputChange(e)} defaultCategory={transaction.category} />
+                    name="date" 
+                />
+                <Select handleInputChange={(e)=>handleInputChange(e)} defaultCategory={transaction.category} />
                 <textarea 
                     className="textarea__transaction" 
                     placeholder="Ingrese una descripcion"

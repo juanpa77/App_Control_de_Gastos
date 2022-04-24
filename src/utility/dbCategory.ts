@@ -1,5 +1,4 @@
 import { IDBPDatabase, openDB } from "idb";
-import { Idb } from "./IDB";
 
 export class DbCategory {
     db: IDBPDatabase<unknown> | undefined;
