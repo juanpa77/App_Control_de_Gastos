@@ -4,7 +4,7 @@ import { Idb } from "../../utility/IDB";
 import { Balance } from "./cardBalanse";
 import { Modal } from "../modal/modal";
 import { useModal } from "../../hooks/useModal";
-import { CategoryModal } from "../modal/categoryModal";
+// import { CategoryModal } from "../modal/categoryModal";
 import { Link } from "react-router-dom";
 
 
@@ -24,9 +24,9 @@ export const AccountSumary = ({db}: {db: Idb})=> {
             <Balance db={db} dateRanges='Mensual' />
             <Balance db={db} dateRanges='Semanal' />
             <Balance db={db} dateRanges='Diario' />
-            <CategoryModal isOpenModal={isOpenModal} closeModal={closeModal} >
+   {/*          <CategoryModal isOpenModal={isOpenModal} closeModal={closeModal} >
                 
-            </CategoryModal>
+            </CategoryModal> */}
         </div>
     )
 }
