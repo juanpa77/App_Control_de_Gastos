@@ -2,6 +2,7 @@
 import { IDBPDatabase, openDB } from "idb";
 import { TransactionData } from "../components/add-new-transaction/add-Transaction";
 import { TransactionListDb } from "../components/transaction-list/transactionList";
+import { DbCategory } from "./dbCategory";
 
 export interface fechDb{
 store: string
@@ -10,17 +11,20 @@ data: TransactionData
 export class Idb {
     db!: IDBPDatabase<unknown>;
     transactionList: TransactionListDb;
+    category: DbCategory;
     
     constructor() {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         this.db;
         this.transactionList = new TransactionListDb(this);
+        this.category = new DbCategory();
     }
 
-    openDB = async ()=> {
+    async openDB() {
         this.db = await openDB('Month',1, {
             upgrade(db){
                 //crea un store de objetos
+                db.createObjectStore('category', {autoIncrement: true});
                 for (let i = 1; i < 13; i++) {
                     if (i < 10) {
                         const monthStore = db.createObjectStore( `0${i.toString()}`, {keyPath: 'id'});                           

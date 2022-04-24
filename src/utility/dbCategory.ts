@@ -19,5 +19,10 @@ export class DbCategory {
     async add(newCategory: string) {
         this.db?.add('category', newCategory)
     }
-
+    
+    async get() {
+        this.openDb()
+        const categoryList = this.db?.getAll('category');
+        return categoryList
+    }
 }

@@ -11,6 +11,7 @@ import { TransactionList } from './components/transaction-list/screen-transactio
 import { TransactionListDb } from './components/transaction-list/transactionList';
 import { SuccessfulTransaction } from './components/modal/Successful-transaction';
 import { CategoryProvider } from './context/categoryContext';
+import { Config } from './components/config';
 
 function App() {
   const db = new Idb();
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<AccountSumary db={db} />} />
+            <Route path='/config' element={<Config db={db} />} />
             <Route path='/transaction' element={<Transaction db={db} />} />
             <Route path='/successful-transaction' element={<SuccessfulTransaction />} />
             <Route path='/transaction-list' element={<TransactionList transactionList={new TransactionListDb(db)} />} />
