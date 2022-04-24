@@ -2,7 +2,7 @@ import { ReactComponent as Close } from "./close.svg";
 import { ReactNode } from 'react';
 import './modal.css';
 
-interface Props {
+export interface Props {
     children: ReactNode
     isOpenModal: boolean
     closeModal: () =>void

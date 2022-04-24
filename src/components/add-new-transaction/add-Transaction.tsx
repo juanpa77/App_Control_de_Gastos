@@ -34,9 +34,9 @@ export const Transaction = ({db}: {db: Idb}) => {
         description: editTransactio?.description || ''
     });
     db.openDB();
-
+    
     const sendTransaction = (transaction: TransactionData, ev:  React.FormEvent<HTMLButtonElement>)=> {
-        const [day, month] = splitDate(transaction.date)
+        const [month] = splitDate(transaction.date)
         if (transaction.amount > 0) {
             editTransactio? db.updateIncome({store: month, data: transaction}) : db.addIncome({store: month, data: transaction})
             ev.currentTarget.form?.reset();
