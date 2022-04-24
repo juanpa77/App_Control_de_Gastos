@@ -16,13 +16,6 @@ export const Config = ({db}: {db:Idb})=> {
         setNewcategory(e.currentTarget.value)
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(
-        ()=>{ db.category.get()
-            .then(res=> res? setCategory([...category, ...res]) : console.log(res, category))}, 
-        [ ]
-    )
-
     const addCategroy =()=> {
         db.category.add(newCategory);
         setCategory([...category, newCategory]);
