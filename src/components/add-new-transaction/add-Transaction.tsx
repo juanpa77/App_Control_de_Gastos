@@ -10,6 +10,7 @@ import { Modal } from '../modal/modal';
 import { useModal } from '../../hooks/useModal';
 import { LinkBack } from './link-to-back';
 import { ToggleBtn } from '../toggle-btn';
+import { Select } from '../select';
 
 export interface TransactionData { 
     id: string,
@@ -101,14 +102,7 @@ export const Transaction = ({db}: {db: Idb}) => {
                     className="input__date"
                     onChange={(e)=>handleInputChange(e)}
                     name="date" />
-                <select
-                    defaultValue={transaction.category}
-                    onChange={(e)=>handleInputChange(e)}
-                    name="category" >
-                    <option>Selecione una categoria</option>
-                    <option>Option1</option>
-                    <option>Option2</option>
-                </select>
+                    <Select handleInputChange={(e)=>handleInputChange(e)} defaultCategory={transaction.category} />
                 <textarea 
                     className="textarea__transaction" 
                     placeholder="Ingrese una descripcion"
