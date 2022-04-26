@@ -8,7 +8,7 @@ import { NavbarFilter } from "./filter-navbar";
 import { CardTransaction } from "./transaction-item";
 import { TransactionListDb } from "./transactionList";
 import { useNavigate } from "react-router-dom";
-import { splitDate } from "../../utility/formatDate";
+import { splitDate } from "../../services/formatDate";
 
 export const TransactionList = ({transactionList}: {transactionList: TransactionListDb})=> {
     const db = transactionList;

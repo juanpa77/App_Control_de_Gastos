@@ -1,10 +1,10 @@
 import './style/App.css';
 import './style/expenseLayut.css';
 import './components/transaction-list/transaction-list-itm.css';
-import { Idb } from './utility/IDB';
+import { Idb } from './services/IDB';
 
 import { Transaction } from './components/add-new-transaction/add-Transaction';
-import { AccountSumary } from './components/account-sumary/accountSumary';
+import { AccountSumary } from './components/account-sumary';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/layout';
 import { TransactionList } from './components/transaction-list/screen-transaction-list';

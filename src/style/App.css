@@ -32,15 +32,6 @@
   color: white;
   align-self: center;
 }
-.accountSumary {
-  display: grid;
-  grid-template-columns: 1fr;
-  height: 100%;
-  width: 100%;
-  background: #2E3148;
-  border-radius: 50px;
-  justify-items: center;
-}
 
 .cardBalance {
   display: grid;

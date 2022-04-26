@@ -1,7 +1,7 @@
 import { ReactComponent as Check } from '../modal/check-icon.svg';
 import { ReactComponent as Send } from '../../asset/icons/send.svg';
-import { formatDate, splitDate } from "../../utility/formatDate";
-import { Idb } from "../../utility/IDB";
+import { formatDate, splitDate } from "../../services/formatDate";
+import { Idb } from "../../services/IDB";
 import { PrimaryButton } from "../primary-button"
 import { useState, MouseEvent, ChangeEvent, useEffect } from "react"
 import { useLocation } from "react-router-dom";
@@ -37,7 +37,7 @@ export const Transaction = ({db}: {db: Idb}) => {
     db.openDB();
     
     const sendTransaction = (transaction: TransactionData, ev:  React.FormEvent<HTMLButtonElement>)=> {
-        const [month] = splitDate(transaction.date)
+        const [day, month] = splitDate(transaction.date)
         if (transaction.amount > 0) {
             editTransactio? db.updateIncome({store: month, data: transaction}) : db.addIncome({store: month, data: transaction})
             ev.currentTarget.form?.reset();

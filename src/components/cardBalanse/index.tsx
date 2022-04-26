@@ -1,7 +1,7 @@
 import { CardData } from "./cardData"; 
 import { useEffect, useState } from "react";
-import { Idb } from "../../utility/IDB";
-import { formatNumber } from "../../utility/formatDate";
+import { Idb } from "../../services/IDB";
+import { formatNumber } from "../../services/formatDate";
 import { useCategoryContex } from "../../hooks/useContex";
 
 

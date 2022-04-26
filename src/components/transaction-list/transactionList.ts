@@ -1,4 +1,4 @@
-import { Idb } from "../../utility/IDB";
+import { Idb } from "../../services/IDB";
 import { TransactionData } from "../add-new-transaction/add-Transaction";
 
 export class TransactionListDb {

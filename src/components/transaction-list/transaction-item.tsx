@@ -1,5 +1,5 @@
 
-import { formatNumber, splitDate } from '../../utility/formatDate'
+import { formatNumber, splitDate } from '../../services/formatDate'
 import { TransactionData } from '../add-new-transaction/add-Transaction'
 import { ReactComponent as EditIcon } from './icons/editIcon.svg'
 interface Props {

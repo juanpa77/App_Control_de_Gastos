@@ -1,8 +1,8 @@
-import './index.css';
-import { ChangeEvent, useEffect, useState } from "react";
+// import './index.css';
+import { ChangeEvent, useState } from "react";
 import { useCategoryContex } from "../../hooks/useContex";
 import { useModal } from "../../hooks/useModal";
-import { Idb } from "../../utility/IDB";
+import { Idb } from "../../services/IDB";
 import { Modal } from "../modal/modal";
 
 export const Config = ({db}: {db:Idb})=> {
