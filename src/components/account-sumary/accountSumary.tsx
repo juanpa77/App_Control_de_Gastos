@@ -14,7 +14,7 @@ export const AccountSumary = ({db}: {db: Idb})=> {
 
     const {category, setCategory} = useCategoryContex();
     
-    useEffect(()=> {db.config.getCategory().then(res=> setCategory(res))})
+    useEffect(()=> {db.config.getCategory().then(res=> setCategory(res))},[])
     
     return (
         <div className="accountSumary">

@@ -18,6 +18,7 @@ export const Config = ({db}: {db:Idb})=> {
     const addCategroy =()=> {
         db.config.addCategory(newCategory);
         setCategory([...category, newCategory]);
+        closeModal();
     }
     
     return(
