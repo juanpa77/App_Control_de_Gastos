@@ -2,7 +2,7 @@
 import { IDBPDatabase, openDB } from "idb";
 import { TransactionData } from "../components/add-new-transaction/add-Transaction";
 import { TransactionListDb } from "../components/transaction-list/transactionList";
-import { DbCategory } from "./dbCategory";
+import { Config } from "./dbCategory";
 
 export interface fechDb{
 store: string
@@ -11,13 +11,13 @@ data: TransactionData
 export class Idb {
     db!: IDBPDatabase<unknown>;
     transactionList: TransactionListDb;
-    category: DbCategory;
+    config: Config;
     
     constructor() {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         this.db;
         this.transactionList = new TransactionListDb(this);
-        this.category = new DbCategory();
+        this.config = new Config();
     }
 
     async openDB() {
@@ -39,18 +39,22 @@ export class Idb {
     }
 
     async deletTransaction(transaction: fechDb) {
+        this.openDB()
         if (transaction) await this.db.delete(transaction.store, transaction.data.id)
     }
     
     async updateIncome(transaction: fechDb) {
+        this.openDB()
         await this.db.put(transaction.store, transaction.data)
     }
 
     async addIncome(transaction: fechDb) {
+        this.openDB()
         await this.db.add(transaction.store, transaction.data)
     }
     
     async addExpenses(transaction: fechDb) {
+        this.openDB()
         await this.db.add(transaction.store, transaction.data)
     }
 
