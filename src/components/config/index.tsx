@@ -8,15 +8,15 @@ import { Modal } from "../modal/modal";
 export const Config = ({db}: {db:Idb})=> {
     
     const [isOpenModal, openModal, closeModal] = useModal();
-    const {category, setCategory} = useCategoryContex();
     const [newCategory, setNewcategory] = useState('');
+    const {category, setCategory} = useCategoryContex();
 
     const handelInputChange = (e: ChangeEvent<HTMLInputElement>)=> {
         setNewcategory(e.currentTarget.value)
     }
 
     const addCategroy =()=> {
-        db.category.add(newCategory);
+        db.config.addCategory(newCategory);
         setCategory([...category, newCategory]);
     }
     
@@ -25,7 +25,7 @@ export const Config = ({db}: {db:Idb})=> {
             <ol>
             {category?.map((category, i)=> {
                 return(
-                    <li key={i}>
+                    <li key={i }>
                         {category}
                     </li>
                 )
