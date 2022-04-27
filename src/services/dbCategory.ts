@@ -1,8 +1,7 @@
 import { IDBPDatabase, openDB } from "idb";
-import { Idb } from "./IDB";
 
-export class DbCategory {
-    db: IDBPDatabase<unknown> | undefined;
+export class Config {
+    db!: IDBPDatabase<unknown>;
 
     constructor() {
         // this.db;
@@ -16,13 +15,22 @@ export class DbCategory {
         })
     }
     
-    async add(newCategory: string) {
+    async addCategory(newCategory: string) {
         this.db?.add('category', newCategory)
     }
     
-    async get() {
-        this.openDb()
-        const categoryList: Promise<string[]> | undefined = this.db?.getAll('category');
-        return categoryList
+    async getCategory(): Promise<string[]> {
+        await this.openDb()
+        return await this.db.getAll('category');
     }
+/* 
+    async deletCategory(category: string) {
+        this.openDb()
+        if (category) await this.db.delete('category', transaction.data.id)
+    }
+    
+    async updatCategory(category: string) {
+        this.openDb()
+        await this.db.put('category', transaction.data)
+    } */
 }

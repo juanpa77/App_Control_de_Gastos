@@ -2,7 +2,7 @@
 import { IDBPDatabase, openDB } from "idb";
 import { TransactionData } from "../components/add-new-transaction/add-Transaction";
 import { TransactionListDb } from "../components/transaction-list/transactionList";
-import { DbCategory } from "./dbCategory";
+import { Config } from "./dbCategory";
 
 export interface fechDb{
 store: string
@@ -11,13 +11,13 @@ data: TransactionData
 export class Idb {
     db!: IDBPDatabase<unknown>;
     transactionList: TransactionListDb;
-    category: DbCategory;
+    config: Config;
     
     constructor() {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         this.db;
         this.transactionList = new TransactionListDb(this);
-        this.category = new DbCategory();
+        this.config = new Config();
     }
 
     async openDB() {
@@ -39,24 +39,41 @@ export class Idb {
     }
 
     async deletTransaction(transaction: fechDb) {
+        this.openDB()
         if (transaction) await this.db.delete(transaction.store, transaction.data.id)
     }
     
     async updateIncome(transaction: fechDb) {
+        this.openDB()
         await this.db.put(transaction.store, transaction.data)
     }
 
     async addIncome(transaction: fechDb) {
-        await this.db.add(transaction.store, transaction.data)
+        this.openDB();
+        await this.db.add(transaction.store, transaction.data);
     }
     
     async addExpenses(transaction: fechDb) {
-        await this.db.add(transaction.store, transaction.data)
+        this.openDB();
+        await this.db.add(transaction.store, transaction.data);
     }
 
     async getAmount (store: string, dataRange: string, type: string) {
         await this.openDB();
         return await this.cursor(store, dataRange, type);
+    }
+
+    async getFixedExpenses(store: string) {
+        await this.openDB();
+        let accumulator = 0;
+        let cursor = await this.db.transaction(store).store.openCursor();
+        while (cursor) {
+            const objetTransaction: TransactionData = cursor.value;
+            const amount: any = this.isCredit(objetTransaction) ? objetTransaction.amount : 0;
+            accumulator += parseInt(amount);
+            cursor = await cursor.continue();
+        }
+        return accumulator
     }
     
     async cursor(store: string, rangeDate: string, type: string) {
@@ -65,21 +82,25 @@ export class Idb {
         while (cursor) {
             const objetTransaction: TransactionData = cursor.value;
             if (type === this.filterTypeTransaction(objetTransaction)) {
-                const amount:any = this.filterTransactionObj(rangeDate, objetTransaction);
+                let amount:any = this.filterTransactionObj(rangeDate, objetTransaction);
+                if (this.isCredit(objetTransaction)) amount = 0;
                 accumulator += parseInt(amount);
             }
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions            
             cursor = await cursor.continue();
-            }
+         }
         return accumulator
-        }
+    }
 
     filterTypeTransaction = (transaction: TransactionData)=> transaction.type === "Expenses"? 'Expenses' : 'Income';
+
+    isCredit (transaction: TransactionData) { 
+        if (transaction.category === 'credit') return true;
+    }
 
     filterTransactionObj(dataRange: string, transaction: TransactionData): number {
         let filterDate: number | number[] = this.calcDate(dataRange, new Date());
         let transactionDate = this.calcDate(dataRange, new Date(transaction.date), 'transactionDate');
-        
         if (dataRange === 'Semanal') {
             filterDate = this.filterWeek();
             const result = filterDate.filter(date=> date === transactionDate);

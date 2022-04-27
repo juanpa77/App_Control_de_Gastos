@@ -101,8 +101,9 @@ export const Transaction = ({db}: {db: Idb}) => {
                     defaultValue={transaction.date || formatDate(new Date())}
                     className="input__date"
                     onChange={(e)=>handleInputChange(e)}
-                    name="date" />
-                    <Select handleInputChange={(e)=>handleInputChange(e)} defaultCategory={transaction.category} />
+                    name="date" 
+                />
+                <Select handleInputChange={(e)=>handleInputChange(e)} defaultCategory={transaction.category} />
                 <textarea 
                     className="textarea__transaction" 
                     placeholder="Ingrese una descripcion"

@@ -1,7 +1,7 @@
 
 import { formatNumber, splitDate } from '../../services/formatDate'
 import { TransactionData } from '../add-new-transaction/add-Transaction'
-import { ReactComponent as EditIcon } from './icons/editIcon.svg'
+import { ReactComponent as EditIcon } from '../../asset/icons/editIcon.svg'
 interface Props {
     transaction: TransactionData
     openModal: ()=> void

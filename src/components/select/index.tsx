@@ -1,3 +1,4 @@
+import './index.css';
 import { ChangeEvent } from "react"
 import { useCategoryContex } from "../../hooks/useContex"
 
@@ -10,13 +11,13 @@ export const Select = ({handleInputChange, defaultCategory}: Props)=> {
     const {category, setCategory} = useCategoryContex()
     
     return (
-        <select
+        <select className="select-category"
             defaultValue={defaultCategory}
             onChange={(e)=>handleInputChange(e)}
             name="category" >
-            {category.map((cate)=>{
+            {category.map((cate, i)=>{
                return(
-                   <option>{cate}</option>
+                   <option className="select-category-option" key={i}>{cate}</option>
                ) 
             })}
         </select>
