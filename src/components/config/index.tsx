@@ -1,4 +1,6 @@
 import './index.css';
+import { ReactComponent as Edit } from "../../asset/icons/editIcon.svg";
+
 import { ChangeEvent, useState } from "react";
 import { useCategoryContex } from "../../hooks/useContex";
 import { useModal } from "../../hooks/useModal";
@@ -6,7 +8,7 @@ import { Idb } from "../../utility/IDB";
 import { Modal } from "../modal/modal";
 
 export const Config = ({db}: {db:Idb})=> {
-    
+    const [isOpenModalEdit, openModalEdit, closeModalEdit] = useModal();
     const [isOpenModal, openModal, closeModal] = useModal();
     const [newCategory, setNewcategory] = useState('');
     const {category, setCategory} = useCategoryContex();
@@ -23,12 +25,15 @@ export const Config = ({db}: {db:Idb})=> {
     
     return(
         <div className="config">
-            <ol>
+            <ol className='list-category'>
             {category?.map((category, i)=> {
                 return(
                     <li key={i }>
-                        {category}
-                    </li>
+                        <div className="list-category-item">
+                            {category}
+                            <Edit onClick={openModalEdit}/>
+                        </div>
+                    </li>                        
                 )
             })}
             </ol>
@@ -36,6 +41,9 @@ export const Config = ({db}: {db:Idb})=> {
             <Modal isOpenModal={isOpenModal} closeModal={closeModal} >
                 <input type='text' onChange={handelInputChange}></input>
                 <button onClick={addCategroy}> Agregar </button>
+            </Modal>
+            <Modal isOpenModal={isOpenModalEdit} closeModal={closeModalEdit} >
+                
             </Modal>
         </div>
     )

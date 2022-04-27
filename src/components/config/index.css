@@ -1,8 +1,27 @@
 
 .config {
+    display: grid;
+
     height: 100%;
     width: 100%;
-    display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.list-category {
+    display: grid;
+    width: auto;
+    gap: 13px;
+}
+
+.list-category-item {
+    display: flex;
+    background-color: antiquewhite;
+    border: 1px solid red;
+
+    cursor: pointer;
+    padding: 5px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
 }
