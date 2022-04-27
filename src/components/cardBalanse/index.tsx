@@ -1,14 +1,9 @@
 import { CardData } from "./cardData"; 
 import { useEffect, useState } from "react";
-<<<<<<< HEAD:src/components/cardBalanse/index.tsx
 import { Idb } from "../../services/IDB";
 import { formatNumber } from "../../services/formatDate";
 import { useCategoryContex } from "../../hooks/useContex";
 
-=======
-import { Idb } from "../../utility/IDB";
-import { formatNumber } from "../../utility/formatDate";
->>>>>>> master:src/components/account-sumary/cardBalanse.tsx
 
 export const Balance = (props: {db: Idb, dateRanges: string}) => {
     const {dateRanges, db} = props;

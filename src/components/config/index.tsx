@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-// import './index.css';
-=======
 import './index.css';
-import { ReactComponent as Edit } from "../../asset/icons/editIcon.svg";
-
->>>>>>> master
 import { ChangeEvent, useState } from "react";
 import { useCategoryContex } from "../../hooks/useContex";
 import { useModal } from "../../hooks/useModal";
@@ -35,7 +29,7 @@ export const Config = ({db}: {db:Idb})=> {
                     <li key={i }>
                         <div className="list-category-item">
                             {category}
-                            <Edit onClick={openModalEdit}/>
+                            {/* <Edit onClick={openModalEdit}/> */}
                         </div>
                     </li>                        
                 )
