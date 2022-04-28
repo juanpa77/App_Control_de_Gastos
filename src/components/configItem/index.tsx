@@ -5,12 +5,13 @@ import { ReactComponent as NexIcon } from "./assets/nexIcon.svg";
 
 interface Props {
     children: ReactNode
+    onClick: () => void
 }
 
-export const ConfigItem = ({children}: Props)=> {
+export const ConfigItem = ({children, onClick}: Props)=> {
 
     return (
-        <Item >
+        <Item onClick={onClick}>
             <IconContainer>
                 {children}
             </IconContainer>

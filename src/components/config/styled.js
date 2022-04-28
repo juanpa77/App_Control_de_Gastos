@@ -19,6 +19,10 @@ export const ConfigScreen = styled.div`
     align-content: space-between;
     
 `
+export const Title = styled.h3`
+    align-self: center;
+    color: white;
+`
 
 export const CategoryList = styled.ul`
     display: grid;
@@ -27,9 +31,11 @@ export const CategoryList = styled.ul`
 `
 export const CategoryListItem = styled.li`
     display: flex;
-    background-color: antiquewhite;
-    border: 1px solid red;
-
+    background-color: #1B1D2F;
+    border: 2px solid #edbfff;
+    border-radius: 10px;
+    margin: 0 10px;
+    
     cursor: pointer;
     padding: 5px;
     justify-content: space-between;

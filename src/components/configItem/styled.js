@@ -9,6 +9,7 @@ export const Item = styled.div`
     grid-template-rows: repeat(2, 1fr);
     width: 94%;
     color: white;
+    cursor: pointer;
 
     & > strong {
         grid-area: TT;
