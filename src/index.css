@@ -23,3 +23,9 @@ code {
 link {
   -webkit-font-smoothing: none;
 }
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
