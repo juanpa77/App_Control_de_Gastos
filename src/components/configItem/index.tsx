@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { IconContainer, Item } from "./styled"
+import { IconContainer, ItemConfigLink } from "./styled"
 import { ReactComponent as NexIcon } from "./assets/nexIcon.svg";
 
 
@@ -7,19 +7,18 @@ interface Props {
     children: ReactNode
     itemTitle: string
     itemDescription?: string
-    onClick: () => void
 }
 
-export const ConfigItem = ({children, onClick, itemTitle, itemDescription}: Props)=> {
+export const ConfigItem = ({children, itemTitle, itemDescription}: Props)=> {
 
     return (
-        <Item onClick={onClick}>
+        <ItemConfigLink to={"/config/category"} >
             <IconContainer>
                 {children}
             </IconContainer>
             <strong>{itemTitle}</strong>
             <p>{itemDescription}</p>
             <NexIcon />
-        </Item>
+        </ItemConfigLink>
     )
 }

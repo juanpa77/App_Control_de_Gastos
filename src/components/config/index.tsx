@@ -29,30 +29,29 @@ export const Config = ({db}: {db:Idb})=> {
     return(
         <>
             <Title>Configuraciones</Title>
-            <ConfigScreen >
-                <Link to={"/config/category"} >
-                    <ConfigItem onClick={openModalEdit} itemTitle="Categorias" itemDescription="Agregar Editar Eliminar">
-                        <IconCategory/>
-                    </ConfigItem>
-                </Link>
-            </ConfigScreen>
+            <ConfigItem itemTitle="Categorias" itemDescription="Agregar Editar Eliminar">
+                <IconCategory/>
+            </ConfigItem>
+            
+            {/* ----------------REFACTORING IN PROGRES -------------- */}
+            <Modal isOpenModal={isOpenModalEdit} closeModal={closeModalEdit} >
+                <CategoryList >
+                    {category?.map((category, i)=> {
+                        return(
+                            <CategoryListItem key={i}>
+                                {category}
+                                <Edit onClick={openModalEdit}/>
+                            </CategoryListItem>
+                        )
+                    })}
+                </CategoryList>
+                <SecondaryBtn onClick={openModal}>Agregar categoria</SecondaryBtn>
+            </Modal>
+            <Modal isOpenModal={isOpenModal} closeModal={closeModal} >
+                <input type='text' onChange={handelInputChange}></input>
+                <SecondaryBtn onClick={addCategroy}>Agregar</SecondaryBtn>
+            </Modal>
+        {/* --------------------- */}
         </>
     )
 }
-    {/* <Modal isOpenModal={isOpenModalEdit} closeModal={closeModalEdit} >
-        <CategoryList >
-            {category?.map((category, i)=> {
-                return(
-                    <CategoryListItem key={i}>
-                        {category}
-                        <Edit onClick={openModalEdit}/>
-                    </CategoryListItem>
-                )
-            })}
-        </CategoryList>
-        <SecondaryBtn onClick={openModal}>Agregar categoria</SecondaryBtn>
-    </Modal>
-    <Modal isOpenModal={isOpenModal} closeModal={closeModal} >
-        <input type='text' onChange={handelInputChange}></input>
-        <SecondaryBtn onClick={addCategroy}>Agregar</SecondaryBtn>
-    </Modal> */}

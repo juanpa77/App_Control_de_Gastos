@@ -1,9 +1,11 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom";
 
-export const Item = styled.div`
+export const ItemConfigLink = styled(Link)`
     display: grid;
     align-items: center;
     justify-content: space-around;
+    align-self: flex-start;
     grid-template-areas: 'II TT TT NN'
                          'II DD DD NN';
     grid-template-rows: repeat(2, 1fr);
@@ -23,6 +25,8 @@ export const Item = styled.div`
     & > svg {
         grid-area: NN;
     }
+    list-style: none;
+    text-decoration: none;
 `
 
 export const IconContainer = styled.div`

@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
+
 export const ConfigScreen = styled.div`
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: 15% 8fr;
     height: 100%;
     width: 75%;
     margin: 75px;

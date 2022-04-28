@@ -4,9 +4,12 @@ export const CategoryScreen = ()=> {
 
     return (
         <>
-            <ConfigItem onClick={()=>{}} itemTitle="Alimentos">
+            <ConfigItem itemTitle="Alimentos">
                 <div className="d"></div>
             </ConfigItem> 
+            <ConfigItem itemTitle="Credit" >
+
+            </ConfigItem>
         </>
     )
 } 
