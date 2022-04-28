@@ -8,6 +8,7 @@ import { Modal } from "../modal/modal";
 import { CategoryList, CategoryListItem, ConfigScreen, Title } from './styled';
 import { SecondaryBtn } from '../button/secundary';
 import { ConfigItem } from '../configItem';
+import { Link, Outlet } from "react-router-dom";
 
 export const Config = ({db}: {db:Idb})=> {
     const [isOpenModalEdit, openModalEdit, closeModalEdit] = useModal();
@@ -29,27 +30,29 @@ export const Config = ({db}: {db:Idb})=> {
         <>
             <Title>Configuraciones</Title>
             <ConfigScreen >
-                <ConfigItem onClick={openModalEdit}>
-                    <IconCategory/>
-                </ConfigItem>
-                <Modal isOpenModal={isOpenModalEdit} closeModal={closeModalEdit} >
-                    <CategoryList >
-                        {category?.map((category, i)=> {
-                            return(
-                                <CategoryListItem key={i}>
-                                    {category}
-                                    <Edit onClick={openModalEdit}/>
-                                </CategoryListItem>
-                            )
-                        })}
-                    </CategoryList>
-                    <SecondaryBtn onClick={openModal}>Agregar categoria</SecondaryBtn>
-                </Modal>
-                <Modal isOpenModal={isOpenModal} closeModal={closeModal} >
-                    <input type='text' onChange={handelInputChange}></input>
-                    <SecondaryBtn onClick={addCategroy}>Agregar</SecondaryBtn>
-                </Modal>
+                <Link to={"/config/category"} >
+                    <ConfigItem onClick={openModalEdit} itemTitle="Categorias" itemDescription="Agregar Editar Eliminar">
+                        <IconCategory/>
+                    </ConfigItem>
+                </Link>
             </ConfigScreen>
         </>
     )
 }
+    {/* <Modal isOpenModal={isOpenModalEdit} closeModal={closeModalEdit} >
+        <CategoryList >
+            {category?.map((category, i)=> {
+                return(
+                    <CategoryListItem key={i}>
+                        {category}
+                        <Edit onClick={openModalEdit}/>
+                    </CategoryListItem>
+                )
+            })}
+        </CategoryList>
+        <SecondaryBtn onClick={openModal}>Agregar categoria</SecondaryBtn>
+    </Modal>
+    <Modal isOpenModal={isOpenModal} closeModal={closeModal} >
+        <input type='text' onChange={handelInputChange}></input>
+        <SecondaryBtn onClick={addCategroy}>Agregar</SecondaryBtn>
+    </Modal> */}

@@ -5,18 +5,20 @@ import { ReactComponent as NexIcon } from "./assets/nexIcon.svg";
 
 interface Props {
     children: ReactNode
+    itemTitle: string
+    itemDescription?: string
     onClick: () => void
 }
 
-export const ConfigItem = ({children, onClick}: Props)=> {
+export const ConfigItem = ({children, onClick, itemTitle, itemDescription}: Props)=> {
 
     return (
         <Item onClick={onClick}>
             <IconContainer>
                 {children}
             </IconContainer>
-            <strong>Categorias</strong>
-            <p>Agregar Modificar y Eliminar</p>
+            <strong>{itemTitle}</strong>
+            <p>{itemDescription}</p>
             <NexIcon />
         </Item>
     )
