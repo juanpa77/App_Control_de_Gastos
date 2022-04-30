@@ -9,12 +9,16 @@ export const ItemConfigLink = styled(Link)`
     grid-template-areas: 'II TT TT NN'
                          'II DD DD NN';
     grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 2fr 7fr 1fr;
     width: 94%;
     color: white;
+    padding: 0px 10px;
+    margin: 10px 10px;
     cursor: pointer;
 
     & > strong {
         grid-area: TT;
+        padding: 0 3px;
     }
     & > p {
         grid-area: DD;
@@ -24,6 +28,7 @@ export const ItemConfigLink = styled(Link)`
     }
     & > svg {
         grid-area: NN;
+        align-self: center;
     }
     list-style: none;
     text-decoration: none;
@@ -37,6 +42,5 @@ export const IconContainer = styled.div`
     width: 50px;
     border-radius: 50%;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;   
 `

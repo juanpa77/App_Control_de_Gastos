@@ -25,8 +25,8 @@ function App() {
           <Route path='/' element={<Layout />}>
             <Route index element={<AccountSumary db={db} />} />
             <Route path='/config' element={<ScreenConfig />} >
-              <Route index element={<Config db={db} />} />
-              <Route path='/config/category' element={<CategoryScreen />} />
+              <Route index element={<Config />} />
+              <Route path='/config/category' element={<CategoryScreen db={db} />} />
             </Route>
             <Route path='/transaction' element={<Transaction db={db} />} />
             <Route path='/successful-transaction' element={<SuccessfulTransaction />} />
