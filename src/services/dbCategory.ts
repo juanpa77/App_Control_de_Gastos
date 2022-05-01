@@ -1,5 +1,10 @@
 import { IDBPDatabase, openDB } from "idb";
 
+export interface Category {
+    name: string
+    isRecurring: boolean
+}
+
 export class Config {
     db!: IDBPDatabase<unknown>;
 
@@ -15,11 +20,11 @@ export class Config {
         })
     }
     
-    async addCategory(newCategory: string) {
+    async addCategory(newCategory: Category) {
         this.db?.add('category', newCategory)
     }
     
-    async getCategory(): Promise<string[]> {
+    async getCategory(): Promise<Category[]> {
         await this.openDb()
         return await this.db.getAll('category');
     }

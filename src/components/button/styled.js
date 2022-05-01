@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Button = styled.div`  
+    text-align: center;
     justify-self: center;
-    width: 180px;
+    width: auto;
     height: 50px;
     margin: 15px;
 

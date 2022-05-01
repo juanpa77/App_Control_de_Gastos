@@ -2,7 +2,6 @@ import { ReactNode } from "react"
 import { IconContainer, ItemConfigLink } from "./styled"
 import { ReactComponent as NexIcon } from "./assets/nexIcon.svg";
 
-
 interface Props {
     children: ReactNode
     itemTitle: string
