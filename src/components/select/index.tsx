@@ -17,7 +17,7 @@ export const Select = ({handleInputChange, defaultCategory}: Props)=> {
             name="category" >
             {category.map((cate, i)=>{
                return(
-                   <option className="select-category-option" key={i}>{cate}</option>
+                   <option className="select-category-option" key={i}>{cate.name}</option>
                ) 
             })}
         </select>

@@ -1,6 +1,7 @@
 import { IDBPDatabase, openDB } from "idb";
 
 export interface Category {
+    id: string
     name: string
     isRecurring: boolean
 }
@@ -15,7 +16,7 @@ export class Config {
     async openDb() {
         this.db = await openDB('Config', 1, {
             upgrade(db) {
-                db.createObjectStore('category', {autoIncrement: true})
+                db.createObjectStore('category', {keyPath: 'id'})
             }
         })
     }
@@ -28,14 +29,14 @@ export class Config {
         await this.openDb()
         return await this.db.getAll('category');
     }
-/* 
-    async deletCategory(category: string) {
+
+    async deletCategory(category: Category) {
         this.openDb()
-        if (category) await this.db.delete('category', transaction.data.id)
+        if (category) await this.db.delete('category', category.id)
     }
     
-    async updatCategory(category: string) {
-        this.openDb()
-        await this.db.put('category', transaction.data)
-    } */
+    async updatCategory(category: Category) {
+        this.openDb();
+        await this.db.put('category', category)
+    }
 }
