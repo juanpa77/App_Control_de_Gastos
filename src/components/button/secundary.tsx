@@ -2,15 +2,17 @@ import { ReactNode } from "react"
 import { Button } from "./styled"
 
 interface Props {
-    children: ReactNode
+    children?: ReactNode
     onClick: () => void
+    text?: string
 }
 
-export const SecondaryBtn = ({children, onClick}: Props)=> {
+export const SecondaryBtn = ({children, onClick, text}: Props)=> {
 
     return (
         <Button onClick={onClick}>        
             {children}
+            {text}
         </Button>
     )
 }

@@ -15,6 +15,4 @@ export const Button = styled.div`
     padding: 10px 20px;
     color: #AE6BFF;
     cursor: pointer;
-
 `
-// linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%)
