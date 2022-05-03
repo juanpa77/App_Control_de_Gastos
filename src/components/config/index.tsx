@@ -6,7 +6,7 @@ export const Config = ()=> {
     
     return(
         <>
-            <ConfigItem itemTitle="Categorias" itemDescription="Agregar Editar Eliminar">
+            <ConfigItem to="/config/category" itemTitle="Categorias" itemDescription="Agregar Editar Eliminar">
                 <IconCategory/>
             </ConfigItem>
         </>
