@@ -2,11 +2,11 @@
 import { IDBPDatabase, openDB } from "idb";
 import { TransactionData } from "../components/add-new-transaction/add-Transaction";
 import { TransactionListDb } from "../components/transaction-list/transactionList";
-import { Config } from "./dbCategory";
+import { Category, Config } from "./dbCategory";
 
 export interface fechDb{
-store: string
-data: TransactionData
+    store: string
+    data: TransactionData
 }
 export class Idb {
     db!: IDBPDatabase<unknown>;
@@ -58,61 +58,51 @@ export class Idb {
         await this.db.add(transaction.store, transaction.data);
     }
 
-    async getAmount (store: string, dataRange: string, type: string) {
+    async getAmount (store: string, dataRange: string, type: string, categories: Category[]) {
         await this.openDB();
-        return await this.cursor(store, dataRange, type);
-    }
-
-    async getFixedExpenses(store: string) {
-        await this.openDB();
-        let accumulator = 0;
-        let cursor = await this.db.transaction(store).store.openCursor();
-        while (cursor) {
-            const objetTransaction: TransactionData = cursor.value;
-            const amount: any = this.isCredit(objetTransaction) ? objetTransaction.amount : 0;
-            accumulator += parseInt(amount);
-            cursor = await cursor.continue();
-        }
-        return accumulator
+        return await this.cursor(store, dataRange, type, categories);
     }
     
-    async cursor(store: string, rangeDate: string, type: string) {
+    async cursor(store: string, rangeDate: string, type: string, categories: Category[]) {
+        let accumulatorSaldoFixed = 0;
         let accumulator = 0; 
         let cursor = await this.db.transaction(store).store.openCursor();
+        
         while (cursor) {
-            const objetTransaction: TransactionData = cursor.value;
-            if (type === this.filterTypeTransaction(objetTransaction)) {
-                let amount:any = this.filterTransactionObj(rangeDate, objetTransaction);
-                if (this.isCredit(objetTransaction)) amount = 0;
+            const objetTransaction: TransactionData = cursor.value;  
+            if (type === objetTransaction.type) {
+                let amount:any = this.filterByDate(rangeDate, objetTransaction);
+                if (this.isCredit(objetTransaction, categories)) {
+                    accumulatorSaldoFixed +=parseInt(amount);
+                    amount = 0;
+                }
                 accumulator += parseInt(amount);
             }
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions            
             cursor = await cursor.continue();
          }
-        return accumulator
+        return [accumulator, accumulatorSaldoFixed]
     }
 
-    filterTypeTransaction = (transaction: TransactionData)=> transaction.type === "Expenses"? 'Expenses' : 'Income';
-
-    isCredit (transaction: TransactionData) { 
-        if (transaction.category === 'credit') return true;
+    isCredit (transaction: TransactionData, categories: Category[]) { 
+        return categories.some((category)=> (transaction.category === category.name  ) && (category.isRecurring))        
     }
 
-    filterTransactionObj(dataRange: string, transaction: TransactionData): number {
-        let filterDate: number | number[] = this.calcDate(dataRange, new Date());
+    filterByDate(dataRange: string, transaction: TransactionData): number {
         let transactionDate = this.calcDate(dataRange, new Date(transaction.date), 'transactionDate');
         if (dataRange === 'Semanal') {
-            filterDate = this.filterWeek();
-            const result = filterDate.filter(date=> date === transactionDate);
+            let dataFilter = this.filterWeek();
+            const result = dataFilter.filter(date=> date === transactionDate);
             return result[0]? transaction.amount: 0;
         }
-        return transactionDate !== filterDate ? 0 : transaction.amount;
+        let dataFilter: number | number[] = this.calcDate(dataRange, new Date());
+        return transactionDate !== dataFilter ? 0 : transaction.amount;
     }
     
     calcDate(rangeDate: string ,date: Date, type?: string) {
         if(rangeDate === 'Mensual') return date.getMonth(); 
         if(rangeDate === 'Semanal') return type === 'transactionDate'? date.getDate()+1 : date.getDate(); 
-        if(rangeDate === 'Diario') return type === 'transactionDate'? date.getDate()+1 : date.getDate(); 
+        if(rangeDate === 'Diario') return type === 'transactionDate'? date.getDate() : date.getDate(); 
         return 0
         }
 

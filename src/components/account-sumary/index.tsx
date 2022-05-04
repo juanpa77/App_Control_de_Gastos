@@ -3,8 +3,6 @@ import { ReactComponent as Config } from "./assets/config.svg";
 import './account-sumary.css';
 import { Idb } from "../../services/IDB";
 import { Balance } from "../cardBalanse";
-import { Modal } from "../modal/modal";
-import { useModal } from "../../hooks/useModal";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useCategoryContex } from "../../hooks/useContex";
@@ -12,7 +10,6 @@ import { AccountSumaryStyled } from "./styled";
 
 
 export const AccountSumary = ({db}: {db: Idb})=> {
-    const [isOpenModal, openModal, closeModal] = useModal();
 
     const {category, setCategory} = useCategoryContex();
     
@@ -31,9 +28,6 @@ export const AccountSumary = ({db}: {db: Idb})=> {
             <Balance db={db} dateRanges='Mensual' />
             <Balance db={db} dateRanges='Semanal' />
             <Balance db={db} dateRanges='Diario' />
-   {/*          <CategoryModal isOpenModal={isOpenModal} closeModal={closeModal} >
-                
-            </CategoryModal> */}
         </AccountSumaryStyled>
     )
 }

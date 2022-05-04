@@ -16,6 +16,7 @@ export const Balance = (props: {db: Idb, dateRanges: string}) => {
 
     const [income, setIncome] = useState(0);
     const [expenses, setExpenses] = useState(0);
+    const {category, setCategory} = useCategoryContex();
     
     const calcAvailable = ()=> {
         if (dateRanges === 'Mensual') setAvailable((totalIncome - monthExpenses) - expenses);
@@ -24,10 +25,22 @@ export const Balance = (props: {db: Idb, dateRanges: string}) => {
     }
     
     useEffect(()=> {
-        db.getFixedExpenses(currentMonth).then((res)=> setMonthExpenses(res))
-        db.getAmount(currentMonth, dateRanges, 'Income').then(res=>setIncome(res));
-        db.getAmount(currentMonth, 'Mensual', 'Income').then(res=>setTotalIncome(res));
-        db.getAmount(currentMonth, dateRanges, 'Expenses').then(res=>setExpenses(res));
+        db.getAmount(currentMonth, dateRanges, 'Income', category)
+            .then(res=> {
+                const [accumulator, accumulatorFixed] = res
+                setIncome(accumulator)
+            });
+        db.getAmount(currentMonth, 'Mensual', 'Income', category)
+            .then(res=> {
+                const [accumulator, accumulatorFixed] = res;
+                setTotalIncome(accumulator);
+            });
+        db.getAmount(currentMonth, dateRanges, 'Expenses', category)
+            .then(res=> {
+                const [accumulator, accumulatorFixed] = res;
+                setMonthExpenses(accumulatorFixed);
+                setExpenses(accumulator)
+            });
         calcAvailable();
     }, [income, expenses, totalIncome])
 
