@@ -8,9 +8,8 @@ export interface Category {
 
 export class Config {
     db!: IDBPDatabase<unknown>;
-
+    
     constructor() {
-        // this.db;
     }
 
     async openDb() {
