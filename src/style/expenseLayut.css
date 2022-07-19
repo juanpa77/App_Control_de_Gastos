@@ -1,117 +1,122 @@
 .submit__none {
-    color: transparent;
-    background-color: transparent;
-    padding: 0;
-    border: none;
+  color: transparent;
+  background-color: transparent;
+  padding: 0;
+  border: none;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
   cursor: pointer;
 }
 
 textarea::placeholder {
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 20px;
-    color: white;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  color: white;
 }
 
-input, select, textarea {
-    outline: none;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.75);
-    color: #ffff;
-    /* max-width: 312px; */
-    height: 56px;
-    text-align: center;
-    color-scheme: dark;
+input,
+select,
+textarea {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+  color: #ffff;
+  /* max-width: 312px; */
+  height: 56px;
+  text-align: center;
+  color-scheme: dark;
 }
 
 .layout__transaction {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .select__radio {
-    display: flex;
-    background: #60708F;
-    border-radius: 30px;
-    height: 43px;
-    padding: 3px;
-    cursor: pointer;
+  display: flex;
+  background: #60708f;
+  border-radius: 30px;
+  height: 43px;
+  padding: 3px;
+  cursor: pointer;
 }
 
-.icome__radioButton, .expense__radioButton {
-    display: flex;
-    width: 196px;
-    align-self: center;
-    justify-content: space-around;
+.icome__radioButton,
+.expense__radioButton {
+  display: flex;
+  width: 196px;
+  align-self: center;
+  justify-content: space-around;
 }
 
 .active__radioButton {
-    display: flex;
-    width: 157.49px;
-    height: 37.12px;
-    background: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
-    border-radius: 30px;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  width: 157.49px;
+  height: 37.12px;
+  background: linear-gradient(109.5deg, #7569ff -22.6%, #d869ff 118.85%);
+  border-radius: 30px;
+  justify-content: center;
+  align-items: center;
 }
 
-.inputAmount{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 75%;
+.inputAmount {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 75%;
 }
 .input__number {
-    font-family: 'Avenir';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 36px;
-    line-height: 56px;
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 56px;
 }
 
-.input__date, select {
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 20px;
-    height: 40px;
-    cursor: pointer;
+.input__date,
+select {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  height: 40px;
+  cursor: pointer;
 }
 
 .textarea__transaction {
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 20px;
-    height: 89px;
-    border: 1px solid #FFFFFF;;    
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  height: 89px;
+  border: 1px solid #ffffff;
 }
 
-.primary__button-Agregar, .primary__button-Guardar {
-    display: flex;
-    width: 347px;
-    height: 60px;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
-    border-radius: 15px;
-    color: white;
-    cursor: pointer;
+.primary__button-Agregar,
+.primary__button-Guardar {
+  display: flex;
+  width: 347px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(109.5deg, #7569ff -22.6%, #d869ff 118.85%);
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
 }
 
 .blur {
-    filter: blur(1px);
+  filter: blur(1px);
 }

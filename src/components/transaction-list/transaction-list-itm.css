@@ -1,116 +1,118 @@
 .screen__trasactionList::-webkit-scrollbar {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 .screen__trasactionList::-webkit-scrollbar:vertical {
-    width:10px;
+  width: 10px;
 }
 
-
-.screen__trasactionList::-webkit-scrollbar-button:increment,.screen__trasactionList::-webkit-scrollbar-button {
-    display: none;
-} 
+.screen__trasactionList::-webkit-scrollbar-button:increment,
+.screen__trasactionList::-webkit-scrollbar-button {
+  display: none;
+}
 
 .screen__trasactionList::-webkit-scrollbar:horizontal {
-    height: 10px;
+  height: 10px;
 }
 
 .screen__trasactionList::-webkit-scrollbar-thumb {
-    background: var(--bottom-bg-colorPrimary);
-    opacity: 0.5;
-    border-radius: 20px;
-    border: 2px solid transparent;
+  background: var(--bottom-bg-colorPrimary);
+  opacity: 0.5;
+  border-radius: 20px;
+  border: 2px solid transparent;
 }
 
 .screen__trasactionList::-webkit-scrollbar-track {
-    border-radius: 10px;  
+  border-radius: 10px;
 }
 
 ol {
-    list-style-type: none;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0;
-    padding-inline-start: 0;
+  list-style-type: none;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0;
+  padding-inline-start: 0;
 }
 
 .screen__trasactionList {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    height: 100%;
-    align-items: center;
-    overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+  align-items: center;
+  overflow: auto;
 }
 
-.card{
-    display: grid;
+.card {
+  display: grid;
 }
 
 .card__transaction {
-    display: grid;
-    width: 75%;
-    min-width: 369px;
-    height: 125px;
-    background: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
-    box-shadow: 0px 3.17984px 12.7194px rgba(134, 255, 240, 0.4);
-    border-radius: 12.7194px;
-    align-items: center;
-    justify-items: center;
-} 
+  display: grid;
+  width: 75%;
+  min-width: 369px;
+  height: 125px;
+  background: linear-gradient(109.5deg, #7569ff -22.6%, #d869ff 118.85%);
+  box-shadow: 0px 3.17984px 12.7194px rgba(134, 255, 240, 0.4);
+  border-radius: 12.7194px;
+  align-items: center;
+  justify-items: center;
+}
 
 .card__transaction {
-    display: grid;
-    grid-template-areas: 'US US OP OP I'
-                         'US US DD DD I';
-    min-height: 150px;
+  display: grid;
+  grid-template-areas:
+    "US US OP OP I"
+    "US US DD DD I";
+  min-height: 150px;
 }
 
 .card__transaction-edit {
-    grid-area: I;
-    cursor: pointer;
+  grid-area: I;
+  cursor: pointer;
 }
 
 .card__transaction-amount {
-    grid-area: US;
-    padding: 10px;
-    font-size: 40px;    
+  grid-area: US;
+  padding: 10px;
+  font-size: 40px;
 }
 
 .card__transaction-category {
-    grid-area: OP;
-    font-size: 40px;
+  grid-area: OP;
+  font-size: 40px;
 }
 
 .card__transaction-date {
-    grid-area: DD;
-    font-size: 30px;
+  grid-area: DD;
+  font-size: 30px;
 }
 
 .editIcon {
-    grid-area: I;
-    cursor: pointer;
+  grid-area: I;
+  cursor: pointer;
 }
 
 .navbar-filter {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }
 
 .modal-menu {
-    display: grid;
-    grid-template-areas: 'E V'
-                         'D V';
-    justify-content: center;
-    align-items: center;
-    gap: 19px 0px;                 
+  display: grid;
+  grid-template-areas:
+    "E V"
+    "D V";
+  justify-content: center;
+  align-items: center;
+  gap: 19px 0px;
 }
 
 .modal-menu__close {
-    align-self: flex-end;
-    margin: 8px;
-    cursor: pointer;
+  align-self: flex-end;
+  margin: 8px;
+  cursor: pointer;
 }
 
 /* .modal-menu__close svg:hover {
@@ -119,10 +121,10 @@ ol {
 } */
 
 .modal-menu__edit {
-    grid-area: E;
-    cursor: pointer;
+  grid-area: E;
+  cursor: pointer;
 }
 .modal-menu__delete {
-    cursor: pointer;
-    grid-area: D;
+  cursor: pointer;
+  grid-area: D;
 }

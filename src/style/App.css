@@ -1,10 +1,17 @@
-
 :root {
-  --bottom-bg-colorPrimary: linear-gradient(109.5deg, #7569FF -22.6%, #D869FF 118.85%);
-  --bottom-bg-opac: linear-gradient(109.5deg, #7669ff3e -22.6%, #d769ff3d 118.85%);
+  --bottom-bg-colorPrimary: linear-gradient(
+    109.5deg,
+    #7569ff -22.6%,
+    #d869ff 118.85%
+  );
+  --bottom-bg-opac: linear-gradient(
+    109.5deg,
+    #7669ff3e -22.6%,
+    #d769ff3d 118.85%
+  );
 }
 
-.app{
+.app {
   display: grid;
 }
 
@@ -14,10 +21,9 @@
   grid-template-rows: 8fr 1fr;
   min-width: 360px;
   height: 100vh;
-  background: #2E3148;
+  background: #2e3148;
   /* border-radius: 50px; */
 }
-
 
 .accountSumary__footer {
   display: grid;
@@ -37,7 +43,7 @@
   grid-template-columns: 1fr;
   height: 100%;
   width: 100%;
-  background: #2E3148;
+  background: #2e3148;
   border-radius: 50px;
   justify-items: center;
 }
@@ -48,11 +54,11 @@
   height: 189px;
   width: 75%;
   padding: 0 17px;
-  background: #1B1D2F;
+  background: #1b1d2f;
   color: white;
   box-shadow: 0px 3.17984px 12.7194px #d769ff;
   border-radius: 15px;
-  font-family: 'Avenir';
+  font-family: "Avenir";
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -71,11 +77,11 @@
 }
 
 .line {
-  background: var(--bottom-bg-colorPrimary) ;
+  background: var(--bottom-bg-colorPrimary);
 }
 
 .containerNumber {
-  font-family: 'Avenir';
+  font-family: "Avenir";
   font-style: normal;
   font-weight: 500;
   font-size: 36px;
@@ -92,11 +98,12 @@
   align-items: center;
   width: 100%;
   /* border-radius: 0 0 50px 50px; */
-  background: #1B1D2F;
+  background: #1b1d2f;
   box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.06);
 }
 
-.active svg, .active .icon { 
-  fill:  #bd00ff45;
-  stroke: #D869FF;
+.active svg,
+.active .icon {
+  fill: #bd00ff45;
+  stroke: #d869ff;
 }

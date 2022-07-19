@@ -10,14 +10,15 @@ In the project directory, you can run:
 
 ### `npm run build`
 
-
 ### The component Balance run:
+
 `useEffect` run the `getAmount()` method of the `db {props}` Object with parameter
 
 ### Obj Idb
+
 ths.getAmount() {
-    await this.openDB();
-    return  await this.cursor(store, dataRange);
+await this.openDB();
+return await this.cursor(store, dataRange);
 }
 
 dateRange to filterTransactionObj(dataRange: transaction)

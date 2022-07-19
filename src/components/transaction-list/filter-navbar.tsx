@@ -1,14 +1,14 @@
-import { ToggleBtn } from "../toggle-btn"
+import { ToggleBtn } from "../toggle-btn";
 
 interface Props {
-    classTriggerToggle: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-    toggle: boolean
+  triggerToggle: () => void;
+  toggle: boolean;
 }
 
-export const NavbarFilter = ({classTriggerToggle, toggle}: Props)=> {
-    return (
-        <div className="navbar-filter">
-            <ToggleBtn classTriggerToggle={classTriggerToggle} toggle={toggle} />
-        </div>
-    )
-}
+export const NavbarFilter = ({ triggerToggle, toggle }: Props) => {
+  return (
+    <div className="navbar-filter">
+      <ToggleBtn triggerToggle={triggerToggle} toggle={toggle} />
+    </div>
+  );
+};

@@ -1,8 +1,5 @@
+export const Input = (props: { inputType: string }) => {
+  const { inputType } = props;
 
-export const Input = (props: { inputType: string })=> {
-    const {inputType}=props;
-    
-    return (
-        <input className={"input__"+inputType} type={inputType} />
-    )
-}
+  return <input className={"input__" + inputType} type={inputType} />;
+};
