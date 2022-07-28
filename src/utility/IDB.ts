@@ -42,7 +42,7 @@ export class Idb {
   }
 
   async deletTransaction(transaction: fechDb) {
-    this.openDB();
+    await this.openDB();
     if (transaction)
       await this.db.delete(transaction.store, transaction.data.id);
   }

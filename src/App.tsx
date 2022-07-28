@@ -6,13 +6,13 @@ import { Idb } from "./utility/IDB";
 // import { Transaction } from "./views/add-new-transaction/add-Transaction";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/layout";
-import { TransactionList } from "./components/transaction-list/screen-transaction-list";
 import { TransactionListDb } from "./components/transaction-list/transactionList";
 import { SuccessfulTransaction } from "./components/modal/Successful-transaction";
 import { CategoryProvider } from "./context/categoryContext";
 import { Config } from "./components/config";
 import { AccountSumary } from "./views/account-sumary";
 import NewTransaction from "./views/add-new-transaction";
+import ShowTransactions from "./views/show-transactions";
 
 function App() {
   const db = new Idb();
@@ -32,7 +32,7 @@ function App() {
             <Route
               path="/transaction-list"
               element={
-                <TransactionList transactionList={new TransactionListDb(db)} />
+                <ShowTransactions db={new TransactionListDb(db)} />
               }
             />
           </Route>
