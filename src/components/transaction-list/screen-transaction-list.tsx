@@ -33,9 +33,14 @@ export const TransactionList = ({ transactionList }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    db.get(currentMonth, filter).then((listExpenses) =>
-      setListTransaction(listExpenses)
-    );
+    let isActive = true
+    if (isActive) {
+      db.get(currentMonth, filter).then((listExpenses) =>
+        setListTransaction(listExpenses)
+      );
+    }
+
+    return () => { isActive = false }
   });
 
   const goToEdit = () => {
