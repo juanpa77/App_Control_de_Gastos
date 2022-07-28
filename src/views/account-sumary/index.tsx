@@ -3,7 +3,8 @@ import { Idb } from "../../utility/IDB";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useCategoryContex } from "../../hooks/useContex";
-import { Balance } from "../../components/account-sumary/cardBalanse";
+import { Balance } from "../../components/BalanceCard";
+import { Footer, Wrapper } from "./styled";
 
 export const AccountSumary = ({ db }: { db: Idb }) => {
   const { setCategory } = useCategoryContex();
@@ -13,16 +14,16 @@ export const AccountSumary = ({ db }: { db: Idb }) => {
   }, []);
 
   return (
-    <div className="accountSumary">
-      <div className="accountSumary__footer">
-        <div className="accountSumary__title">Estado de Cuenta</div>
+    <Wrapper>
+      <Footer>
+        Estado de Cuenta
         <Link to={"/config"}>
           <Config />
         </Link>
-      </div>
+      </Footer>
       <Balance db={db} dateRanges="Mensual" />
       <Balance db={db} dateRanges="Semanal" />
       <Balance db={db} dateRanges="Diario" />
-    </div>
+    </Wrapper>
   );
 };

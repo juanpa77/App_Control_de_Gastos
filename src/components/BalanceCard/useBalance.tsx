@@ -1,10 +1,12 @@
-import { CardData } from "./cardData";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Idb } from "../../utility/IDB";
-import { formatNumber } from "../../utility/formatDate";
 
-export const Balance = (props: { db: Idb; dateRanges: string }) => {
-  const { dateRanges, db } = props;
+type Props = {
+  db: Idb
+  dateRanges: string
+}
+
+const useBalance = ({ dateRanges, db }: Props) => {
   const currentMonth = "0" + (new Date().getMonth() + 1);
 
   const [totalIncome, setTotalIncome] = useState(0);
@@ -38,26 +40,7 @@ export const Balance = (props: { db: Idb; dateRanges: string }) => {
     calcAvailable();
   }, [income, expenses, totalIncome]);
 
-  return (
-    <div className="cardBalance">
-      <CardData
-        name="containerAvailable"
-        tipeData={"Disponible " + dateRanges}
-        value={formatNumber(available)}
-      />
-      <div className="line"></div>
-      <div className="containerTipeOfData">
-        <CardData
-          name="containerIcome"
-          tipeData="Ingreso"
-          value={formatNumber(income)}
-        />
-        <CardData
-          name="containerExpense"
-          tipeData="Gastos"
-          value={formatNumber(expenses)}
-        />
-      </div>
-    </div>
-  );
-};
+  return [available, income, expenses, dateRanges] as const
+}
+
+export default useBalance
