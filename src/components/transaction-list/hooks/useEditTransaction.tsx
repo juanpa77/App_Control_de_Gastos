@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { splitDate } from "../../../utility/formatDate";
 import { TransactionData } from "../../transaction-form/useTransaction";
-import { TransactionListDb } from "../transactionList";
+import { TransactionListDb } from "../services/getTransactionList";
 
 type Props = {
   db: TransactionListDb
