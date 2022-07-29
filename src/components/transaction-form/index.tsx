@@ -1,81 +1,62 @@
-import { ReactComponent as Check } from "../../components/modal/check-icon.svg";
 import { ReactComponent as Send } from "../../asset/icons/send.svg";
-import { useModal } from "../../hooks/useModal"
 import { formatDate } from "../../utility/formatDate"
 import { Idb } from "../../utility/IDB"
-import { LinkBack } from "../../views/add-new-transaction/link-to-back"
-import { Modal } from "../modal/modal"
 import { PrimaryButton } from "../primary-button"
 import { Select } from "../select"
 import { ToggleBtn } from "../toggle-btn"
-import useTransaction from "./useTransaction";
-import { Wrapper } from "./styled";
+import { AmountInput, DateInput, TextArea } from "./styled";
+import useTransaction, { TransactionData } from "./useTransaction";
 
-const TransactionForm = ({ db }: { db: Idb }) => {
+type Props = {
+  db: Idb
+  editTransaction: TransactionData
+  openModal: () => void
+}
 
-  const [isOpenModal, openModal, closeModal] = useModal(false);
+const TransactionForm = ({ db, editTransaction, openModal }: Props) => {
   const {
-    onFormSubmit,
     triggerToggle,
     transaction,
     handleInputChange,
     sendTransaction,
     toggle,
-    editTransactio
-  } = useTransaction({ db, isOpenModal, openModal })
+  } = useTransaction({ db, openModal, editTransaction })
 
   return (
     <>
-      <Wrapper isOpenModal={isOpenModal} onSubmit={onFormSubmit}>
-        <ToggleBtn triggerToggle={triggerToggle} toggle={toggle} />
-        <div className="inputAmount">
-          <input
-            autoFocus
-            type="number"
-            placeholder="$999"
-            value={transaction.amount}
-            className="input__number"
-            onChange={(e) => handleInputChange(e)}
-            name="amount"
-          />
-        </div>
-        <input
-          type="date"
-          defaultValue={transaction.date || formatDate(new Date())}
-          className="input__date"
-          onChange={(e) => handleInputChange(e)}
-          name="date"
-        />
-        <Select
-          handleInputChange={(e) => handleInputChange(e)}
-          defaultCategory={transaction.category}
-        />
-        <textarea
-          className="textarea__transaction"
-          placeholder="Ingrese una descripcion"
-          onChange={(e) => handleInputChange(e)}
-          name="description"
-        ></textarea>
-        <button
-          type="submit"
-          className="submit__none"
-          onClick={(e) => sendTransaction(transaction, e)}
-        >
-          <PrimaryButton text={editTransactio ? "Guardar" : "Agregar"}>
-            <Send></Send>
-          </PrimaryButton>
-        </button>
-      </Wrapper>
-      <Modal
-        isOpenModal={isOpenModal}
-        closeModal={closeModal}
-        text={editTransactio ? "" : "transaction successful"}
+      <ToggleBtn triggerToggle={triggerToggle} toggle={toggle} />
+      <AmountInput
+        autoFocus
+        type="number"
+        placeholder="$999"
+        value={transaction.amount}
+        onChange={(e) => handleInputChange(e)}
+        name="amount"
+      />
+      <DateInput
+        type="date"
+        defaultValue={transaction.date || formatDate(new Date())}
+        onChange={(e) => handleInputChange(e)}
+        name="date"
+      />
+      <Select
+        handleInputChange={(e) => handleInputChange(e)}
+        defaultCategory={transaction.category}
+      />
+      <TextArea
+        placeholder="Ingrese una descripcion"
+        onChange={(e) => handleInputChange(e)}
+        name="description"
+      />
+      <button
+        type="submit"
+        className="submit__none"
+        onClick={(e) => sendTransaction(transaction, e)}
       >
-        {editTransactio === null
-          ? <Check />
-          : <LinkBack linkTo="/transaction-list" />
-        }
-      </Modal>
+        <PrimaryButton text={editTransaction ? "Guardar" : "Agregar"}>
+          <Send></Send>
+        </PrimaryButton>
+      </button>
     </>
   )
 }

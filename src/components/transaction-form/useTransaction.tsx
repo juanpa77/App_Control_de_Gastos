@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { useState, FormEvent, ChangeEvent, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { splitDate, formatDate } from "../../utility/formatDate";
 import { Idb } from "../../utility/IDB";
 import useToggle from "../toggle-btn/useToggle";
@@ -16,7 +16,7 @@ export interface TransactionData {
 
 type Props = {
   db: Idb
-  isOpenModal: boolean
+  editTransaction: TransactionData
   openModal: () => void
 }
 
@@ -27,17 +27,18 @@ type InputChange = ChangeEvent<
   | HTMLSelectElement
 >
 
-const useTransaction = ({ db, openModal, isOpenModal }: Props) => {
-  const editTransactio = useLocation().state as TransactionData;
+const useTransaction = ({ db, openModal, editTransaction }: Props) => {
+  // const editTransaction = useLocation().state as TransactionData;
   const [toggle, triggerToggle] = useToggle()
   const [transaction, setTransaction] = useState<TransactionData>({
-    id: editTransactio?.id || nanoid(10),
-    type: editTransactio?.type || 'Expenses',
-    amount: editTransactio?.amount || 0,
-    date: editTransactio?.date,
-    category: editTransactio?.category || "",
-    description: editTransactio?.description || "",
+    id: editTransaction?.id || nanoid(10),
+    type: editTransaction?.type || 'Expenses',
+    amount: editTransaction?.amount || 0,
+    date: editTransaction?.date || formatDate(new Date()),
+    category: editTransaction?.category || "",
+    description: editTransaction?.description || "",
   });
+
   db.openDB();
   useEffect(() => setTransaction({ ...transaction, type: toggle ? 'Income' : 'Expenses' }), [toggle])
 
@@ -45,11 +46,12 @@ const useTransaction = ({ db, openModal, isOpenModal }: Props) => {
     // eslint-disable-next-line no-unused-vars
     const [day, month] = splitDate(transaction.date);
     if (transaction.amount > 0) {
-      editTransactio
+      editTransaction
         ? db.updateIncome({ store: month, data: transaction })
         : db.addIncome({ store: month, data: transaction });
       ev.currentTarget.form?.reset();
       openModal();
+      restForm()
     }
   };
 
@@ -60,13 +62,13 @@ const useTransaction = ({ db, openModal, isOpenModal }: Props) => {
     });
   };
 
-  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  /* const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.currentTarget.reset();
     e.preventDefault();
-  };
+  }; */
 
-  useEffect(() => {
-    if (!editTransactio) {
+  const restForm = () => {
+    if (!editTransaction) {
       setTransaction({
         id: nanoid(10),
         type: "Expenses",
@@ -76,9 +78,22 @@ const useTransaction = ({ db, openModal, isOpenModal }: Props) => {
         description: "",
       });
     }
-  }, [isOpenModal]);
+  }
 
-  return { onFormSubmit, triggerToggle, transaction, handleInputChange, sendTransaction, toggle, editTransactio }
+  /*  useEffect(() => {
+     if (!editTransaction) {
+       setTransaction({
+         id: nanoid(10),
+         type: "Expenses",
+         amount: 0,
+         date: formatDate(new Date()),
+         category: "",
+         description: "",
+       });
+     }
+   }, [isOpenModal]); */
+
+  return { triggerToggle, transaction, handleInputChange, sendTransaction, toggle }
 }
 
 export default useTransaction
