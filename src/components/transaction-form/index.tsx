@@ -1,7 +1,8 @@
 import { ReactComponent as Send } from "../../asset/icons/send.svg";
 import { formatDate } from "../../utility/formatDate"
 import { Idb } from "../../utility/IDB"
-import { PrimaryButton } from "../primary-button"
+import { Button } from "../buttons/styled";
+// import { PrimaryButton } from "../primary-button"
 import { Select } from "../select"
 import { ToggleBtn } from "../toggle-btn"
 import { AmountInput, DateInput, TextArea } from "./styled";
@@ -48,15 +49,13 @@ const TransactionForm = ({ db, editTransaction, openModal }: Props) => {
         onChange={(e) => handleInputChange(e)}
         name="description"
       />
-      <button
+      <Button
         type="submit"
-        className="submit__none"
         onClick={(e) => sendTransaction(transaction, e)}
       >
-        <PrimaryButton text={editTransaction ? "Guardar" : "Agregar"}>
-          <Send></Send>
-        </PrimaryButton>
-      </button>
+        <Send></Send>
+        {editTransaction ? "Guardar" : "Agregar"}
+      </Button>
     </>
   )
 }
