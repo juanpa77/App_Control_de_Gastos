@@ -4,13 +4,13 @@ import { TransactionListDb } from "../services/getTransactionList";
 
 type Props = {
   db: TransactionListDb
-  toggle: boolean
+  transactionType: boolean
   openModal: () => void
 }
 
-const useTransactionList = ({ db, toggle, openModal }: Props) => {
+const useTransactionList = ({ db, transactionType, openModal }: Props) => {
   const currentMonth = "0" + (new Date().getMonth() + 1);
-  const filter = toggle ? 'Income' : 'Expenses'
+  const filter = transactionType ? 'Income' : 'Expenses'
   const [listTransaction, setListTransaction] = useState<TransactionData[]>([]);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const useTransactionList = ({ db, toggle, openModal }: Props) => {
     })
 
     return () => { isActive = false }
-  }, [toggle, openModal])
+  }, [transactionType, openModal])
 
   return [listTransaction] as const
 }

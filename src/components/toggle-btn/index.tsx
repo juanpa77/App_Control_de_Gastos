@@ -1,19 +1,25 @@
-import { RadioBtn, Wrapper } from './styled';
+import { Filter, RadioBtn, Wrapper } from './styled';
 interface Props {
   triggerToggle: () => void;
-  toggle: boolean;
+  toggle: Filter;
 }
 
 export const ToggleBtn = ({ triggerToggle, toggle }: Props) => {
 
   return (
     <Wrapper>
-      <RadioBtn toggle={toggle}
+      <RadioBtn
+        toggle={toggle.toggle}
+        rigth={toggle.rigth}
+        left={toggle.left}
         onClick={triggerToggle}
       >
         Icome
       </RadioBtn>
-      <RadioBtn toggle={!toggle}
+      <RadioBtn
+        toggle={!toggle.toggle}
+        rigth={toggle.rigth}
+        left={toggle.left}
         onClick={triggerToggle}
       >
         Expenses
