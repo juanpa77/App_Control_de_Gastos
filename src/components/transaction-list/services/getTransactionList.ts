@@ -1,5 +1,5 @@
-import { Idb } from "../../utility/IDB";
-import { TransactionData } from "../transaction-form/useTransaction";
+import { Idb } from "../../../utility/IDB";
+import { TransactionData } from "../../transaction-form/useTransaction";
 
 export class TransactionListDb {
   db: Idb;

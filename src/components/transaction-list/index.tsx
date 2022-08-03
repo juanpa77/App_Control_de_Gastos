@@ -1,7 +1,7 @@
 import { ReactComponent as EditIcon } from '../../asset/icons/editIcon.svg'
 import { Dispatch, SetStateAction } from "react";
 import { TransactionData } from "../transaction-form/useTransaction";
-import { TransactionListDb } from "./transactionList";
+import { TransactionListDb } from "./services/getTransactionList";
 import useTransactionList from "./hooks/useTransactionList";
 import useToggle from "../toggle-btn/useToggle";
 import { Filter, Item, List, TransactionItem } from "./styled";
@@ -16,8 +16,8 @@ type Props = {
 
 const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
   const [toggle, triggerFilterToggle] = useToggle()
-  const [listTransaction] = useTransactionList({ db, toggle })
-
+  const transactionType = toggle.toggle
+  const [listTransaction] = useTransactionList({ db, transactionType, openModal })
   return (
     <>
       <Filter>
@@ -30,9 +30,9 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
 
           return (
             <TransactionItem key={transaction.id}>
-              <Item gridArea="US">{formatNumber(transaction.amount)}</Item>
-              <Item gridArea="OP">{transaction.category}</Item>
-              <Item gridArea="DD">{`${dia}/${mes}`}</Item>
+              <Item gridArea="A">{formatNumber(transaction.amount)}</Item>
+              <Item gridArea="C">{transaction.category}</Item>
+              <Item gridArea="D">{`${dia}/${mes}`}</Item>
               <Item gridArea="I">
                 <EditIcon
                   onClick={() => {

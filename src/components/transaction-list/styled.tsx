@@ -36,17 +36,27 @@ export const List = styled('ul')`
 
 export const TransactionItem = styled('li')`
   display: grid;
+  grid-template-rows: 30% 70%;
   width: 75%;
   min-width: 369px;
-  min-height: 150px;
+  min-height: 95px;
+  padding: 0px 22px;
   border-radius: 12.7194px;
-  background: linear-gradient(109.5deg, #7569ff -22.6%, #d869ff 118.85%);
-  box-shadow: 0px 3.17984px 12.7194px rgba(134, 255, 240, 0.4);
-  align-items: center;
-  justify-items: center;
+  background: rgba(43, 30, 30, 0.51);
+  box-shadow: 0px 3.17984px 12.7194px #0C0E0E;
+  color: black;
+  justify-content: space-between;
+  align-items: start;
+  justify-items: end;
   grid-template-areas:
-    "US US OP OP I"
-    "US US DD DD I";
+    "V V I"
+    "D C A";
+    & svg {
+      transform: rotate(90deg);
+      & path {
+        fill: #d869ff;
+      }
+    }
 `
 
 export const Filter = styled('div')`
