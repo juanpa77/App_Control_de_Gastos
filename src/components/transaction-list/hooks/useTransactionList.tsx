@@ -6,16 +6,20 @@ type Props = {
   db: TransactionListDb
   transactionType: boolean
   openModal: () => void
+  filterMonth: number
 }
 
-const useTransactionList = ({ db, transactionType, openModal }: Props) => {
-  const currentMonth = "0" + (new Date().getMonth() + 1);
-  const filter = transactionType ? 'Income' : 'Expenses'
+const useTransactionList = ({ db, transactionType, openModal, filterMonth }: Props) => {
+  const filterType = transactionType ? 'Income' : 'Expenses'
   const [listTransaction, setListTransaction] = useState<TransactionData[]>([]);
+  const formatFilterMonth = filterMonth < 10
+    ? '0' + filterMonth.toString()
+    : filterMonth.toString()
 
   useEffect(() => {
+    console.log(formatFilterMonth)
     let isActive = true
-    db.get(currentMonth, filter).then((listExpenses) => {
+    db.get(formatFilterMonth, filterType).then((listExpenses) => {
       if (isActive) {
         setListTransaction(listExpenses)
         console.log('render')
@@ -23,7 +27,7 @@ const useTransactionList = ({ db, transactionType, openModal }: Props) => {
     })
 
     return () => { isActive = false }
-  }, [transactionType, openModal])
+  }, [transactionType, openModal, filterMonth])
 
   return [listTransaction] as const
 }
