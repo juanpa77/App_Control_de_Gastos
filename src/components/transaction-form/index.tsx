@@ -4,7 +4,7 @@ import { Idb } from "../../utility/IDB"
 import { Button } from "../buttons/styled";
 // import { PrimaryButton } from "../primary-button"
 import { Select } from "../select"
-import { ToggleBtn } from "../toggle-btn"
+import { ToggleBtn } from "../buttons/toggle-btn"
 import { AmountInput, DateInput, TextArea } from "./styled";
 import useTransaction, { TransactionData } from "./useTransaction";
 
