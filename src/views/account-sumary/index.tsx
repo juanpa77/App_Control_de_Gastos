@@ -1,4 +1,4 @@
-import { ReactComponent as Config } from "../../components/account-sumary/assets/config.svg";
+import { ReactComponent as Config } from "../../components/BalanceCard/assets/config.svg";
 import { Idb } from "../../utility/IDB";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";

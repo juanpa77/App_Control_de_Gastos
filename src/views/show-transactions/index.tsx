@@ -2,7 +2,7 @@ import { ReactComponent as Edit } from "./icons/edit.svg";
 import { ReactComponent as RecycleBin } from "./icons/recycle-bin.svg";
 import { Modal } from "../../components/modal/modal"
 import TransactionList from "../../components/transaction-list"
-import { TransactionListDb } from "../../components/transaction-list/transactionList"
+import { TransactionListDb } from "../../components/transaction-list/services/getTransactionList"
 import { useModal } from "../../hooks/useModal"
 import useEditTransaction from "../../components/transaction-list/hooks/useEditTransaction";
 

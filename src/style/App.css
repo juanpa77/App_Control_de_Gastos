@@ -22,6 +22,7 @@
   min-width: 360px;
   height: 100vh;
   background: #2e3148;
+  gap: 8px;
   /* border-radius: 50px; */
 }
 

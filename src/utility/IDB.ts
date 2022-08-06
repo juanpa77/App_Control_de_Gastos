@@ -1,6 +1,6 @@
 import { IDBPDatabase, openDB } from "idb";
 import { TransactionData } from "../components/transaction-form/useTransaction";
-import { TransactionListDb } from "../components/transaction-list/transactionList";
+import { TransactionListDb } from "../components/transaction-list/services/getTransactionList";
 import { Config } from "./dbCategory";
 
 export interface fechDb {

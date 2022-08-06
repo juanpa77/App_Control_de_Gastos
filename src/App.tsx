@@ -6,7 +6,7 @@ import { Idb } from "./utility/IDB";
 // import { Transaction } from "./views/add-new-transaction/add-Transaction";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/layout";
-import { TransactionListDb } from "./components/transaction-list/transactionList";
+import { TransactionListDb } from "./components/transaction-list/services/getTransactionList";
 import { SuccessfulTransaction } from "./components/modal/Successful-transaction";
 import { CategoryProvider } from "./context/categoryContext";
 import { Config } from "./components/config";

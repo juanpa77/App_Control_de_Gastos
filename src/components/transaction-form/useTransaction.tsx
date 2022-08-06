@@ -3,7 +3,7 @@ import { useState, FormEvent, ChangeEvent, useEffect } from "react";
 // import { useLocation } from "react-router-dom";
 import { splitDate, formatDate } from "../../utility/formatDate";
 import { Idb } from "../../utility/IDB";
-import useToggle from "../toggle-btn/useToggle";
+import useToggle from "../buttons/toggle-btn/useToggle";
 
 export interface TransactionData {
   id: string;
