@@ -9,9 +9,10 @@ export const Base = styled('button')`
   color: white;
   cursor: pointer;
   border: none;
+  width: 100px;
 `
 
 export const Button = styled(Base)`
-  width: 347px;
+  width: 251px;
   height: 60px;
 `

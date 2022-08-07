@@ -51,11 +51,12 @@ export const DateInput = styled(Input)`
   font-size: 20px;
   line-height: 20px;
   height: 40px;
+  width: 27%;
   cursor: pointer;
 `
 export const AmountInput = styled(Input)`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 75%
+  width: 27%
 `

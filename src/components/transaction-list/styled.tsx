@@ -39,14 +39,14 @@ export const TransactionItem = styled('li')`
   grid-template-rows: 30% 70%;
   width: 75%;
   min-width: 369px;
-  min-height: 95px;
+  min-height: 70px;
   padding: 0px 22px;
   border-radius: 12.7194px;
   background: rgba(43, 30, 30, 0.51);
   box-shadow: 0px 3.17984px 12.7194px #0C0E0E;
   color: black;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   justify-items: end;
   grid-template-areas:
     "V V I"
