@@ -7,9 +7,10 @@ type Props = {
   transactionType: boolean
   openModal: () => void
   filterMonth: number
+  filterWeek: string
 }
 
-const useTransactionList = ({ db, transactionType, openModal, filterMonth }: Props) => {
+const useTransactionList = ({ db, transactionType, openModal, filterMonth, filterWeek }: Props) => {
   const filterType = transactionType ? 'Income' : 'Expenses'
   const [listTransaction, setListTransaction] = useState<TransactionData[]>([]);
   const formatFilterMonth = filterMonth < 10
@@ -17,17 +18,15 @@ const useTransactionList = ({ db, transactionType, openModal, filterMonth }: Pro
     : filterMonth.toString()
 
   useEffect(() => {
-    console.log(formatFilterMonth)
     let isActive = true
-    db.get(formatFilterMonth, filterType).then((listExpenses) => {
+    db.get(formatFilterMonth, filterType, filterWeek).then((listExpenses) => {
       if (isActive) {
         setListTransaction(listExpenses)
-        console.log('render')
       }
     })
 
     return () => { isActive = false }
-  }, [transactionType, openModal, filterMonth])
+  }, [transactionType, openModal, filterMonth, filterWeek])
 
   return [listTransaction] as const
 }

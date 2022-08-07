@@ -10,6 +10,8 @@ import { ToggleBtn } from '../buttons/toggle-btn';
 import DateFilter from '../buttons/filter/date';
 import useFilterDate from './hooks/useFilterDate';
 import { Wrapper } from '../buttons/filter/date/styled';
+import { arrayGenerator } from '../../utility/arrayGenerator';
+import { getWeek } from './services/filterDate';
 
 type Props = {
   db: TransactionListDb
@@ -18,11 +20,15 @@ type Props = {
 }
 
 const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
+  const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+  const weeks = arrayGenerator(4)
+  const [filterWeek, updateFilterWeek] = useFilterDate(getWeek(new Date().getDate()).toString())
+
   const [toggle, triggerFilterToggle] = useToggle()
   const transactionType = toggle.toggle
-  const [months, filter, updateFilter] = useFilterDate()
+  const [filter, updateFilter] = useFilterDate(months[new Date().getMonth()])
   const filterMonth = months.indexOf(filter) + 1
-  const [listTransaction] = useTransactionList({ db, transactionType, openModal, filterMonth })
+  const [listTransaction] = useTransactionList({ db, transactionType, openModal, filterMonth, filterWeek })
 
   return (
     <>
@@ -41,16 +47,25 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
           dateType={''}
         />
       </Wrapper>
+      <Wrapper>
+        {'Semana'}
+        <DateFilter
+          change={updateFilterWeek}
+          dateSelected={filterWeek}
+          filter={weeks}
+          dateType={''}
+        />
+      </Wrapper>
       <List>
         {listTransaction.map(transaction => {
           // eslint-disable-next-line no-unused-vars
-          const [dia, mes, ano] = splitDate(transaction.date)
+          const { day, month, year } = splitDate(transaction.date)
 
           return (
             <TransactionItem key={transaction.id}>
               <Item gridArea="A">{formatNumber(transaction.amount)}</Item>
               <Item gridArea="C">{transaction.category}</Item>
-              <Item gridArea="D">{`${dia}/${mes}`}</Item>
+              <Item gridArea="D">{`${day}/${month}`}</Item>
               <Item gridArea="I">
                 <EditIcon
                   onClick={() => {
