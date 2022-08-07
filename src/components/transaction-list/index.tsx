@@ -21,7 +21,7 @@ type Props = {
 
 const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
   const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-  const weeks = arrayGenerator(4)
+  const weeks = arrayGenerator(4, 'todas')
   const [filterWeek, updateFilterWeek] = useFilterDate(getWeek(new Date().getDate()).toString())
 
   const [toggle, triggerFilterToggle] = useToggle()

@@ -13,11 +13,9 @@ export class TransactionListDb {
     const result: TransactionData[] = await this.db.db.getAllFromIndex(
       store,
       "date"
-    );
-
-    const resultFilter = result.filter(
-      (transaction) => filterData(transaction, filterWeek, filterType)
-    );
-    return resultFilter;
+    )
+    if (filterWeek === 'todas') return result.filter(transaction => transaction.type === filterType)
+    return result.filter(transaction => filterData(transaction, filterWeek, filterType))
+    // return resultFilter;
   }
 }
