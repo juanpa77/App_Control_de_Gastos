@@ -44,7 +44,7 @@ const useTransaction = ({ db, openModal, editTransaction }: Props) => {
 
   const sendTransaction = (transaction: TransactionData, ev: FormEvent<HTMLButtonElement>) => {
     // eslint-disable-next-line no-unused-vars
-    const [day, month] = splitDate(transaction.date);
+    const { day, month } = splitDate(transaction.date);
     if (transaction.amount > 0) {
       editTransaction
         ? db.updateIncome({ store: month, data: transaction })

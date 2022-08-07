@@ -20,7 +20,7 @@ const useEditTransaction = ({ db, closeModal, closeModalConfirmation }: Props) =
 
   const deleteTransaction = () => {
     // eslint-disable-next-line no-unused-vars
-    const [day, month] = splitDate(selctedTransaction?.date!);
+    const { day, month } = splitDate(selctedTransaction?.date!);
     db.db.deletTransaction({ store: month, data: selctedTransaction! });
     closeModalConfirmation();
     closeModal();

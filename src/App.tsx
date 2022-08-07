@@ -3,7 +3,6 @@ import "./style/expenseLayut.css";
 import "./components/transaction-list/transaction-list-itm.css";
 import { Idb } from "./utility/IDB";
 
-// import { Transaction } from "./views/add-new-transaction/add-Transaction";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/layout";
 import { TransactionListDb } from "./components/transaction-list/services/getTransactionList";
