@@ -9,7 +9,7 @@ import { Modal } from "../modal/modal";
 
 export const Config = ({ db }: { db: Idb }) => {
   const [isOpenModalEdit, openModalEdit, closeModalEdit] = useModal();
-  const [isOpenModal, openModal, closeModal] = useModal();
+  const [isOpenModal, openModal, closeModal] = useModal(true);
   const [newCategory, setNewcategory] = useState("");
   const { category, setCategory } = useCategoryContex();
 
