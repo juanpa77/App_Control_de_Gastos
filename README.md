@@ -19,10 +19,23 @@ add box-shadow in toggle button //done
 modify card design trnasaction list //done
 
 add reset css //done
-refactorin in folders button
+refactorin in folders button //done
+toggle btn moved to folder btn //done
 add filter btn for filter date {
-  add selected btn DataFilter Componenet
+  add selected btn DataFilter Componenet //done
   add btn DataFilter in TransactionList 
   add month filter in useTransactionList
   create useFilterDate return filter 
 }
+
+<!-- Refactoring Style -->
+change size of item TransactionList  //done
+delet with 100% in svg reset.css //done
+
+<!-- New features -->
+add new btn filterWeek in transactionLlist
+refactoring in useFilterDate for reusable with weeks filter
+add arrayGenerator in utility
+
+<!-- Refactorin -->
+change method split date return object
