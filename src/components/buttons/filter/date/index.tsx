@@ -2,7 +2,6 @@ import { ChangeEvent } from "react"
 import { Date } from "./styled"
 
 type Props = {
-  dateType: string
   filter: string[]
   dateSelected: string
   change: (e: ChangeEvent<HTMLSelectElement>) => void

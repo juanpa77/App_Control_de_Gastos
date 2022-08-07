@@ -12,6 +12,7 @@ import useFilterDate from './hooks/useFilterDate';
 import { Wrapper } from '../buttons/filter/date/styled';
 import { arrayGenerator } from '../../utility/arrayGenerator';
 import { getWeek } from './services/filterDate';
+import { useCategoryContex } from '../../hooks/useContex';
 
 type Props = {
   db: TransactionListDb
@@ -20,13 +21,15 @@ type Props = {
 }
 
 const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
+  const category = useCategoryContex()
   const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
   const weeks = arrayGenerator(4, 'todas')
   const [filterWeek, updateFilterWeek] = useFilterDate(getWeek(new Date().getDate()).toString())
+  const [filter, updateFilter] = useFilterDate(months[new Date().getMonth()])
+  const [categoryFilter, updateCategoryFilter] = useFilterDate(category.category[0])
 
   const [toggle, triggerFilterToggle] = useToggle()
   const transactionType = toggle.toggle
-  const [filter, updateFilter] = useFilterDate(months[new Date().getMonth()])
   const filterMonth = months.indexOf(filter) + 1
   const [listTransaction] = useTransactionList({ db, transactionType, openModal, filterMonth, filterWeek })
 
@@ -45,7 +48,6 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
             change={updateFilter}
             dateSelected={filter}
             filter={months}
-            dateType={''}
           />
         </Wrapper>
         <Wrapper>
@@ -54,7 +56,14 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
             change={updateFilterWeek}
             dateSelected={filterWeek}
             filter={weeks}
-            dateType={''}
+          />
+        </Wrapper>
+        <Wrapper>
+          {'Categoria'}
+          <DateFilter
+            change={updateCategoryFilter}
+            dateSelected={categoryFilter}
+            filter={category.category}
           />
         </Wrapper>
       </WrapperFilter>
