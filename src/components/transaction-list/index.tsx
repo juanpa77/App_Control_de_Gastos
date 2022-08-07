@@ -4,7 +4,7 @@ import { TransactionData } from "../transaction-form/useTransaction";
 import { TransactionListDb } from "./services/getTransactionList";
 import useTransactionList from "./hooks/useTransactionList";
 import useToggle from "../buttons/toggle-btn/useToggle";
-import { Filter, Item, List, TransactionItem } from "./styled";
+import { Filter, Item, List, TransactionItem, WrapperFilter } from "./styled";
 import { formatNumber, splitDate } from "../../utility/formatDate";
 import { ToggleBtn } from '../buttons/toggle-btn';
 import DateFilter from '../buttons/filter/date';
@@ -38,29 +38,29 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
           toggle={toggle}
         />
       </Filter>
-      <Wrapper>
-        {'Mes'}
-        <DateFilter
-          change={updateFilter}
-          dateSelected={filter}
-          filter={months}
-          dateType={''}
-        />
-      </Wrapper>
-      <Wrapper>
-        {'Semana'}
-        <DateFilter
-          change={updateFilterWeek}
-          dateSelected={filterWeek}
-          filter={weeks}
-          dateType={''}
-        />
-      </Wrapper>
+      <WrapperFilter>
+        <Wrapper>
+          {'Mes'}
+          <DateFilter
+            change={updateFilter}
+            dateSelected={filter}
+            filter={months}
+            dateType={''}
+          />
+        </Wrapper>
+        <Wrapper>
+          {'Semana'}
+          <DateFilter
+            change={updateFilterWeek}
+            dateSelected={filterWeek}
+            filter={weeks}
+            dateType={''}
+          />
+        </Wrapper>
+      </WrapperFilter>
       <List>
         {listTransaction.map(transaction => {
-          // eslint-disable-next-line no-unused-vars
-          const { day, month, year } = splitDate(transaction.date)
-
+          const { day, month } = splitDate(transaction.date)
           return (
             <TransactionItem key={transaction.id}>
               <Item gridArea="A">{formatNumber(transaction.amount)}</Item>

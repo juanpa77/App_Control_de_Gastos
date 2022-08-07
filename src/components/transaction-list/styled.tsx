@@ -73,3 +73,7 @@ export const Item = styled('div')`
   grid-area: ${({ gridArea }: Props) => gridArea};
   font-size: 40px;
 `
+
+export const WrapperFilter = styled('div')`
+  display: flex;
+`
