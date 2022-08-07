@@ -6,7 +6,11 @@ export const formatDate = (date: Date): string => {
 
 export const splitDate = (date: string) => {
   const formatDate = date.split("-").reverse();
-  return formatDate;
+  return {
+    day: formatDate[0],
+    month: formatDate[1],
+    year: formatDate[2]
+  }
 };
 
 export const formatNumber = (number: number) => {
