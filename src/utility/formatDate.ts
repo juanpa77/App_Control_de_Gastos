@@ -13,6 +13,13 @@ export const splitDate = (date: string) => {
   }
 };
 
+export const formatNumberMonth = (month: number): string => {
+  const formatMonth = month + 1
+  return formatMonth < 9
+    ? '0' + formatMonth.toString()
+    : formatMonth.toString()
+}
+
 export const formatNumber = (number: number) => {
   return new Intl.NumberFormat("es-ar", {
     style: "currency",

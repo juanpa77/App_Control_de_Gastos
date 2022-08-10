@@ -1,3 +1,4 @@
+import { Filters } from "..";
 import { Idb } from "../../../utility/IDB";
 import { TransactionData } from "../../transaction-form/useTransaction";
 import filterData from './filterDate'
@@ -8,14 +9,13 @@ export class TransactionListDb {
     this.db = db;
   }
 
-  async get(store: string, filterType: string, filterWeek: string): Promise<TransactionData[]> {
+  async get(filters: Filters): Promise<TransactionData[]> {
+    console.log(filters)
     await this.db.openDB();
     const result: TransactionData[] = await this.db.db.getAllFromIndex(
-      store,
+      filters.month,
       "date"
     )
-    if (filterWeek === 'todas') return result.filter(transaction => transaction.type === filterType)
-    return result.filter(transaction => filterData(transaction, filterWeek, filterType))
-    // return resultFilter;
+    return filterData(result, filters)
   }
 }

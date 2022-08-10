@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Base } from "../../styled";
+import { Base } from "../styled";
 
 export const Date = styled('select')`
   width: 82px;

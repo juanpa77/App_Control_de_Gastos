@@ -1,19 +1,19 @@
 import { ChangeEvent } from "react"
-import { Date } from "./styled"
+import { Date } from "../filter/styled"
 
 type Props = {
-  filter: string[]
+  options: string[]
   dateSelected: string
   change: (e: ChangeEvent<HTMLSelectElement>) => void
 }
 
-const DateFilter = ({ dateSelected, filter, change }: Props) => {
+const DateFilter = ({ dateSelected, options, change }: Props) => {
 
   return (
     <Date onChange={(e) => change(e)} value={dateSelected}>
-      {filter.map(month => {
+      {options.map(option => {
         return (
-          <option value={month} key={month} >{month}</option>
+          <option value={option} key={option} >{option}</option>
         )
       })}
     </Date>

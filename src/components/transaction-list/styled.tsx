@@ -59,7 +59,7 @@ export const TransactionItem = styled('li')`
     }
 `
 
-export const Filter = styled('div')`
+export const FilterBtn = styled('div')`
   display: flex;
   justify-content: center;
   padding: 10px;

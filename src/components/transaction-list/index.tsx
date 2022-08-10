@@ -4,14 +4,13 @@ import { TransactionData } from "../transaction-form/useTransaction";
 import { TransactionListDb } from "./services/getTransactionList";
 import useTransactionList from "./hooks/useTransactionList";
 import useToggle from "../buttons/toggle-btn/useToggle";
-import { Filter, Item, List, TransactionItem, WrapperFilter } from "./styled";
-import { formatNumber, splitDate } from "../../utility/formatDate";
+import { FilterBtn, Item, List, TransactionItem, WrapperFilter } from "./styled";
+import { formatNumber, formatNumberMonth, splitDate } from "../../utility/formatDate";
 import { ToggleBtn } from '../buttons/toggle-btn';
-import DateFilter from '../buttons/filter/date';
+import DateFilter from '../buttons/filter';
 import useFilterDate from './hooks/useFilterDate';
-import { Wrapper } from '../buttons/filter/date/styled';
+import { Wrapper } from '../buttons/filter/styled';
 import { arrayGenerator } from '../../utility/arrayGenerator';
-import { getWeek } from './services/filterDate';
 import { useCategoryContex } from '../../hooks/useContex';
 
 type Props = {
@@ -20,34 +19,47 @@ type Props = {
   setSelectedTransaction: Dispatch<SetStateAction<TransactionData | undefined>>
 }
 
+export interface Filters {
+  type: string
+  week: string
+  month: string
+  category: string
+}
+
 const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
-  const category = useCategoryContex()
+  const categories = useCategoryContex()
   const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
   const weeks = arrayGenerator(4, 'todas')
-  const [filterWeek, updateFilterWeek] = useFilterDate(getWeek(new Date().getDate()).toString())
-  const [filter, updateFilter] = useFilterDate(months[new Date().getMonth()])
-  const [categoryFilter, updateCategoryFilter] = useFilterDate(category.category[0])
 
+  const [filterWeek, updateFilterWeek] = useFilterDate(weeks[4])
+  const [filter, updateFilter] = useFilterDate(months[new Date().getMonth()])
+  const [categoryFilter, updateCategoryFilter] = useFilterDate(categories.category[0])
   const [toggle, triggerFilterToggle] = useToggle()
-  const transactionType = toggle.toggle
-  const filterMonth = months.indexOf(filter) + 1
-  const [listTransaction] = useTransactionList({ db, transactionType, openModal, filterMonth, filterWeek })
+
+  const filters: Filters = {
+    week: filterWeek,
+    month: formatNumberMonth(months.indexOf(filter)),
+    type: toggle.toggle ? 'Income' : 'Expenses',
+    category: categoryFilter
+  }
+
+  const [listTransaction] = useTransactionList({ db, openModal, filters })
 
   return (
     <>
-      <Filter>
+      <FilterBtn>
         <ToggleBtn
           triggerToggle={triggerFilterToggle}
           toggle={toggle}
         />
-      </Filter>
+      </FilterBtn>
       <WrapperFilter>
         <Wrapper>
           {'Mes'}
           <DateFilter
             change={updateFilter}
             dateSelected={filter}
-            filter={months}
+            options={months}
           />
         </Wrapper>
         <Wrapper>
@@ -55,7 +67,7 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
           <DateFilter
             change={updateFilterWeek}
             dateSelected={filterWeek}
-            filter={weeks}
+            options={weeks}
           />
         </Wrapper>
         <Wrapper>
@@ -63,7 +75,7 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
           <DateFilter
             change={updateCategoryFilter}
             dateSelected={categoryFilter}
-            filter={category.category}
+            options={categories.category}
           />
         </Wrapper>
       </WrapperFilter>
