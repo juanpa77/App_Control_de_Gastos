@@ -36,6 +36,8 @@ delet with 100% in svg reset.css //done
 add new btn filterWeek in transactionLlist
 refactoring in useFilterDate for reusable with weeks filter
 add arrayGenerator in utility
-
+add interface filters for method get of transaction list
 <!-- Refactorin -->
 change method split date return object
+
+neww utiliti function getNumberOfMonth 

@@ -13,6 +13,11 @@ export const splitDate = (date: string) => {
   }
 };
 
+export const getNumberOfMonth = (month: string) => {
+  const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+  return months.indexOf(month)
+}
+
 export const formatNumberMonth = (month: number): string => {
   const formatMonth = month + 1
   return formatMonth < 9
