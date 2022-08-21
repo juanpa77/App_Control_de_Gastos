@@ -5,10 +5,9 @@ import { TransactionListDb } from "./services/getTransactionList";
 import useTransactionList from "./hooks/useTransactionList";
 import useToggle from "../buttons/toggle-btn/useToggle";
 import { FilterBtn, Item, List, TransactionItem, WrapperFilter } from "./styled";
-import { formatNumber, formatNumberMonth, splitDate } from "../../utility/formatDate";
+import { formatNumber, splitDate } from "../../utility/formatDate";
 import { ToggleBtn } from '../buttons/toggle-btn';
 import DateFilter from '../buttons/filter';
-import useFilterDate from './hooks/useFilterDate';
 import { Wrapper } from '../buttons/filter/styled';
 import { arrayGenerator } from '../../utility/arrayGenerator';
 import { useCategoryContex } from '../../hooks/useContex';
@@ -30,20 +29,8 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
   const categories = useCategoryContex()
   const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
   const weeks = arrayGenerator(4, 'todas')
-
-  const [filterWeek, updateFilterWeek] = useFilterDate(weeks[4])
-  const [filter, updateFilter] = useFilterDate(months[new Date().getMonth()])
-  const [categoryFilter, updateCategoryFilter] = useFilterDate(categories.category[0])
   const [toggle, triggerFilterToggle] = useToggle()
-
-  const filters: Filters = {
-    week: filterWeek,
-    month: formatNumberMonth(months.indexOf(filter)),
-    type: toggle.toggle ? 'Income' : 'Expenses',
-    category: categoryFilter
-  }
-
-  const [listTransaction] = useTransactionList({ db, openModal, filters })
+  const [transactionsList] = useTransactionList({ db, openModal, toggle: toggle.toggle })
 
   return (
     <>
@@ -57,30 +44,28 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
         <Wrapper>
           {'Mes'}
           <DateFilter
-            change={updateFilter}
-            dateSelected={filter}
+            initValue={months[new Date().getMonth()]}
+            name='month'
             options={months}
           />
         </Wrapper>
         <Wrapper>
           {'Semana'}
           <DateFilter
-            change={updateFilterWeek}
-            dateSelected={filterWeek}
+            name='week'
             options={weeks}
           />
         </Wrapper>
         <Wrapper>
           {'Categoria'}
           <DateFilter
-            change={updateCategoryFilter}
-            dateSelected={categoryFilter}
+            name='category'
             options={categories.category}
           />
         </Wrapper>
       </WrapperFilter>
       <List>
-        {listTransaction.map(transaction => {
+        {transactionsList.map(transaction => {
           const { day, month } = splitDate(transaction.date)
           return (
             <TransactionItem key={transaction.id}>

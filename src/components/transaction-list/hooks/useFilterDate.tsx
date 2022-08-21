@@ -1,11 +1,26 @@
-import { ChangeEvent, useState } from "react"
+import { useEffect, useState } from "react"
+import { Observable } from "rxjs"
+import { Filters } from ".."
+import { formatNumberMonth } from "../../../utility/formatDate"
+import { TransactionData } from "../../transaction-form/useTransaction"
+import { sharingFilter } from "../services/sharing-filter"
 
-const useFilterDate = (initValue: string) => {
-  const [filter, setFilter] = useState(initValue)
+const useFilterDate = (toggle: boolean) => {
+  const subcritpionFilter = sharingFilter.getSubject
+  const [filters, setFilters] = useState<Filters>({
+    category: 'todas',
+    week: 'todas',
+    month: formatNumberMonth(new Date().getMonth()),
+    type: toggle ? 'Income' : 'Expenses',
+  })
 
-  const updateFilter = (e: ChangeEvent<HTMLSelectElement>) => setFilter(e.target.value)
+  useEffect(() => {
+    subcritpionFilter.subscribe(filter => {
+      setFilters(filter)
+    })
+  }, [filters])
 
-  return [filter, updateFilter] as const
+  return filters
 }
 
 export default useFilterDate

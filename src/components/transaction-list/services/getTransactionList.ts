@@ -9,13 +9,12 @@ export class TransactionListDb {
     this.db = db;
   }
 
-  async get(filters: Filters): Promise<TransactionData[]> {
-    console.log(filters)
+  async get(month: string): Promise<TransactionData[]> {
     await this.db.openDB();
     const result: TransactionData[] = await this.db.db.getAllFromIndex(
-      filters.month,
+      month,
       "date"
     )
-    return filterData(result, filters)
+    return result
   }
 }

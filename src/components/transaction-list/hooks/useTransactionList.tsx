@@ -1,31 +1,38 @@
 import { useState, useEffect } from "react";
-import { Filters } from "..";
+// import { Filters } from "..";
 import { TransactionData } from "../../transaction-form/useTransaction";
 import { TransactionListDb } from "../services/getTransactionList";
-import { sharingFilter } from "../services/sharing-filter";
+import useFilterDate from "./useFilterDate";
+import filterData from '../services/filterDate'
 
 type Props = {
   db: TransactionListDb
   openModal: () => void
-  filters: Filters
+  toggle: boolean
 }
 
-const useTransactionList = ({ db, openModal, filters }: Props) => {
-  const [listTransaction, setListTransaction] = useState<TransactionData[]>([]);
-  const subcritpionFilter = sharingFilter.getSubject
+const useTransactionList = ({ db, openModal, toggle }: Props) => {
+  const [transactionsList, setTransactionsList] = useState<TransactionData[]>([])
+  const [filteredTransactionsList, setFilteredTransactionsList] = useState<TransactionData[]>(transactionsList)
+  const filters = useFilterDate(toggle)
+
   useEffect(() => {
     let isActive = true
-    subcritpionFilter.subscribe(filte => console.log(filte))
-    db.get(filters).then((listExpenses) => {
+    db.get(filters.month).then((listExpenses) => {
       if (isActive) {
-        setListTransaction(listExpenses)
+        setTransactionsList(listExpenses)
       }
     })
 
     return () => { isActive = false }
-  }, [filters.type, openModal, filters.month, filters.week, filters.category])
+  }, [openModal, filters.month])
 
-  return [listTransaction] as const
+  useEffect(() => {
+    setFilteredTransactionsList(filterData(transactionsList, filters))
+    console.log(transactionsList)
+  }, [filters])
+
+  return [filteredTransactionsList] as const
 }
 
 export default useTransactionList
