@@ -54,6 +54,7 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
           <DateFilter
             name='week'
             options={weeks}
+            initValue={'todas'}
           />
         </Wrapper>
         <Wrapper>
