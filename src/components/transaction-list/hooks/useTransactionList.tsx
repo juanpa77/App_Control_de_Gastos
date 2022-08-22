@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import { Filters } from "..";
 import { TransactionData } from "../../transaction-form/useTransaction";
 import { TransactionListDb } from "../services/getTransactionList";
 import useFilterDate from "./useFilterDate";
@@ -8,29 +7,32 @@ import filterData from '../services/filterDate'
 type Props = {
   db: TransactionListDb
   openModal: () => void
-  toggle: boolean
 }
 
-const useTransactionList = ({ db, openModal, toggle }: Props) => {
+const useTransactionList = ({ db, openModal }: Props) => {
+  const [load, setLoad] = useState(true)
   const [transactionsList, setTransactionsList] = useState<TransactionData[]>([])
-  const [filteredTransactionsList, setFilteredTransactionsList] = useState<TransactionData[]>(transactionsList)
-  const filters = useFilterDate(toggle)
+  const [filteredTransactionsList, setFilteredTransactionsList] = useState<TransactionData[]>([])
+
+  const filters = useFilterDate()
+
+  useEffect(() => { if (transactionsList !== []) setLoad(false) })
 
   useEffect(() => {
     let isActive = true
-    db.get(filters.month).then((listExpenses) => {
+
+    db.get(filters.month).then((transactions) => {
       if (isActive) {
-        setTransactionsList(listExpenses)
+        setTransactionsList(transactions)
       }
     })
 
     return () => { isActive = false }
-  }, [openModal, filters.month])
+  }, [openModal, filters.month, load])
 
   useEffect(() => {
-    setFilteredTransactionsList(filterData(transactionsList, filters))
-    console.log(transactionsList)
-  }, [filters])
+    transactionsList && setFilteredTransactionsList(filterData(transactionsList, filters))
+  }, [filters, transactionsList])
 
   return [filteredTransactionsList] as const
 }

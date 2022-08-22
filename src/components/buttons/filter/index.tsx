@@ -1,22 +1,20 @@
-import { ChangeEvent, useState } from "react"
-import { sharingFilter } from "../../transaction-list/services/sharing-filter"
+import { Filters } from "../../transaction-list"
 import { Date } from "../filter/styled"
+import { useFilter } from "./useFilter"
 
 type Props = {
   options: string[]
-  name: string
+  name: `${keyof Filters}`
   initValue?: string
 }
 
 const DateFilter = ({ options, name, initValue }: Props) => {
-  // const [selected, setSelected] = useState('')
-  const getFilter = sharingFilter.getSubject.subscribe({ next: (v) => setSelected(v.month) })
-  const handleFilter = (e: ChangeEvent<HTMLSelectElement>) => sharingFilter.setSubject = { name, value: e.target.value }
+  const [selected, handleFilter] = useFilter(name)
 
   return (
     <Date
       onChange={(e) => handleFilter(e)}
-      value={filter.month}
+      defaultValue={initValue}
     >
       {options.map(option => {
         return (

@@ -30,7 +30,7 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
   const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
   const weeks = arrayGenerator(4, 'todas')
   const [toggle, triggerFilterToggle] = useToggle()
-  const [transactionsList] = useTransactionList({ db, openModal, toggle: toggle.toggle })
+  const [transactionsList] = useTransactionList({ db, openModal })
 
   return (
     <>
@@ -44,8 +44,8 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
         <Wrapper>
           {'Mes'}
           <DateFilter
-            initValue={months[new Date().getMonth()]}
             name='month'
+            initValue={months[new Date().getMonth()]}
             options={months}
           />
         </Wrapper>
@@ -65,7 +65,7 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
         </Wrapper>
       </WrapperFilter>
       <List>
-        {transactionsList.map(transaction => {
+        {transactionsList?.map(transaction => {
           const { day, month } = splitDate(transaction.date)
           return (
             <TransactionItem key={transaction.id}>
