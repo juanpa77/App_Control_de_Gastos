@@ -20,7 +20,7 @@ export const getNumberOfMonth = (month: string) => {
 
 export const formatNumberMonth = (month: number): string => {
   const formatMonth = month + 1
-  return formatMonth < 9
+  return formatMonth <= 9
     ? '0' + formatMonth.toString()
     : formatMonth.toString()
 }
