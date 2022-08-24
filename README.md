@@ -41,3 +41,7 @@ add interface filters for method get of transaction list
 change method split date return object
 
 neww utiliti function getNumberOfMonth 
+
+
+<!-- Add Login -->
+new view 
