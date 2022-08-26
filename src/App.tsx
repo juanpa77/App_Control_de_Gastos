@@ -12,6 +12,7 @@ import { Config } from "./components/config";
 import { AccountSumary } from "./views/account-sumary";
 import NewTransaction from "./views/add-new-transaction";
 import ShowTransactions from "./views/show-transactions";
+import ProtectedRoute from "./routes/protectedRoute";
 
 function App() {
   const db = new Idb();
@@ -21,19 +22,13 @@ function App() {
       <CategoryProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<AccountSumary db={db} />} />
-            <Route path="/config" element={<Config db={db} />} />
-            <Route path="/transaction" element={<NewTransaction db={db} />} />
-            <Route
-              path="/successful-transaction"
-              element={<SuccessfulTransaction />}
-            />
-            <Route
-              path="/transaction-list"
-              element={
-                <ShowTransactions db={new TransactionListDb(db)} />
-              }
-            />
+            <Route element={<ProtectedRoute />}>
+              <Route index element={<AccountSumary db={db} />} />
+              <Route path="/config" element={<Config db={db} />} />
+              <Route path="/transaction" element={<NewTransaction db={db} />} />
+              <Route path="successful-transaction" element={<SuccessfulTransaction />} />
+              <Route path="/transaction-list" element={<ShowTransactions db={new TransactionListDb(db)} />} />
+            </Route>
           </Route>
         </Routes>
       </CategoryProvider>
