@@ -4,13 +4,9 @@ import Login from "../views/login"
 
 const ProtectedRoute = () => {
   const login = useAppSelector((user) => user)
-
-  if (!login.user.userToken) {
-    return (
-      <Login />
-    )
-  }
-  return <Outlet />
+  return !login.user.userToken
+    ? <Login />
+    : <Outlet />
 }
 
 export default ProtectedRoute

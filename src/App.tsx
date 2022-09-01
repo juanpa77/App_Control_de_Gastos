@@ -13,6 +13,7 @@ import { AccountSumary } from "./views/account-sumary";
 import NewTransaction from "./views/add-new-transaction";
 import ShowTransactions from "./views/show-transactions";
 import ProtectedRoute from "./routes/protectedRoute";
+import Login from "./views/login";
 
 function App() {
   const db = new Idb();
@@ -22,6 +23,7 @@ function App() {
       <CategoryProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route path="/login" element={<Login />} />
             <Route element={<ProtectedRoute />}>
               <Route index element={<AccountSumary db={db} />} />
               <Route path="/config" element={<Config db={db} />} />
