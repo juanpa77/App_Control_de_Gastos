@@ -11,13 +11,13 @@ const Login = () => {
   const dispatch = useAppDispatch()
 
   const isAuth: NextOrObserver<User> = user => {
-    user && dispatch(setActiveUser({
+    dispatch(setActiveUser({
       loading: true,
       userInfo: {
-        email: user.displayName,
-        name: user.email
+        email: user?.displayName,
+        name: user?.email
       },
-      userToken: user.uid
+      userToken: user?.uid
     }))
   }
 

@@ -3,10 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export interface User {
   loading: boolean
   userInfo: {
-    name: string | null
-    email: string | null
+    name: string | null | undefined
+    email: string | null | undefined
   }
-  userToken: string | null,
+  userToken: string | null | undefined,
   // error: null,
   // success: false
 }
