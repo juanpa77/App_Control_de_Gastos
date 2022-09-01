@@ -1,9 +1,10 @@
-import { getAuth, GoogleAuthProvider, NextOrObserver, onAuthStateChanged, signInWithPopup, signOut, User } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, NextOrObserver, onAuthStateChanged, signInWithPopup, User } from 'firebase/auth'
 import { firebaseApp } from './firebaseConfig'
 
 export const provider = new GoogleAuthProvider()
 
 export const auth = getAuth(firebaseApp);
+
 export const signWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -12,8 +13,6 @@ export const signWithGoogle = () => {
       const token = credential?.accessToken;
       // The signed-in user info.
       const user = result.user;
-      // console.log(user, token)
-      // ...
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -26,10 +25,6 @@ export const signWithGoogle = () => {
     })
 }
 
-export const signOff = () => {
-  signOut(auth)
-    .then(() => console.log('susses'))
-    .catch((error) => console.log(error))
-}
+export const signOff = () => auth.signOut()
 
 export const observerAuth = (collback: NextOrObserver<User>) => onAuthStateChanged(auth, collback)

@@ -23,7 +23,6 @@ const Login = () => {
 
   useEffect(() => {
     observerAuth(isAuth)
-    console.log(loguin)
   }, [loguin])
 
   return (
