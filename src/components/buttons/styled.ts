@@ -10,6 +10,7 @@ export const Base = styled('button')`
   cursor: pointer;
   border: none;
   width: 100px;
+  min-height: 20px;
 `
 
 export const Button = styled(Base)`

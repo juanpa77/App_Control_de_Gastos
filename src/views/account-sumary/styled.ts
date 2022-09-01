@@ -13,7 +13,7 @@ export const Wrapper = styled('div')`
 export const Footer = styled('div')`
   display: grid;
   color: white;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   width: 100%;
   justify-content: center;
   align-items: center;

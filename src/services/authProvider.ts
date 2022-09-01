@@ -1,4 +1,4 @@
-import { getAuth, GoogleAuthProvider, NextOrObserver, onAuthStateChanged, signInWithPopup, User } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, NextOrObserver, onAuthStateChanged, signInWithPopup, signOut, User } from 'firebase/auth'
 import { firebaseApp } from './firebaseConfig'
 
 export const provider = new GoogleAuthProvider()
@@ -24,6 +24,12 @@ export const signWithGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
     })
+}
+
+export const signOff = () => {
+  signOut(auth)
+    .then(() => console.log('susses'))
+    .catch((error) => console.log(error))
 }
 
 export const observerAuth = (collback: NextOrObserver<User>) => onAuthStateChanged(auth, collback)
