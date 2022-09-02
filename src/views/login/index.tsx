@@ -1,5 +1,6 @@
 import { NextOrObserver, User } from "firebase/auth"
 import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { Base } from "../../components/buttons/styled"
 import { setActiveUser } from "../../features/user/userSlice"
 import { useAppDispatch, useAppSelector } from "../../hooks/useAuth"
@@ -9,6 +10,7 @@ import { Wrapper } from "./styled"
 const Login = () => {
   const loguin = useAppSelector(state => state)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const isAuth: NextOrObserver<User> = user => {
     dispatch(setActiveUser({
@@ -21,6 +23,12 @@ const Login = () => {
     }))
   }
 
+  // add (login)
+  const login = () => {
+    signWithGoogle()
+    navigate('/')
+  }
+
   useEffect(() => {
     observerAuth(isAuth)
   }, [loguin])
@@ -28,7 +36,7 @@ const Login = () => {
   return (
     <Wrapper>
       <em>Login with Google</em>
-      <Base onClick={() => signWithGoogle()} />
+      <Base onClick={login} />
     </Wrapper>
   )
 }
