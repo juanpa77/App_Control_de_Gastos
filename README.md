@@ -48,3 +48,4 @@ new view //done
 
 <!-- Add Cloud Firestore -->
 //-- For use on multiple devices and sync up them with data on local storage
+

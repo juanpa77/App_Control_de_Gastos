@@ -33,8 +33,8 @@ const userSlice = createSlice({
       state.userToken = action.payload.userToken
     },
     setLogOutUser: state => {
-      state.userInfo.name = '',
-        state.userInfo.email = null
+      state.userInfo.name = null
+      state.userInfo.email = null
     }
   },
   extraReducers: {}

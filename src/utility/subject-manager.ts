@@ -18,6 +18,7 @@ export class SubjectManager {
     return this.subject$.asObservable()
   }
 
+  // eslint-disable-next-line accessor-pairs
   set setSubject(filter: Filter) {
     if (filter.name === 'month') {
       this.subject$.next({

@@ -9,7 +9,7 @@ type Props = {
 }
 
 const DateFilter = ({ options, name, initValue }: Props) => {
-  const [selected, handleFilter] = useFilter(name)
+  const handleFilter = useFilter(name)
 
   return (
     <Date

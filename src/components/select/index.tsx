@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const Select = ({ handleInputChange, defaultCategory }: Props) => {
-  const { category, setCategory } = useCategoryContex();
+  const { category } = useCategoryContex();
 
   return (
     <select

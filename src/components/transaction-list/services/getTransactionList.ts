@@ -1,7 +1,5 @@
-import { Filters } from "..";
 import { Idb } from "../../../utility/IDB";
 import { TransactionData } from "../../transaction-form/useTransaction";
-import filterData from './filterDate'
 export class TransactionListDb {
   db: Idb;
 
