@@ -1,5 +1,5 @@
 import { getAuth, GoogleAuthProvider, NextOrObserver, onAuthStateChanged, signInWithPopup, User } from 'firebase/auth'
-import { firebaseApp } from './firebaseConfig'
+import { firebaseApp } from './config'
 
 export const provider = new GoogleAuthProvider()
 

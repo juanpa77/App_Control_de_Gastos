@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { Base } from "../../components/buttons/styled"
 import { setActiveUser } from "../../features/user/userSlice"
 import { useAppDispatch, useAppSelector } from "../../hooks/useAuth"
-import { observerAuth, signWithGoogle } from "../../services/authProvider"
+import { observerAuth, signWithGoogle } from "../../services/firebase/authProvider"
 import { Wrapper } from "./styled"
 
 const Login = () => {

@@ -3,7 +3,7 @@ import { Base } from "../../components/buttons/styled"
 import { Modal } from "../../components/modal/modal"
 import { setLogOutUser } from "../../features/user/userSlice"
 import { useAppDispatch } from "../../hooks/useAuth"
-import { signOff } from "../../services/authProvider"
+import { signOff } from "../../services/firebase/authProvider"
 
 type Props = {
   isOpenModal: boolean

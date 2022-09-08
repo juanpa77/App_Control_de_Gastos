@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { useState, FormEvent, ChangeEvent, useEffect } from "react";
 import { useAppSelector } from '../../hooks/useAuth'
-import { sendTransactionFirebase } from "../../services/sendDataFirebase";
+import { sendTransactionFirebase } from "../../services/firebase/client";
 import { splitDate, formatDate } from "../../utility/formatDate";
 import { Idb } from "../../utility/IDB";
 import useToggle from "../buttons/toggle-btn/useToggle";

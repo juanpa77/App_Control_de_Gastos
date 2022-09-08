@@ -1,7 +1,7 @@
-import { db } from "./firebaseConfig";
+import { db } from "./config";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { TransactionData } from "../components/transaction-form/useTransaction";
-import { splitDate } from "../utility/formatDate";
+import { TransactionData } from "../../components/transaction-form/useTransaction";
+import { splitDate } from "../../utility/formatDate";
 
 interface Data {
   userToquen: string | null | undefined
