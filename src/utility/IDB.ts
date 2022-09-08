@@ -47,17 +47,12 @@ export class Idb {
       await this.db.delete(transaction.store, transaction.data.id);
   }
 
-  async updateIncome(transaction: fechDb) {
+  async updateTransaction(transaction: fechDb) {
     this.openDB();
     await this.db.put(transaction.store, transaction.data);
   }
 
-  async addIncome(transaction: fechDb) {
-    this.openDB();
-    await this.db.add(transaction.store, transaction.data);
-  }
-
-  async addExpenses(transaction: fechDb) {
+  async addTransaction(transaction: fechDb) {
     this.openDB();
     await this.db.add(transaction.store, transaction.data);
   }

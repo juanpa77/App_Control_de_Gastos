@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Spinner = styled('div')`
+export const SpinnerCircle = styled('div')`
   width: 50px;
   height: 50px;
   border: 10px solid #f3f3f3; /* Light grey */

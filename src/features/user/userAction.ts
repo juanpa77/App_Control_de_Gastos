@@ -1,7 +1,7 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { auth } from '../../services/authProvider'
+// import { createAsyncThunk } from '@reduxjs/toolkit'
+// import { auth } from '../../services/authProvider'
 
-export const loginUser = createAsyncThunk(
+/* export const loginUser = createAsyncThunk(
   'user/login',
   async () => {
     try {
@@ -9,14 +9,14 @@ export const loginUser = createAsyncThunk(
     } catch (error) {
       console.log(error)
     }
-  }
-)
+  } 
+) */
 
-type Login = {
+/* type Login = {
   uid: string
   displayName: string
 }
-
+ */
 export const login = () => {
   return {
     type: 'user/login'

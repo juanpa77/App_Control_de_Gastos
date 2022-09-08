@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import { useState, FormEvent, ChangeEvent, useEffect } from "react";
-// import { useLocation } from "react-router-dom";
+import { useAppSelector } from '../../hooks/useAuth'
+import { sendTransactionFirebase } from "../../services/sendDataFirebase";
 import { splitDate, formatDate } from "../../utility/formatDate";
 import { Idb } from "../../utility/IDB";
 import useToggle from "../buttons/toggle-btn/useToggle";
@@ -27,8 +28,8 @@ type InputChange = ChangeEvent<
   | HTMLSelectElement
 >
 
+
 const useTransaction = ({ db, openModal, editTransaction }: Props) => {
-  // const editTransaction = useLocation().state as TransactionData;
   const [toggle, triggerToggle] = useToggle()
   const [transaction, setTransaction] = useState<TransactionData>({
     id: editTransaction?.id || nanoid(10),
@@ -39,16 +40,22 @@ const useTransaction = ({ db, openModal, editTransaction }: Props) => {
     description: editTransaction?.description || "",
   });
 
+  const { month } = splitDate(transaction.date);
+  const user = useAppSelector(state => state.user.userToken)
+
   db.openDB();
   useEffect(() => setTransaction({ ...transaction, type: toggle ? 'Income' : 'Expenses' }), [toggle])
 
+  const addTrnsaction = (transaction: TransactionData) => {
+    sendTransactionFirebase({ transaction, userToquen: user })
+    db.addTransaction({ store: month, data: transaction })
+  }
+
   const sendTransaction = (transaction: TransactionData, ev: FormEvent<HTMLButtonElement>) => {
-    // eslint-disable-next-line no-unused-vars
-    const { day, month } = splitDate(transaction.date);
     if (transaction.amount > 0) {
       editTransaction
-        ? db.updateIncome({ store: month, data: transaction })
-        : db.addIncome({ store: month, data: transaction });
+        ? db.updateTransaction({ store: month, data: transaction })
+        : addTrnsaction(transaction);
       ev.currentTarget.form?.reset();
       openModal();
       restForm()
@@ -62,11 +69,6 @@ const useTransaction = ({ db, openModal, editTransaction }: Props) => {
     });
   };
 
-  /* const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.currentTarget.reset();
-    e.preventDefault();
-  }; */
-
   const restForm = () => {
     if (!editTransaction) {
       setTransaction({
@@ -79,19 +81,6 @@ const useTransaction = ({ db, openModal, editTransaction }: Props) => {
       });
     }
   }
-
-  /*  useEffect(() => {
-     if (!editTransaction) {
-       setTransaction({
-         id: nanoid(10),
-         type: "Expenses",
-         amount: 0,
-         date: formatDate(new Date()),
-         category: "",
-         description: "",
-       });
-     }
-   }, [isOpenModal]); */
 
   return { triggerToggle, transaction, handleInputChange, sendTransaction, toggle }
 }

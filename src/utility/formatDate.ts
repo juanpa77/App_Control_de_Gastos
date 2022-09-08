@@ -1,8 +1,12 @@
+// new function to fomat day number
+const formatNumberDay = (day: Number) => day < 10 ? `${'0' + day}` : Number
+
 export const formatDate = (date: Date): string => {
   const formattedDate = `${date.getFullYear()}-0${date.getMonth() + 1
-    }-${date.getDate()}`;
+    }-${formatNumberDay(date.getDate())}`;
   return formattedDate;
 };
+
 
 export const splitDate = (date: string) => {
   const formatDate = date.split("-").reverse();

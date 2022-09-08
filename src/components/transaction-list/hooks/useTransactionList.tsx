@@ -16,7 +16,7 @@ const useTransactionList = ({ db, openModal }: Props) => {
 
   const filters = useFilterDate()
 
-  useEffect(() => { if (transactionsList !== []) setLoad(false) })
+  useEffect(() => { if (transactionsList.length === 0) setLoad(false) })
 
   useEffect(() => {
     let isActive = true
