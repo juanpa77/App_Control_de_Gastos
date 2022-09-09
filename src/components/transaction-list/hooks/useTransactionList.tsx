@@ -16,7 +16,7 @@ const useTransactionList = ({ db, openModal }: Props) => {
 
   const filters = useFilterDate()
 
-  useEffect(() => { if (transactionsList.length === 0) setLoad(false) })
+  useEffect(() => { if (transactionsList.length === 0) setLoad(false) }, [transactionsList])
 
   useEffect(() => {
     let isActive = true
@@ -27,12 +27,15 @@ const useTransactionList = ({ db, openModal }: Props) => {
       }
     })
 
+    setLoad(false)
     return () => { isActive = false }
-  }, [openModal, filters.month, load])
+  }, [openModal, filters.month])
 
   useEffect(() => {
-    transactionsList && setFilteredTransactionsList(filterData(transactionsList, filters))
-  }, [filters, transactionsList])
+    // console.log(filterData(transactionsList, filters))
+    setFilteredTransactionsList(filterData(transactionsList, filters))
+    // console.log(filteredTransactionsList, filters)
+  }, [filters, transactionsList, load])
 
   return [filteredTransactionsList] as const
 }

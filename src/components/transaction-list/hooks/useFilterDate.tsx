@@ -13,9 +13,14 @@ const useFilterDate = () => {
   })
 
   useEffect(() => {
+    let isActive = true
     subcritpionFilter.subscribe(filter => {
-      setFilters(filter)
+      if (isActive) {
+        setFilters(filter)
+      }
     })
+
+    return (() => { isActive = false })
   }, [filters])
 
   return filters

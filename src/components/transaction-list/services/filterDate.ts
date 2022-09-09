@@ -12,7 +12,7 @@ const transactionFilter = (transaction: TransactionData, filters: Filters) => {
 }
 
 const filterDate = (data: TransactionData[], filters: Filters) => {
-  return data.filter((transaction) => transactionFilter(transaction, filters))
+  return data.filter(transaction => transactionFilter(transaction, filters))
 }
 
 
