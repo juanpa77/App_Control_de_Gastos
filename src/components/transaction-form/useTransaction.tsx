@@ -1,10 +1,11 @@
 import { nanoid } from "nanoid";
 import { useState, FormEvent, ChangeEvent, useEffect } from "react";
 import { useAppSelector } from '../../hooks/useAuth'
-import { sendTransactionFirebase } from "../../services/firebase/client";
+import { sendTransactionFirebase, updateTransactionFirebase } from "../../services/firebase/client";
 import { splitDate, formatDate } from "../../utility/formatDate";
 import { Idb } from "../../utility/IDB";
-import useToggle from "../buttons/toggle-btn/useToggle";
+import useFilterDate from "../transaction-list/hooks/useFilterDate";
+import { sharingFilter } from "../transaction-list/services/sharing-filter";
 
 export interface TransactionData {
   id: string;
@@ -30,7 +31,6 @@ type InputChange = ChangeEvent<
 
 
 const useTransaction = ({ db, openModal, editTransaction }: Props) => {
-  const [toggle, triggerToggle] = useToggle()
   const [transaction, setTransaction] = useState<TransactionData>({
     id: editTransaction?.id || nanoid(10),
     type: editTransaction?.type || 'Expenses',
@@ -40,21 +40,27 @@ const useTransaction = ({ db, openModal, editTransaction }: Props) => {
     description: editTransaction?.description || "",
   });
 
+  const filter = useFilterDate()
+  const sucriptionToggle = sharingFilter.getSubject
   const { month } = splitDate(transaction.date);
-  const user = useAppSelector(state => state.user.userToken)
-
+  const userToquen = useAppSelector(state => state.user.userToken)
   db.openDB();
-  useEffect(() => setTransaction({ ...transaction, type: toggle ? 'Income' : 'Expenses' }), [toggle])
+
 
   const addTrnsaction = (transaction: TransactionData) => {
-    sendTransactionFirebase({ transaction, userToquen: user })
+    sendTransactionFirebase({ transaction, userToquen })
     db.addTransaction({ store: month, data: transaction })
+  }
+
+  const updateTransaction = (transaction: TransactionData) => {
+    updateTransactionFirebase({ transaction, userToquen, editTransaction })
+    db.updateTransaction({ store: month, data: transaction })
   }
 
   const sendTransaction = (transaction: TransactionData, ev: FormEvent<HTMLButtonElement>) => {
     if (transaction.amount > 0) {
       editTransaction
-        ? db.updateTransaction({ store: month, data: transaction })
+        ? updateTransaction(transaction)
         : addTrnsaction(transaction);
       ev.currentTarget.form?.reset();
       openModal();
@@ -80,9 +86,23 @@ const useTransaction = ({ db, openModal, editTransaction }: Props) => {
         description: "",
       });
     }
+
+    useEffect(() => {
+      let isActive = true
+      sucriptionToggle.subscribe((filters) => {
+        if (isActive) {
+          setTransaction({
+            ...transaction,
+            type: filters.type
+          })
+        }
+      })
+
+      return (() => { isActive = false })
+    }, [filter.type])
   }
 
-  return { triggerToggle, transaction, handleInputChange, sendTransaction, toggle }
+  return { transaction, handleInputChange, sendTransaction }
 }
 
 export default useTransaction

@@ -3,7 +3,6 @@ import { Dispatch, SetStateAction } from "react";
 import { TransactionData } from "../transaction-form/useTransaction";
 import { TransactionListDb } from "./services/getTransactionList";
 import useTransactionList from "./hooks/useTransactionList";
-import useToggle from "../buttons/toggle-btn/useToggle";
 import { FilterBtn, Item, List, TransactionItem, WrapperFilter } from "./styled";
 import { formatNumber, splitDate } from "../../utility/formatDate";
 import { ToggleBtn } from '../buttons/toggle-btn';
@@ -29,16 +28,12 @@ const TransactionList = ({ db, openModal, setSelectedTransaction }: Props) => {
   const categories = useCategoryContex()
   const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
   const weeks = arrayGenerator(4, 'todas')
-  const [toggle, triggerFilterToggle] = useToggle()
   const [transactionsList] = useTransactionList({ db, openModal })
 
   return (
     <>
       <FilterBtn>
-        <ToggleBtn
-          triggerToggle={triggerFilterToggle}
-          toggle={toggle}
-        />
+        <ToggleBtn />
       </FilterBtn>
       <WrapperFilter>
         <Wrapper>
