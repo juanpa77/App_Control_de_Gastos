@@ -5,7 +5,6 @@ import { Filters } from '../../transaction-list/index'
 type Props = `${keyof Filters}`
 
 export const useFilter = (name: Props) => {
-  // const [selected, setSelected] = useState('')
   const handleFilter = (e: ChangeEvent<HTMLSelectElement>) => {
     sharingFilter.setSubject = {
       name,
@@ -15,9 +14,7 @@ export const useFilter = (name: Props) => {
 
   useEffect(() => {
     sharingFilter.getSubject.subscribe({
-      next: (filters) => {
-        // setSelected(filters[name])
-      }
+      next: (filters) => filters
     })
   })
 

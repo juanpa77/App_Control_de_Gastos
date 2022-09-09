@@ -2,7 +2,6 @@ import { ReactComponent as Send } from "../../asset/icons/send.svg";
 import { formatDate } from "../../utility/formatDate"
 import { Idb } from "../../utility/IDB"
 import { Button } from "../buttons/styled";
-// import { PrimaryButton } from "../primary-button"
 import { Select } from "../select"
 import { ToggleBtn } from "../buttons/toggle-btn"
 import { AmountInput, DateInput, TextArea } from "./styled";
@@ -16,16 +15,14 @@ type Props = {
 
 const TransactionForm = ({ db, editTransaction, openModal }: Props) => {
   const {
-    triggerToggle,
     transaction,
     handleInputChange,
     sendTransaction,
-    toggle,
   } = useTransaction({ db, openModal, editTransaction })
 
   return (
     <>
-      <ToggleBtn triggerToggle={triggerToggle} toggle={toggle} />
+      <ToggleBtn />
       <AmountInput
         autoFocus
         type="number"
