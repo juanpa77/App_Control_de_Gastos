@@ -8,10 +8,18 @@ import { Balance } from "../../components/BalanceCard";
 import { Footer, Wrapper } from "./styled";
 import UserModal from "./userModal";
 import { useModal } from "../../hooks/useModal";
+// import { initDocs } from "../../services/firebase/client";
+// import { useAppSelector } from "../../hooks/useAuth";
 
 export const AccountSumary = ({ db }: { db: Idb }) => {
   const { setCategory } = useCategoryContex();
   const [isOpenModal, openModal, closeModal] = useModal(false)
+  // const userToquen = useAppSelector(state => state.user.userToken)
+
+  /* useEffect(() => {
+    initDocs(userToquen!)
+    console.log('init')
+  }, []) */
 
   useEffect(() => {
     db.config.getCategory().then((res) => setCategory(res));

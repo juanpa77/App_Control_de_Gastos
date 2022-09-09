@@ -52,4 +52,6 @@ new view //done
 <!-- fix warning -->
 
 * add spinner in login and logout
+refactorin delete comments in useFilter
+add method for crud in firestore in userTransaction and fix bug on toggle btn
 

@@ -2,6 +2,10 @@ import { createContext, ReactNode, useState } from "react";
 interface props {
   children: ReactNode;
 }
+/* 
+interface Category {
+  
+} */
 
 export type CategoryContex = {
   category: string[];

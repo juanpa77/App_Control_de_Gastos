@@ -29,6 +29,8 @@ export const formatNumberMonth = (month: number): string => {
     : formatMonth.toString()
 }
 
+export const formatMonth = (month: number) => month < 10 ? '0' + month : month.toString()
+
 export const formatNumber = (number: number) => {
   return new Intl.NumberFormat("es-ar", {
     style: "currency",
